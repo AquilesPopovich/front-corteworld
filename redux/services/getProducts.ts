@@ -2,16 +2,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 type Product = {
-    id: number
-    name: string
-    price: number
-    mark: string
-    status: string //agregar en el back
-    stock: number
-    discount: number
-    category: string
-    favorite: boolean
+  id: number
+  name: string
+  price: number
+  mark: string
+  status: string //agregar en el back
+  stock: number
+  discount: number
+  category: string
+  favorite: boolean
 };
+
 
 export const productGet = createApi({
   reducerPath: "productGet",
@@ -23,7 +24,9 @@ export const productGet = createApi({
     getProducts: builder.query<Product[], null>({
       query: () => "product",
     }),
-   
+    getProductById: builder.query<Product, number>({
+      query: (id) => `product/${id}`,
+    }),
   }),
 });
 
