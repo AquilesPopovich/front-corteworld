@@ -50,3 +50,19 @@
     width: 7px;
     cursor: pointer;
 }
+
+.arrowButton {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .arrowButton:hover {
+    transform: scale(1.1); 
+    box-shadow: 0 0 0 5px rgba(255, 10, 149, 0.5); 
+    border-radius: 50%;
+  }
+  

@@ -63,25 +63,37 @@ export default function Carrousel(){
         return () => clearInterval(interval);
       }, [slide]);
 
-    return(
+      return (
         <div className={styles.holeContainer}>
-            <ArrowBackIosNewIcon sx={{ position: 'absolute', width: '2rem', height: '2rem', color: 'white', left: '1rem', cursor: 'pointer' }} onClick={prevSlide}/>
-            {images.map((item, idx) => (
-                <Image
-                  key={item.id}
-                  src={item.img}
-                  alt={`banner ${idx}`}
-                  className={slide === idx ? styles.slide : styles.slideHidden}
-                  width={item.width}
-                  height={item.height}
-                />
+          <ArrowBackIosNewIcon
+            className={`${styles.arrowButton}`}
+            style={{ left: '1rem' }}
+            onClick={prevSlide}
+          />
+          {images.map((item, idx) => (
+            <Image
+              key={item.id}
+              src={item.img}
+              alt={`banner ${idx}`}
+              className={slide === idx ? styles.slide : styles.slideHidden}
+              width={item.width}
+              height={item.height}
+            />
+          ))}
+          <ArrowForwardIosIcon
+            className={`${styles.arrowButton}`}
+            style={{ right: '1.5rem' }}
+            onClick={nextSlide}
+          />
+          <span className={styles.indicators}>
+            {images.map((item, index) => (
+              <div
+                key={index}
+                onClick={() => setSlide(index)}
+                className={slide === index ? styles.indicator : styles.indicatorHidden}
+              ></div>
             ))}
-            <ArrowForwardIosIcon sx={{ position: 'absolute', width: '2rem', height: '2rem', color: 'white', right: '1rem', cursor: 'pointer' }} onClick={nextSlide}/>
-            <span className={styles.indicators}>
-                {images.map((item, index) => (
-                    <div key={index} onClick={() => setSlide(index)} className={slide === index ? styles.indicator : styles.indicatorHidden}></div>
-                ))}
-            </span>
+          </span>
         </div>
-    );
+      );
 }
