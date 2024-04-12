@@ -1,0 +1,7 @@
+.divCategoriasCarrusel{
+    width: 100vw;
+    height: auto;
+    margin-bottom: 10px;
+    display: flex;
+    place-items: center;
+  }
