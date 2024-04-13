@@ -71,6 +71,11 @@ const CardsProductos = () => {
     ]
 
   return (
+    <div>
+      <div className='flex justify-center text-center'>
+      <h2 className=' font-bold text-xl mt-10'>Productos destacados</h2>
+
+      </div>
     <div className="flex flex-wrap justify-center">
     {productos.map(producto => (
       <CardProducto
@@ -83,6 +88,7 @@ const CardsProductos = () => {
         price={producto.price}
       />
     ))}
+  </div>
   </div>
   )
 }
