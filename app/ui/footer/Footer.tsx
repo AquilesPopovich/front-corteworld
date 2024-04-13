@@ -6,7 +6,7 @@ import bc from '../images/bc.png';
 export const Footer = () => {
     return (
         <>
-            <footer className=" bg-black text-white">
+            <footer className=" bg-black text-white mt-8">
                 <div className=" font-serif md:flex md: justify-evenly md:items-center sm:px-12 px-4 bg-[#ffffff19] py-7">
                 <p>Todos los derechos reservados Corte World©2024</p>
                     <div>

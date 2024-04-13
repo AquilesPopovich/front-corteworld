@@ -1,13 +1,12 @@
 import Link from "next/link"
 import Image from "next/image"
 import corteWorld from '../images/corteWorld.png';
-import { useAppSelector } from "@/redux/hook";
 
 export const Menu = () => {
 
     return(
         <>
-            <nav className=" bg-white flex justify-around md:items-center">
+            <nav className=" bg-white flex justify-evenly md:items-center">
                 <div>
                     <Image src={corteWorld} alt="CorteWorld"/>
                 </div>
@@ -24,11 +23,11 @@ export const Menu = () => {
                 <div>
                     <input type="text"
                     placeholder="Search a product..."
-                    value='product'
-                    className=" bg-white border-x-4 border-y-4 border-neutral-800"
+                    // value=''
+                    className=" bg-white border-x-2 border-y-2 border-neutral-800 mr-4"
                     />
                     <button
-                    className=" bg-whiteb order-x-4 border-y-4 border-neutral-800">
+                    className=" bg-white border-x-2 border-y-2 border-neutral-800">
                         Search</button>
                 </div>
             </nav>
