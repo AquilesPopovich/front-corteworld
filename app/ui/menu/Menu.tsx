@@ -1,8 +1,10 @@
 import Link from "next/link"
 import Image from "next/image"
 import corteWorld from '../images/corteWorld.png';
+import { useAppSelector } from "@/redux/hook";
 
 export const Menu = () => {
+
     return(
         <>
             <nav className=" bg-white flex justify-around md:items-center">
@@ -20,7 +22,14 @@ export const Menu = () => {
                     <Link href='/historial'>Historial</Link>
                 </div>
                 <div>
-                    NavBar
+                    <input type="text"
+                    placeholder="Search a product..."
+                    value='product'
+                    className=" bg-white border-x-4 border-y-4 border-neutral-800"
+                    />
+                    <button
+                    className=" bg-whiteb order-x-4 border-y-4 border-neutral-800">
+                        Search</button>
                 </div>
             </nav>
         </>
