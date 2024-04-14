@@ -25,8 +25,13 @@ const DetailPage = () => {
             { name: 'javier', comentario: 'buen producto' },
             { name: 'javier', comentario: 'buen producto' },
             { name: 'javier', comentario: 'buen producto' },
-
         ]
+    };
+
+    const [selectedImg, setSelectedImg] = useState(0); // Estado para almacenar la imagen seleccionada
+
+    const handleImgClick = (index) => {
+        setSelectedImg(index);
     };
 
     const [cantidad, setCantidad] = useState(1);
@@ -69,32 +74,40 @@ const DetailPage = () => {
 
     return (
         <>
-        <Menu/>
+        <Menu />
         <div className="container mx-auto mt-8" style={{ marginTop: '120px' }}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8"> 
+                <div className="w-1/12 md:w-1/6"> {/* Reducir ancho de este div */}
                     {producto.imgs.map((img, index) => (
                         <img
                             key={index}
                             src={img}
                             alt={`Imagen ${index}`}
-                            className="w-full h-auto rounded-lg shadow-md"
+                            className={`w-20 h-auto rounded-lg shadow-md cursor-pointer ${selectedImg === index ? 'border-2 border-blue-500' : 'mr-2'}`}
+                            onClick={() => handleImgClick(index)}
                         />
                     ))}
                 </div>
-                <div>
-                    <h1 className="text-3xl font-bold mb-4">{producto.name}</h1>
-                    <p className="text-lg mb-2">Marca: {producto.mark}</p>
-                    <p className="text-lg mb-2">Stock: {producto.stock}</p>
-                    <p className="text-lg mb-2">Categoría: {producto.category}</p>
-                    <p className="text-lg mb-4">Precio: ${producto.price}</p>
-                    <div className="flex items-center mb-4">
-                        <label htmlFor="cantidad" className="mr-2">Cantidad:</label>
-                        <button onClick={reducirCantidad} className="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600 focus:outline-none">-</button>
-                        <span className="mx-2">{cantidad}</span>
-                        <button onClick={aumentarCantidad} className="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600 focus:outline-none">+</button>
+                <div className="w-11/12 md:w-5/6">
+                    <img
+                        src={producto.imgs[selectedImg]}
+                        alt={`Imagen grande ${selectedImg}`}
+                        className="w-full h-auto rounded-lg shadow-md mb-4 md:float-right"
+                    />
+                    <div> {/* Este div estará al lado de la imagen grande (a la derecha) */}
+                        <h1 className="text-3xl font-bold mb-4">{producto.name}</h1>
+                        <p className="text-lg mb-2">Marca: {producto.mark}</p>
+                        <p className="text-lg mb-2">Stock: {producto.stock}</p>
+                        <p className="text-lg mb-2">Categoría: {producto.category}</p>
+                        <p className="text-lg mb-4">Precio: ${producto.price}</p>
+                        <div className="flex items-center mb-4">
+                            <label htmlFor="cantidad" className="mr-2">Cantidad:</label>
+                            <button onClick={reducirCantidad} className="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600 focus:outline-none">-</button>
+                            <span className="mx-2">{cantidad}</span>
+                            <button onClick={aumentarCantidad} className="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600 focus:outline-none">+</button>
+                        </div>
+                        <button onClick={agregarAlCarrito} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none">Agregar al carrito</button>
                     </div>
-                    <button onClick={agregarAlCarrito} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none">Agregar al carrito</button>
                 </div>
             </div>
             <div className="mt-8" style={{ maxHeight: '300px', overflowY: 'auto' }}>
@@ -119,12 +132,16 @@ const DetailPage = () => {
                     value={comentario}
                     onChange={handleComentarioChange}
                     className="w-full border rounded-md p-2"
-                    rows="4"
                 ></textarea>
                 <button type="submit" className="mt-2 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none">Enviar comentario</button>
             </form>
         </div>
-        </>
+    </>
+    
+    
+
+    
+    
     );
 }
 
