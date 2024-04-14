@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Chat } from '@mui/icons-material';
 import { Menu } from '@/app/ui/menu/Menu';
+import Image from 'next/image';
 
 const DetailPage = () => {
     const producto = {
@@ -79,19 +80,23 @@ const DetailPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2"> {/* Reducir el espacio entre las columnas */}
     <div className="w-1/5 md:w-1/6 flex flex-col items-center"> {/* Reducir el ancho y el espacio alrededor */}
         {producto.imgs.map((img, index) => (
-            <img
+            <Image
                 key={index}
                 src={img}
                 alt={`Imagen ${index}`}
+                width={100} 
+                                height={100}
                 className={`w-20 h-auto rounded-lg shadow-md cursor-pointer ${selectedImg === index ? 'border-2 border-blue-500' : 'mr-2'}`}
                 onClick={() => handleImgClick(index)}
             />
         ))}
     </div>
     <div className="w-2/5 md:w-1/2"> {/* Reducir el ancho */}
-        <img
+        <Image
             src={producto.imgs[selectedImg]}
             alt={`Imagen grande ${selectedImg}`}
+            width={500} // Define el ancho deseado para la miniatura de la imagen
+                                height={500}
             className="w-full h-auto rounded-lg shadow-md mb-4 md:float-right"
         />
     </div>
