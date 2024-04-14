@@ -1,9 +1,24 @@
 'use client'
 import Link from 'next/link';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorite, removeFavorite } from '@/redux/features/favoriteSlice';
 
 const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, name: string, img: string, mark: string, price: number, segundaimg: string}) => {
   const [hover, setHover] = React.useState(false);
+  const dispatch = useDispatch();
+  const favorites = useSelector((state: any) => state.favorites.favorites);
+
+  const isFavorite = favorites.some((product: any) => product.id === id);
+
+  const handleFavoriteToggle = () => {
+    if (isFavorite) {
+      dispatch(removeFavorite(id));
+    } else {
+      // Aquí puedes enviar el producto completo en lugar de solo el ID si lo prefieres
+      dispatch(addFavorite({ id, name, img, mark, price, segundaimg }));
+    }
+  };
 
   return (
     <div 
@@ -29,9 +44,13 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
         <p className="text-gray-900 font-bold text-xl mt-2">${price}</p>
       </div>
       </Link>
-      <div className="px-6 pb-4">
-        <button className="bg-pink-400 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md">
+      <button className="bg-pink-400 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md">
           Agregar al carrito
+        </button>
+
+      <div className="px-6 pb-4">
+        <button onClick={handleFavoriteToggle} className={`bg-transparent hover:bg-pink-700 text-pink-400 font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md ${isFavorite ? 'text-pink-700' : ''}`}>
+          {isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
         </button>
       </div>
     </div>

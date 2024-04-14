@@ -3,7 +3,7 @@ import Image from 'next/image';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import styles from './menu.module.css';
-import corteWorld from '../../../public/images/corteWorld.png';
+import corteWorld from '@/public/images/corteWorld.png';
 
 export const Menu = () => {
   return (
@@ -36,7 +36,7 @@ export const Menu = () => {
         </div>
         <div className="ml-4 flex items-center">
           <Image src={corteWorld} alt="Favoritos" width={20} height={20} />
-          <Link href="/favorites" className={`ml-2 ${styles.link}`}>Favoritos</Link>
+          <Link href="/favoritos" className={`ml-2 ${styles.link}`}>Favoritos</Link>
         </div>
         <div className="ml-4 flex items-center">
           <ShoppingCartOutlinedIcon />

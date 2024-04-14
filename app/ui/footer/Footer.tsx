@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import webpay from '../../../public/images/webpay.png';
-import bc from '../../../public/images/bc.png';
+import webpay from '@/public/images/webpay.png';
+import bc from '@/public/images/bc.png';
 
 export const Footer = () => {
     return (
