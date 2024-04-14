@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import styles from './menu.module.css';
-import corteWorld from '@/public/images/corteWorld.png';
+import corteWorld from '../../../public/images/corteWorld.png'
+import { SearchProduct } from './searchFunction/SearchFunction';
 
 export const Menu = () => {
   return (
@@ -18,14 +18,9 @@ export const Menu = () => {
       </div>
 
       {/* SearchBar */}
-      <div className={`flex items-center ${styles.searchContainer}`}>
-        <SearchIcon className={styles.searchIcon} />
-        <input
-          type="text"
-          placeholder="Busca un producto"
-          className={`${styles.searchInput} text-black`}
-          style={{ fontSize: '13px', paddingLeft: '15px' }}
-        />
+      <div>
+        {/* Después cambiar status por los de products */}
+        <SearchProduct status={true}/>
       </div>
 
       {/* Enlaces con iconos */}

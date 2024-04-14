@@ -1,0 +1,21 @@
+.searchContainer {
+    position: relative;
+    display: inline-block;
+}
+
+.searchInput {
+    width: 500px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px;
+    padding-right: 40px; /* Ajusta el padding derecho para dejar espacio para el icono */
+}
+
+.searchIcon {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Ajusta la posición derecha */
+    transform: translateY(-50%);
+    color: black;
+    cursor: pointer;
+}
