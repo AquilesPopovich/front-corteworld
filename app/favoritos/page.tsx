@@ -3,6 +3,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import CardProducto from '../ui/cards/productos/cardProducto/CardProducto';
 import { Menu } from '../ui/menu/Menu';
+import { Footer } from '../ui/footer/Footer';
 
 const Favoritos = () => {
 
@@ -25,6 +26,7 @@ const Favoritos = () => {
         price={product.price}  />
       ))}
     </div>
+    <Footer/>
     </>
   )
 }
