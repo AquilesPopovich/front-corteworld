@@ -102,11 +102,11 @@ const DetailPage = () => {
                         <p className="text-lg mb-4">Precio: ${producto.price}</p>
                         <div className="flex items-center mb-4">
                             <label htmlFor="cantidad" className="mr-2">Cantidad:</label>
-                            <button onClick={reducirCantidad} className="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600 focus:outline-none">-</button>
+                            <button onClick={reducirCantidad} className="bg-pink-400 hover:bg-pink-700 text-white py-1 px-3 rounded-md  focus:outline-none">-</button>
                             <span className="mx-2">{cantidad}</span>
-                            <button onClick={aumentarCantidad} className="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600 focus:outline-none">+</button>
+                            <button onClick={aumentarCantidad} className="bg-pink-400 hover:bg-pink-700 text-white py-1 px-3 rounded-md  focus:outline-none">+</button>
                         </div>
-                        <button onClick={agregarAlCarrito} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none">Agregar al carrito</button>
+                        <button onClick={agregarAlCarrito} className="bg-pink-400 hover:bg-pink-700 text-white py-2 px-4 rounded-md  focus:outline-none">Agregar al carrito</button>
                     </div>
                 </div>
             </div>
@@ -133,7 +133,7 @@ const DetailPage = () => {
                     onChange={handleComentarioChange}
                     className="w-full border rounded-md p-2"
                 ></textarea>
-                <button type="submit" className="mt-2 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none">Enviar comentario</button>
+                <button type="submit" className="mt-2 bg-pink-400 hover:bg-pink-700 text-white py-2 px-4 rounded-md focus:outline-none">Enviar comentario</button>
             </form>
         </div>
     </>
