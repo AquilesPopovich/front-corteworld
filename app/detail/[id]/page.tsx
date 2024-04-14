@@ -76,7 +76,7 @@ const DetailPage = () => {
         <>
         <Menu />
         <div className="container mx-auto mt-8" style={{ marginTop: '120px' }}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8"> 
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-4"> 
                 <div className="w-1/12 md:w-1/6"> {/* Reducir ancho de este div */}
                     {producto.imgs.map((img, index) => (
                         <img
@@ -88,12 +88,14 @@ const DetailPage = () => {
                         />
                     ))}
                 </div>
-                <div className="w-11/12 md:w-5/6">
+                <div className="w-11/12 md:w-2/6">
                     <img
                         src={producto.imgs[selectedImg]}
                         alt={`Imagen grande ${selectedImg}`}
                         className="w-full h-auto rounded-lg shadow-md mb-4 md:float-right"
                     />
+                </div>
+
                     <div> {/* Este div estará al lado de la imagen grande (a la derecha) */}
                         <h1 className="text-3xl font-bold mb-4">{producto.name}</h1>
                         <p className="text-lg mb-2">Marca: {producto.mark}</p>
@@ -108,7 +110,6 @@ const DetailPage = () => {
                         </div>
                         <button onClick={agregarAlCarrito} className="bg-pink-400 hover:bg-pink-700 text-white py-2 px-4 rounded-md  focus:outline-none">Agregar al carrito</button>
                     </div>
-                </div>
             </div>
             <div className="mt-8" style={{ maxHeight: '300px', overflowY: 'auto' }}>
                 <h2 className="text-2xl font-bold mb-4">Comentarios</h2>

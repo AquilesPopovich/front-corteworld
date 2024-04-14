@@ -3,7 +3,7 @@ import Image from 'next/image';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import styles from './menu.module.css';
-import corteWorld from '../images/corteWorld.png';
+import corteWorld from '../../../public/images/corteWorld.png';
 
 export const Menu = () => {
   return (
