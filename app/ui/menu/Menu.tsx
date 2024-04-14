@@ -7,7 +7,7 @@ import corteWorld from '../images/corteWorld.png';
 
 export const Menu = () => {
   return (
-    <nav className="bg-gray-800 text-white flex justify-between items-center p-4">
+    <nav className={`bg-gray-800 text-white flex justify-between items-center p-4 ${styles.navBar}`}>
       <div className="flex items-center">
         {/* Logo */}
         <div className="mr-4">
@@ -15,25 +15,24 @@ export const Menu = () => {
             <Image src={corteWorld} alt="CorteWorld" width={70} height={70} />
           </Link>
         </div>
-        </div>
+      </div>
 
-        {/* SearchBar */}
-        <div className={`flex items-center ${styles.searchContainer}`}>
-          <SearchIcon className={styles.searchIcon} />
-          <input
-            type="text"
-            placeholder="Busca un producto"
-            className={`${styles.searchInput} text-black`}
-            style={{ fontSize: '13px', paddingLeft: '15px' }}
-          />
-        
+      {/* SearchBar */}
+      <div className={`flex items-center ${styles.searchContainer}`}>
+        <SearchIcon className={styles.searchIcon} />
+        <input
+          type="text"
+          placeholder="Busca un producto"
+          className={`${styles.searchInput} text-black`}
+          style={{ fontSize: '13px', paddingLeft: '15px' }}
+        />
       </div>
 
       {/* Enlaces con iconos */}
       <div className="flex items-center">
         <div className="ml-4 flex items-center">
           <Image src={corteWorld} alt="Productos" width={20} height={20} />
-          <Link href="/products" className={`ml-2 ${styles.link}`}>Productos</Link>
+          <Link href="/productos" className={`ml-2 ${styles.link}`}>Productos</Link>
         </div>
         <div className="ml-4 flex items-center">
           <Image src={corteWorld} alt="Favoritos" width={20} height={20} />
