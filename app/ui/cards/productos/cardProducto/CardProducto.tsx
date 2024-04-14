@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link';
 import React from 'react';
 
 const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, name: string, img: string, mark: string, price: number, segundaimg: string}) => {
@@ -10,6 +11,7 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
+      <Link href='detail/1'>
       <div key={id} className="bg-gray-200 w-full h-80 flex justify-center items-center">
         <img 
           className={`w-full max-h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`} 
@@ -26,6 +28,7 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
         <div className="font-bold text-xl mb-2">{name} ({mark})</div>
         <p className="text-gray-900 font-bold text-xl mt-2">${price}</p>
       </div>
+      </Link>
       <div className="px-6 pb-4">
         <button className="bg-pink-400 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md">
           Agregar al carrito
