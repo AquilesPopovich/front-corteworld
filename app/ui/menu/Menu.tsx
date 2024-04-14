@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import styles from './menu.module.css';
-import corteWorld from '../images/corteWorld.png';
+import corteWorld from '../../../public/images/corteWorld.png'
 import { SearchProduct } from './searchFunction/SearchFunction';
 
 export const Menu = () => {
