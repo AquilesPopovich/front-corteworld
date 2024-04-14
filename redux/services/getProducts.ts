@@ -10,7 +10,7 @@ type Product = {
   stock: number
   discount: number
   category: string
-  favorite: boolean
+  destacado: boolean
 };
 
 
