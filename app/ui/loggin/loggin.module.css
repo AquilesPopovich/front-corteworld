@@ -1,0 +1,36 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0; 
+    bottom: 0;
+    width: 40vw;
+    height: 100vh;
+    z-index: 999;
+    display: flex;
+    justify-content: flex-start;
+    animation: slideInLeft 0.5s forwards;
+  }
+  
+  .modalContent {
+    width: 70%;
+    height: 100%;
+    background-color: white;
+    padding: 20px;
+  }
+  
+  .closeButton {
+    cursor: pointer;
+    color: black;
+    display: flex;
+    justify-content: flex-end; 
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      transform: translateX(-100%); 
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  

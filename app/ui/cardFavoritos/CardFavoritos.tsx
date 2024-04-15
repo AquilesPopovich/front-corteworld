@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '@/redux/features/favoriteSlice';
 import { Star, StarBorder } from '@mui/icons-material'; // Importa los iconos de estrella vacía y llena
 
-const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, name: string, img: string, mark: string, price: number, segundaimg: string}) => {
+const CardFavoritos = ({ id, name, img, mark, price, segundaimg }: {id: number, name: string, img: string, mark: string, price: number, segundaimg: string}) => {
   const [hover, setHover] = React.useState(false);
   const dispatch = useDispatch();
   const favorites = useSelector((state: any) => state.favorites.favorites);
@@ -23,7 +23,7 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
 
   return (
     <div 
-    className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white flex flex-col justify-between items-center" // Agrega relative para posicionar elementos hijos de forma relativa
+    className='max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-pink-200 flex flex-col justify-between items-center relative'
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -70,4 +70,4 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
   );
 };
 
-export default CardProducto;
+export default CardFavoritos;

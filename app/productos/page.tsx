@@ -90,25 +90,33 @@ const Productos = () => {
         {/* Sección de filtros */}
         <div className="w-1/5 p-4 border-r">
           {/* Botones de filtro */}
-          <select className="bg-pink-500 text-white px-4 py-2 mb-4 rounded hover:bg-pink-600 focus:outline-none"
-          >
-            <option value="">Marca:</option>
-            <option value="razer">Razer</option>
-            <option value="apple">Apple</option>
-            <option value="logitech">Logitech</option>
-            <option value="corsair">Corsair</option>
-            <option value="dell">Dell</option>
-            <option value="nvidia">Nvidia</option>
-          </select>
+          <div className="fixed top-0 left-0 p-4 w-1/5" style={{ marginTop: '100px' }}>
+  <div className="flex flex-col gap-4 w-full">
+    <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-full">
+      <option value="">Marca:</option>
+      <option value="razer">Razer</option>
+      <option value="apple">Apple</option>
+      <option value="logitech">Logitech</option>
+      <option value="corsair">Corsair</option>
+      <option value="dell">Dell</option>
+      <option value="nvidia">Nvidia</option>
+    </select>
 
-          <select className="bg-pink-500 text-white px-4 py-2 mb-4 rounded hover:bg-pink-600 focus:outline-none">
-            <option value="">Precio:</option>
-              <option value="5990">$5.990</option>
-              <option value="9990">$9.990</option>
-              <option value="12990">$12.990</option>
-              <option value="20990">$20.990</option>
-          </select>
-          <button className="bg-pink-500 text-white px-4 py-2 mb-4 rounded hover:bg-pink-600 focus:outline-none">Filtro 3</button>
+    <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-full">
+      <option value="">Precio:</option>
+      <option value="5990">$5.990</option>
+      <option value="9990">$9.990</option>
+      <option value="12990">$12.990</option>
+      <option value="20990">$20.990</option>
+    </select>
+    
+    <button className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-full">Filtro 3</button>
+  </div>
+</div>
+
+
+
+
           {/* Agrega más botones de filtro según sea necesario */}
         </div>
 
