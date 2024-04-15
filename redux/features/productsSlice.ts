@@ -1,4 +1,4 @@
-import { ProductsList } from "@/app/types"
+import { ProductsList } from "@/app/types/typeProduct"
 import { createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 import { AppDispatch } from "../store"
@@ -8,13 +8,15 @@ interface Products {
     searchProducts: ProductsList
     deletedProducts: ProductsList
     searchDeletedProducts: ProductsList
+    productsForFilter: ProductsList
 }
 
 const initialState: Products = {
     products: [],
     searchProducts: [],
     deletedProducts: [],
-    searchDeletedProducts: []
+    searchDeletedProducts: [],
+    productsForFilter: [],
 }
 
 export const ProductsSlice = createSlice({
@@ -24,6 +26,7 @@ export const ProductsSlice = createSlice({
         getProducts: (state, action) => {
             state.products = [...action.payload]
             state.searchProducts = [...action.payload]
+            state.productsForFilter = [...action.payload]
         },
         searchProducts: (state, action) => {
             state.products = [...action.payload]
@@ -34,6 +37,9 @@ export const ProductsSlice = createSlice({
         },
         searchDeletedProducts: (state,action ) => {
             state.searchDeletedProducts = [...action.payload]
+        },
+        filterProducts: (state, action) => {
+            state.productsForFilter = [...action.payload]
         }
     }
 })
@@ -79,6 +85,34 @@ export const searchOneDeletedProduct = (product: string, state: ProductsList) =>
     }
 }
 
-export const { getProducts, searchProducts, getDeletedProducts, searchDeletedProducts } = ProductsSlice.actions;
+export const filterByMark = (mark: string, state: ProductsList) => async (dispatch: AppDispatch) => {
+    try {
+        if(mark === 'marca1') dispatch(filterProducts(state.filter(product => {
+            return product.mark.toLocaleLowerCase() === mark
+        })))
+        if(mark === 'marca2') dispatch(filterProducts(state.filter(product => {
+            return product.mark.toLocaleLowerCase() === mark
+        })))
+        if(mark === 'marca3') dispatch(filterProducts(state.filter(product => {
+            return product.mark.toLocaleLowerCase() === mark
+        })))
+        
+    } catch (error) {
+        if (error instanceof Error) throw Error(error.message)
+    }
+}
+
+export const filterByPrice = (price: number, state: ProductsList) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(filterProducts(state.filter(product => {
+            return product.price === price
+        })))
+        
+    } catch (error) {
+        if (error instanceof Error) throw Error(error.message)
+    }
+}
+
+export const { getProducts, searchProducts, getDeletedProducts, searchDeletedProducts, filterProducts } = ProductsSlice.actions;
 
 export default ProductsSlice.reducer;

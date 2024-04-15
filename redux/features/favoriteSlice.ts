@@ -1,7 +1,6 @@
 'use client'
 
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { useState } from "react";
 
 type Product = {
     id: number
