@@ -1,7 +1,7 @@
 'use client'
 
 import { Products } from "@/app/types/typeProduct"
-import { createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 interface Carrito {
     carrito: Products[]
@@ -15,8 +15,16 @@ export const CarritoSlice = createSlice({
     name: 'carrito',
     initialState,
     reducers: {
-        createCarrito: (state, action) => {
-            state.carrito = [...action.payload]
+        agregarCarrito: (state, action: PayloadAction<Products>) => {
+            state.carrito.push(action.payload)
+        },
+        removeCarrito: (state, action: PayloadAction<string>) =>{
+            state.carrito = state.carrito.filter(producto => producto.id !== action.payload)
         }
     }
 })
+
+export const { agregarCarrito, removeCarrito} = CarritoSlice.actions
+
+export default CarritoSlice.reducer
+

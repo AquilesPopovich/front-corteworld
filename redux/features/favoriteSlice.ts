@@ -1,22 +1,12 @@
 'use client'
-
+import { Products } from "@/app/types/typeProduct"
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-type Product = {
-    id: number
-    name: string
-    price: number
-    mark: string
-    status: string 
-    stock: number
-    discount: number
-    category: string
-    destacado: boolean
-  };
+
 
 
 interface FavoritesState {
-    favorites: Product[];
+    favorites: Products[];
 }
 
 const initialState: FavoritesState = {
@@ -27,10 +17,10 @@ export const favoritesSlice = createSlice({
     name: "favorites",
     initialState,
     reducers: {
-        addFavorite: (state, action: PayloadAction<Product>) =>{
+        addFavorite: (state, action: PayloadAction<Products>) =>{
             state.favorites.push(action.payload);
         },
-        removeFavorite: (state, action: PayloadAction<number>) => {
+        removeFavorite: (state, action: PayloadAction<string>) => {
             state.favorites = state.favorites.filter(product => product.id !== action.payload);
         }
     }

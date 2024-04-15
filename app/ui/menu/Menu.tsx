@@ -9,11 +9,13 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useState } from 'react';
 import MenuModal from '../menuModal/MenuModal';
 import Login from '../loggin/Login';
+import Carrito from '../Carrito/Carrito';
 
 export const Menu = () => {
 
   const [menu, setMenu] = useState(false);
   const [loggin, setLoggin] = useState(false)
+  const [carrito, setCarrito] = useState(false)
 
 
   return (
@@ -45,11 +47,12 @@ export const Menu = () => {
         <button onClick={()=> setMenu(true)} className={`ml-1 ${styles.link}`}>Menu</button>
         </div>
         <div className="ml-4 flex items-center">
-          <Link href='/carrito' className={`ml-1 text-pink-400 ${styles.link}`} ><ShoppingCartOutlinedIcon /></Link>
+          <button onClick={()=> setCarrito(true)} className={`ml-1 text-pink-400 ${styles.link}`} ><ShoppingCartOutlinedIcon /></button>
         </div>
       </div>
       <MenuModal menu={menu} setMenu={setMenu} />
       <Login loggin={loggin} setLoggin={setLoggin} />
+      <Carrito carrito={carrito} setCarrito={setCarrito} />
     </nav>
   );
 };

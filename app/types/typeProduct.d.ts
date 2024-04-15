@@ -4,7 +4,7 @@ export interface Products {
     price: number
     stock: number
     category: string
-    favorite: boolean
+    destacado: boolean
     mark: string
     discount: number
     createdAt: Date
