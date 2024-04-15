@@ -77,6 +77,7 @@ const DetailPage = () => {
         <>
         <Menu />
         <div className="container mx-auto mt-8" style={{ marginTop: '120px' }}>
+        <br />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2"> {/* Reducir el espacio entre las columnas */}
     <div className="w-1/5 md:w-1/6 flex flex-col items-center"> {/* Reducir el ancho y el espacio alrededor */}
         {producto.imgs.map((img, index) => (
@@ -133,7 +134,7 @@ const DetailPage = () => {
                     </div>
                 ))}
             </div>
-            <form onSubmit={agregarComentario} className="w-full mt-8">
+            <form onSubmit={agregarComentario} className="w-full mt-8 mb-8">
                 <label htmlFor="comentario" className="block text-lg font-semibold mb-2">Deja tu comentario:</label>
                 <textarea
                     id="comentario"

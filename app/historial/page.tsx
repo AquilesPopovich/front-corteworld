@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaShoppingCart, FaRegClock } from 'react-icons/fa';
 import { Menu } from '../ui/menu/Menu';
+import { Footer } from '../ui/footer/Footer';
 
 const Historial = () => {
   const carrito = [
@@ -91,8 +92,8 @@ const Historial = () => {
         </div>
       ))}
     </div>
+      <Footer/>
     </>
-
   );
 };
 

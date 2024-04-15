@@ -23,7 +23,7 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
 
   return (
     <div 
-      className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white flex flex-col justify-between items-center relative" // Agrega relative para posicionar elementos hijos de forma relativa
+      className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-pink-200 flex flex-col justify-between items-center relative" // Agrega relative para posicionar elementos hijos de forma relativa
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >

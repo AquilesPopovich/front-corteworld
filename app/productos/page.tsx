@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { Menu } from '../ui/menu/Menu'
 import CardProducto from '../ui/cards/productos/cardProducto/CardProducto'
@@ -70,18 +72,43 @@ const Productos = () => {
       mark: 'Apple',
       price: 1600
     }
-]
+  ]
+
+  // const filterByMark = (event: React.ChangeEvent<HTMLButtonElement>) => {
+  //       if(event.target.value.toLowerCase() === 'razer') {
+  //         console.log('filter razer', event.target.value.toLowerCase())
+  //         productos.filter(producto => {
+  //           producto.mark.toLowerCase() === event.target.value
+  //         })
+  //       }
+  // }
 
   return (
     <>
-      <Menu/>
+      <Menu />
       <div className="flex" style={{ marginTop: '100px' }}>
         {/* Sección de filtros */}
         <div className="w-1/5 p-4 border-r">
           {/* Botones de filtro */}
-          <button className="bg-blue-500 text-white px-4 py-2 mb-4 rounded hover:bg-blue-600 focus:outline-none">Filtro 1</button>
-          <button className="bg-blue-500 text-white px-4 py-2 mb-4 rounded hover:bg-blue-600 focus:outline-none">Filtro 2</button>
-          <button className="bg-blue-500 text-white px-4 py-2 mb-4 rounded hover:bg-blue-600 focus:outline-none">Filtro 3</button>
+          <select className="bg-pink-500 text-white px-4 py-2 mb-4 rounded hover:bg-pink-600 focus:outline-none"
+          >
+            <option value="">Marca:</option>
+            <option value="razer">Razer</option>
+            <option value="apple">Apple</option>
+            <option value="logitech">Logitech</option>
+            <option value="corsair">Corsair</option>
+            <option value="dell">Dell</option>
+            <option value="nvidia">Nvidia</option>
+          </select>
+
+          <select className="bg-pink-500 text-white px-4 py-2 mb-4 rounded hover:bg-pink-600 focus:outline-none">
+            <option value="">Precio:</option>
+              <option value="5990">$5.990</option>
+              <option value="9990">$9.990</option>
+              <option value="12990">$12.990</option>
+              <option value="20990">$20.990</option>
+          </select>
+          <button className="bg-pink-500 text-white px-4 py-2 mb-4 rounded hover:bg-pink-600 focus:outline-none">Filtro 3</button>
           {/* Agrega más botones de filtro según sea necesario */}
         </div>
 
@@ -100,7 +127,7 @@ const Productos = () => {
           ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   )
 }

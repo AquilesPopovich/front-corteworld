@@ -9,9 +9,6 @@ export interface Products {
     discount: number
     createdAt: Date
     status: boolean
-    carrito: Array
-    imgs: Array
-    comentarios: Array
 }
 
 export type ProductsList = Products[]
