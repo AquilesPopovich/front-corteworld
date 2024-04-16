@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './carrito.module.css';
 import { removeCarrito } from '@/redux/features/carritoSlice';
@@ -12,9 +12,14 @@ interface CarritoProps {
 const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
   const carritoRedux = useSelector((state: any) => state.carritoSlice.carrito);
   const [cantidadProductos, setCantidadProductos] = useState<{ [key: string]: number }>({});
-  const [productosRenderizados, setProductosRenderizados] = useState<string[]>([]);
+  const productosUnicos = carritoRedux.filter((producto, index, self) =>
+    index === self.findIndex((p) => p.id === producto.id)
+  );
   const dispatch = useDispatch();
+  
 
+  
+  
   const handleCloseCarrito = () => {
     setCarrito(false);
   };
@@ -26,7 +31,7 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
     });
     return total;
   };
-
+  
   const removeProduct = (id: string) => {
     dispatch(removeCarrito(id));
   };
@@ -43,6 +48,7 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
 
   if (!carrito) return null;
 
+
   return (
     <div className={styles.modal}>
       <div className={styles.overlay} onClick={handleCloseCarrito}></div>
@@ -52,9 +58,8 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
         </span>
         <h2>Carrito de Compras</h2>
         <div className={styles.items}>
-          {carritoRedux.map((producto: any) => {
-            if (productosRenderizados.includes(producto.id)) incrementarCantidad(producto.id)
-            setProductosRenderizados([...productosRenderizados, producto.id]);
+          {productosUnicos.map((producto: any) => {
+
             return (
               <div className={styles.producto} key={producto.id}>
                 <img src={producto.img} alt={producto.name} />
@@ -71,7 +76,9 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
                 </div>
               </div>
             );
-          })}
+            }
+            
+          )}
         </div>
         <div className={styles.totalPrice}>Precio Total: ${calcularPrecioTotal()}</div>
         <button className={styles.checkout}>Realizar Pedido</button>
