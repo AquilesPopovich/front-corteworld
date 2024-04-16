@@ -58,41 +58,46 @@ const Historial = () => {
 
   return (
     <>
-    <Menu/>
-    <div className="container mx-auto mt-8" style={{ marginTop: '110px' }}>
-    
-      <h1 className="text-3xl font-bold mb-4"><FaRegClock className="mr-2" />Historial de Compras </h1>
-      {carrito.map((orden, index) => (
-        <div key={index} className="border rounded-lg p-4 mb-4">
-          <div className="flex items-center mb-2">
-            <FaShoppingCart className="mr-2" />
-            <span>Compra realizada por {orden.userC.name}</span>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {orden.productos.map((producto, idx) => (
-              <div key={idx} className="border p-2 flex items-center">
-                <img src={producto.img} alt={producto.name} className="w-12 h-12 rounded-lg mr-2" />
-                <div>
-                  <p className="text-lg font-semibold">{producto.name}</p>
-                  <p className="text-sm">{producto.mark}</p>
-                  <p className="text-lg">${producto.price}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-between mt-4">
-            <div>
-              <FaRegClock className="mr-2" />
-            <span className="text-lg">{orden.createdAd}</span>
-            </div>
-            <div>
-              <span className="font-semibold">Total: ${calcularTotalCompra(orden.productos)}</span>
-            </div>
-          </div>
+      <Menu />
+      <div className="container mx-auto mt-8" style={{ marginTop: '110px' }}>
+
+        <div className="flex items-center gap-3 mb-6 mt-32 text-3xl ml-2">
+          <FaRegClock />
+          <h1 className="font-bold ">Historial de Compras</h1>
         </div>
-      ))}
-    </div>
-      <Footer/>
+        {carrito.map((orden, index) => (
+          <div className='flex justify-center items-center w-screen'>
+          <div key={index} className="grid grid-flow-row border rounded-lg p-4 mb-4 w-11/12 bg-pink-200">
+            <div className="flex items-center mb-2">
+              <FaShoppingCart className="mr-2" />
+              <span>Compra realizada por {orden.userC.name}</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {orden.productos.map((producto, idx) => (
+                <div key={idx} className="border border-black p-2 flex items-center">
+                  <img src={producto.img} alt={producto.name} className="w-12 h-12 rounded-lg mr-2" />
+                  <div>
+                    <p className="text-lg font-semibold">{producto.name}</p>
+                    <p className="text-sm">{producto.mark}</p>
+                    <p className="text-lg">${producto.price}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-between mt-4">
+              <div>
+                <FaRegClock className="mr-2" />
+                <span className="text-lg">{orden.createdAd}</span>
+              </div>
+              <div>
+                <span className="font-semibold">Total: ${calcularTotalCompra(orden.productos)}</span>
+              </div>
+            </div>
+          </div>
+          </div>
+        ))}
+      </div>
+      <Footer />
     </>
   );
 };

@@ -1,67 +1,77 @@
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 40vw;
-    height: 100vh;
-    z-index: 999; 
-    display: flex;
-    justify-content: flex-end; 
-    animation: slideInRight 0.5s forwards; 
-  }
-  
-  .modalContent {
-    width: 70%; 
-    height: 100%;
-    background-color: white;
-    padding: 20px;
-  }
-  
-  .closeButton {
-    cursor: pointer;
-    color: black;
-    display: flex;
-    justify-content: end;
-  }
-  
-  .menuLinks {
-    margin-top: 20px;
-  }
-  
-  .menuLinks a {
-    display: block;
-    margin-bottom: 10px;
-    color: black;
-    font-size: 18px;
-  }
-  
-  .menuLinks a:hover {
-    text-decoration: underline;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 40vw;
+  height: 100vh;
+  z-index: 999;
+  display: flex;
+  justify-content: flex-start;
+  animation: slideInLeft 0.5s forwards;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
   }
 
-  .link{
-    display: flex;
-    align-items: center;
+  to {
+    transform: translateX(0);
   }
-  
-  .logoutButton {
-    color: black;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+}
+
+.modalContent {
+  width: 70%;
+  height: 100%;
+  background-color: white;
+  padding: 20px;
+}
+
+.closeButton {
+  cursor: pointer;
+  color: black;
+  display: flex;
+  justify-content: end;
+}
+
+.menuLinks {
+  margin-top: 20px;
+}
+
+.menuLinks a {
+  display: block;
+  margin-bottom: 10px;
+  color: black;
+  font-size: 18px;
+}
+
+.menuLinks a:hover {
+  text-decoration: underline;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+}
+
+.logoutButton {
+  color: black;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
   }
 
-  .icon{
-    margin-right: 5px;
+  to {
+    transform: translateX(0);
   }
-  
-  @keyframes slideInRight {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-  
+}

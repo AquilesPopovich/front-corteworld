@@ -19,12 +19,15 @@ export const Menu = () => {
 
 
   return (
-    <nav className={`bg-gray-800 text-white flex justify-between items-center p-4 ${styles.navBar}`}>
+    <nav className={`bg-pink-400 text-white flex justify-between items-center p-4 ${styles.navBar}`}>
       <div className="flex items-center">
         {/* Logo */}
-            <Link href="/" ><Image src={corteWorld} alt="CorteWorld" width={70} height={70} /></Link>
-        <div className="mr-4">
+            <Link href="/" ><Image src={corteWorld} alt="CorteWorld" width={70} height={70} className={`${styles.logo}`} /></Link>
+        <div className="">
           <Link href="/" className={`ml-4 ${styles.link}`}>Home</Link>
+        </div>
+        <div className="ml-8">
+        <button onClick={()=> setMenu(true)} className={` ${styles.link}`}>Menu</button>
         </div>
       </div>
 
@@ -36,18 +39,14 @@ export const Menu = () => {
 
       {/* Enlaces con iconos */}
       <div className="flex items-center">
-      <div className="ml-4 flex items-center">
-          <button onClick={()=> setLoggin(true)} className={`ml-1 text-pink-400 ${styles.link}`} ><PersonOutlineIcon /></button>
-        </div>
-        <div className="ml-4 flex items-center">
-          {/* <Image src={corteWorld} alt="Productos" width={20} height={20} /> */}
-          <Link href="/productos" className={`ml-1 ${styles.link}`}>Productos</Link>
-        </div>
-        <div className="ml-4 flex items-center">
-        <button onClick={()=> setMenu(true)} className={`ml-1 ${styles.link}`}>Menu</button>
-        </div>
         <div className="ml-4 flex items-center">
           <button onClick={()=> setCarrito(true)} className={`ml-1 text-pink-400 ${styles.link}`} ><ShoppingCartOutlinedIcon /></button>
+        </div>
+        <div className="ml-4 flex items-center">
+          <Link href="/productos" className={`ml-1 ${styles.link}`}>Productos</Link>
+        </div>
+      <div className="ml-4 flex items-center">
+          <button onClick={()=> setLoggin(true)} className={`ml-1 text-pink-400 ${styles.link}`} ><PersonOutlineIcon /></button>
         </div>
       </div>
       <MenuModal menu={menu} setMenu={setMenu} />

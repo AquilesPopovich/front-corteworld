@@ -1,17 +1,24 @@
-/* loggin.module.css */
-
 .modalOverlay {
   position: fixed;
   top: 0;
-  left: 0; 
+  right: 0; /* Cambiado de "left" a "right" */
   bottom: 0;
   width: 40vw;
   height: 100vh;
   z-index: 999;
   display: flex;
-  justify-content: flex-start;
-  animation: slideInLeft 0.5s forwards;
+  justify-content: flex-end; /* Puedes ajustar esto si es necesario */
+  animation: slideInRight 0.5s forwards; /* Utilizando la animación slideInRight */
   color: black;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%); /* Utilizando translateX(100%) */
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .modalContent {
