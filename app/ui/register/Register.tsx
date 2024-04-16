@@ -1,20 +1,20 @@
 'use client'
 import React, { useState } from 'react';
-import styles from './loggin.module.css';
+import styles from './register.module.css';
 import { FaTimes, FaGoogle} from 'react-icons/fa';
-import Register from '../register/Register';
 
-interface LoginProps {
-  loggin: boolean;
-  setLoggin: (value: boolean) => void;
+interface RegisterProps {
+  register: boolean;
+  setRegister: (value: boolean) => void;
 }
 
-const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
-  if (!loggin) return null;
+const Register: React.FC<RegisterProps> = ({ register, setRegister }) => {
+  if (!register) return null;
 
-  const [register, setRegister] = useState(false)
+  const [login, setLogin] = useState(false)
 
-  const handleGoogleLogin = () => {
+
+  const handleGoogleRegister = () => {
     // Lógica para iniciar sesión con Google
   };
 
@@ -30,11 +30,15 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <h2 className={styles.textBlack}>Inicio de Sesión</h2>
-        <div className={styles.closeButton} onClick={() => setLoggin(false)}>
+        <h2 className={styles.textBlack}>Registrate aqui</h2>
+        <div className={styles.closeButton} onClick={() => setRegister(false)}>
           <FaTimes />
         </div>
         <form className={styles.formContainer} onSubmit={handleSubmit}>
+        <div className={styles.formGroup}>
+            <label className={styles.label} htmlFor="name">Nombre</label>
+            <input className={styles.inputField} type="text" id="name" name="name" required />
+          </div>
           <div className={styles.formGroup}>
             <label className={styles.label} htmlFor="email">Correo Electrónico</label>
             <input className={styles.inputField} type="email" id="email" name="email" required />
@@ -43,16 +47,15 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
             <label className={styles.label} htmlFor="password">Contraseña</label>
             <input className={styles.inputField} type="password" id="password" name="password" required />
           </div>
-          <button className={`${styles.submitButton} bg-pink-400 `} type="submit">Iniciar Sesión</button>
+          <button className={`${styles.submitButton} bg-pink-400 `} type="submit">Registrarse</button>
         </form>
-        <button className={`${styles.submitButton} bg-blue-400 `} onClick={handleGoogleLogin}><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
+        <button className={`${styles.submitButton} bg-blue-400 `} onClick={handleGoogleRegister}><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
         <p>
-          ¿No tienes una cuenta? <button className={styles.link} onClick={()=> setRegister(true)}>Regístrate aquí</button>
+          ¿Ya contas con una cuenta? <button className={styles.link} onClick={()=>setLogin(true)}>Logueate aquí</button>
         </p>
       </div>
-      <Register register={register} setRegister={setRegister} />
     </div>
   );
 };
 
-export default Login;
+export default Register;
