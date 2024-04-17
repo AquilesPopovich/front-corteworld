@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './carrito.module.css';
 import { removeCarrito } from '@/redux/features/carritoSlice';
@@ -13,6 +12,7 @@ interface CarritoProps {
 const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
   const carritoRedux = useSelector((state: any) => state.carritoSlice.carrito);
   const [cantidadProductos, setCantidadProductos] = useState<{ [key: string]: number }>({});
+  const [productosRenderizados, setProductosRenderizados] = useState([])
   const productosUnicos = carritoRedux.filter((producto, index, self) =>
     index === self.findIndex((p) => p.id === producto.id)
   );

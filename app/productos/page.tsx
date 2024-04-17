@@ -1,9 +1,11 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Menu } from '../ui/menu/Menu'
 import CardProducto from '../ui/cards/productos/cardProducto/CardProducto'
 import { Footer } from '../ui/footer/Footer'
+import { useAppDispatch } from '@/redux/hook'
+import { filterByMark, filterByPrice, orderByDate, orderByName, orderByPrice, orderProducts } from '@/redux/features/productsSlice'
 
 const Productos = () => {
 
@@ -74,13 +76,35 @@ const Productos = () => {
     }
   ]
 
-  // const filterByMark = (event: React.ChangeEvent<HTMLButtonElement>) => {
-  //       if(event.target.value.toLowerCase() === 'razer') {
-  //         console.log('filter razer', event.target.value.toLowerCase())
-  //         productos.filter(producto => {
-  //           producto.mark.toLowerCase() === event.target.value
-  //         })
-  //       }
+  // const dispatch = useAppDispatch();
+  
+  // const markFilter = async(event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
+  //   try {
+  //     dispatch(filterByMark(event.target.value, products));
+  //   } catch (error) {
+  //     if (error instanceof Error) throw Error(error.message)
+  //   }
+  // }
+
+  // const priceFilter = async(event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
+  //   try {
+  //     dispatch(filterByPrice(event.target.value, products));
+  //   } catch (error) {
+  //     if (error instanceof Error) throw Error(error.message)
+  //   }
+  // }
+
+  // const handleOrder = async(event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
+  //   try {
+  //     if(event.target.value === 'A-Name') dispatch(orderProducts('A-Name', products));
+  //     else if(event.target.value === 'D-Name') dispatch(orderProducts('D-Name', products));
+  //     else if(event.target.value === 'A-Price') dispatch(orderProducts('A-Price', products));
+  //     else if(event.target.value === 'D-Price') dispatch(orderProducts('D-Price', products));
+  //     else if(event.target.value === 'A-Date') dispatch(orderProducts('A-Date', products));
+  //     else if(event.target.value === 'D-Date') dispatch(orderProducts('D-Date', products));
+  //   } catch (error) {
+  //     if (error instanceof Error) throw Error(error.message)
+  //   }
   // }
 
   return (
@@ -91,8 +115,8 @@ const Productos = () => {
         <div className="w-1/5 p-4 border-r">
           {/* Botones de filtro */}
           <div className="fixed top-0 left-0 p-4 w-1/5" style={{ marginTop: '100px' }}>
-  <div className="flex flex-col gap-4 w-full">
-    <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-full">
+  <div className="flex flex-col items-center gap-4 w-full">
+    <select className="bg-pink-500 text-white my-8 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-9/12">
       <option value="">Marca:</option>
       <option value="razer">Razer</option>
       <option value="apple">Apple</option>
@@ -102,15 +126,23 @@ const Productos = () => {
       <option value="nvidia">Nvidia</option>
     </select>
 
-    <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-full">
+    <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-9/12">
       <option value="">Precio:</option>
       <option value="5990">$5.990</option>
       <option value="9990">$9.990</option>
       <option value="12990">$12.990</option>
       <option value="20990">$20.990</option>
     </select>
-    
-    <button className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-full">Filtro 3</button>
+
+    <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-9/12">
+      <option value="">Ordenar por:</option>
+      <option value="A-Name">Nombres A - Z</option>
+      <option value="D-Name">Nombres Z - A</option>
+      <option value="A-Price">Precios de menor a mayor</option>
+      <option value="D-Price">Precios de mayor a menor</option>
+      <option value="A-Date">Productos antiguos</option>
+      <option value="D-Date">Productos nuevos</option>
+    </select> 
   </div>
 </div>
 
