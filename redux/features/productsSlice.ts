@@ -40,6 +40,9 @@ export const ProductsSlice = createSlice({
         },
         filterProducts: (state, action) => {
             state.productsForFilter = [...action.payload]
+        },
+        orderProductsState: (state, action) => {
+            state.products = [...action.payload]
         }
     }
 })
@@ -113,6 +116,19 @@ export const filterByPrice = (price: number, state: ProductsList) => async (disp
     }
 }
 
-export const { getProducts, searchProducts, getDeletedProducts, searchDeletedProducts, filterProducts } = ProductsSlice.actions;
+export const orderProducts = (order: string, state: ProductsList) => (dispatch: AppDispatch) => {
+    try {
+        if(order === 'A-Name') dispatch(orderProductsState([...state].sort((a, b) => a.name.localeCompare(b.name))));
+        else if(order === 'D-Name') dispatch(orderProductsState([...state].sort((a, b) => b.name.localeCompare(a.name))));
+        else if(order === 'A-Price') dispatch(orderProductsState([...state].sort((a, b) => a.price - b.price)));
+        else if(order === 'D-Price') dispatch(orderProductsState([...state].sort((a, b) => b.price - a.price)));
+        else if(order === 'A-Date') dispatch(orderProductsState([...state].sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())));
+        else if(order === 'D-Date') dispatch(orderProductsState([...state].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())));
+    } catch (error) {
+        if (error instanceof Error) throw Error(error.message)
+    }
+}
+
+export const { getProducts, searchProducts, getDeletedProducts, searchDeletedProducts, filterProducts, orderProductsState } = ProductsSlice.actions;
 
 export default ProductsSlice.reducer;
