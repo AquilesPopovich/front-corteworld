@@ -1,13 +1,15 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Menu } from '../ui/menu/Menu'
 import CardProducto from '../ui/cards/productos/cardProducto/CardProducto'
 import { Footer } from '../ui/footer/Footer'
 import { useAppDispatch } from '@/redux/hook'
-import { filterByMark, filterByPrice, orderByDate, orderByName, orderByPrice, orderProducts } from '@/redux/features/productsSlice'
+import { filterByMark, filterByPrice, getProducts, orderByDate, orderByName, orderByPrice, orderProducts } from '@/redux/features/productsSlice'
 
 const Productos = () => {
+
+  const [productosRedux, setProductosRedux] = useState(null)
 
   const productos = [
     {
@@ -76,7 +78,19 @@ const Productos = () => {
     }
   ]
 
-  // const dispatch = useAppDispatch();
+   const dispatch = useAppDispatch();
+
+   useEffect(()=>{
+    const fetchData = async() =>{
+      try {
+        const productos = dispatch(getProducts)
+        if(productos) setProductosRedux(productos)
+      } catch (error) {
+        
+      }
+    }
+    fetchData()
+   }, [])
   
   // const markFilter = async(event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
   //   try {

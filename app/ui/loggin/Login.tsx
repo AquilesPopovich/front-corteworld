@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import styles from './loggin.module.css';
 import { FaTimes, FaGoogle} from 'react-icons/fa';
 import Register from '../register/Register';
+import { agregaruser } from '@/redux/features/userSlice';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
 interface LoginProps {
   loggin: boolean;
@@ -12,20 +15,33 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
   if (!loggin) return null;
 
+  const dispatch = useDispatch()
+
   const [register, setRegister] = useState(false)
 
   const handleGoogleLogin = () => {
-    // Lógica para iniciar sesión con Google
+
   };
 
-  const handleSignupClick = () => {
-    // Lógica para redirigir a la página de registro
-  };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Lógica para enviar datos de inicio de sesión
+    try {
+      const formData = new FormData(event.currentTarget);
+      const response = await axios.post('/user/login', formData);
+      const data = response.data;
+      if (data) {
+        console.log('Usuario logueado:', data);
+        dispatch(agregaruser(data));
+      }
+      setLoggin(false);
+      setRegister(false)
+    } catch (error: unknown) {
+      console.error('Error al loguear el usuario:');
+    }
   };
+  
 
   return (
     <div className={styles.modalOverlay}>
@@ -47,7 +63,10 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
         </form>
         <button className={`${styles.submitButton} bg-blue-400 `} onClick={handleGoogleLogin}><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
         <p>
-          ¿No tienes una cuenta? <button className={styles.link} onClick={()=> setRegister(true)}>Regístrate aquí</button>
+          ¿No tienes una cuenta? <button className={styles.link} onClick={()=> {
+            setRegister(true)
+            setLoggin(false)
+          }}>Regístrate aquí</button>
         </p>
       </div>
       <Register register={register} setRegister={setRegister} />
