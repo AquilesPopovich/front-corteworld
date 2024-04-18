@@ -29,7 +29,7 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
 
   return (
     <div 
-    className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white flex flex-col justify-between items-center" // Agrega relative para posicionar elementos hijos de forma relativa
+    className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-gray-400 flex flex-col justify-between items-center" // Agrega relative para posicionar elementos hijos de forma relativa
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -64,7 +64,7 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
         </div>
       </Link>
       <div className="px-6 py-4 text-center">
-        <div className="font-bold text-xl mb-2">{name} ({mark})</div>
+        <div className="font-bold text-xl text-black mb-2">{name} ({mark})</div>
         <p className="text-gray-900 font-bold text-xl mt-2">${price}</p>
       </div>
       <div className='pb-4 px-6'>

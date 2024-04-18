@@ -23,7 +23,7 @@ const CardFavoritos = ({ id, name, img, mark, price, segundaimg }: {id: number, 
 
   return (
     <div 
-    className='max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-pink-200 flex flex-col justify-between items-center relative'
+    className='max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-pink-300 text-black flex flex-col justify-between items-center relative'
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -62,7 +62,7 @@ const CardFavoritos = ({ id, name, img, mark, price, segundaimg }: {id: number, 
         <p className="text-gray-900 font-bold text-xl mt-2">${price}</p>
       </div>
       <div className='pb-4 px-6'>
-        <button className="bg-pink-400 hover:bg-pink-700  text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md">
+        <button className="bg-pink-500 hover:bg-pink-700  text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md">
           Agregar al carrito
         </button>
       </div>
