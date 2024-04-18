@@ -7,7 +7,7 @@ import { Menu } from './ui/menu/Menu';
 export default function Home() {
   return (
     <div style={{ marginTop: '100px' }}>
-        <Menu/>
+      <Menu />
       <div className={styles.divCategoriasCarrusel}>
         <Carrousel />
       </div>

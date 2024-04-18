@@ -5,3 +5,4 @@ export interface User {
     password: string
 }
 
+export type UserList = User[]

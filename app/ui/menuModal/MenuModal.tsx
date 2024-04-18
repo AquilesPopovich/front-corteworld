@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import styles from './menuModal.module.css';
 import { FaStar, FaHistory, FaPowerOff, FaTimes } from 'react-icons/fa';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import { logOutUser } from '@/redux/features/userSlice';
 
 interface MenuModalProps {
   menu: boolean;
@@ -10,6 +12,17 @@ interface MenuModalProps {
 
 const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
   if (!menu) return null;
+
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(state => state.userSlice.user);
+
+  const logOut = async() => {
+    try {
+      dispatch(logOutUser());
+    } catch (error) {
+      if (error instanceof Error) throw Error(error.message)
+    }
+  }
 
   return (
     <div className={styles.modalOverlay}>
@@ -30,7 +43,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
             </div>
           </Link>
         </div>
-        <div className={styles.logoutButton} onClick={() => console.log('Logout clicked')}>
+        <div className={styles.logoutButton} onClick={() => logOut()}>
           <FaPowerOff className={styles.icon} />
           <span>Logout</span>
         </div>

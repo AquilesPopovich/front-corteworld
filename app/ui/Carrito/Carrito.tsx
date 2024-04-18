@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './carrito.module.css';
 import { removeCarrito } from '@/redux/features/carritoSlice';
+import axiosURL from '@/axiosConfig/axiosConfig';
 
 interface CarritoProps {
   carrito: boolean;
@@ -10,17 +11,33 @@ interface CarritoProps {
 }
 
 const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
+
   const carritoRedux = useSelector((state: any) => state.carritoSlice.carrito);
+  const user = useSelector((state: any) => state.userSlice.user);
   const [cantidadProductos, setCantidadProductos] = useState<{ [key: string]: number }>({});
   const [productosRenderizados, setProductosRenderizados] = useState([])
   const productosUnicos = carritoRedux.filter((producto, index, self) =>
     index === self.findIndex((p) => p.id === producto.id)
   );
   const dispatch = useDispatch();
-  
 
-  
-  
+  const infoCarrito = {
+    userC: user[0],
+    productos: carritoRedux
+  }
+
+  const handleClick = async(event: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      const {data} = await axiosURL.post('/carrito', infoCarrito)
+      if(data){
+        console.log(data)
+        setCarrito(false);
+      }
+    } catch (error) {
+      if (error instanceof Error) throw Error(error.message)
+    }
+  }
+
   const handleCloseCarrito = () => {
     setCarrito(false);
   };
@@ -32,7 +49,7 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
     });
     return total;
   };
-  
+
   const removeProduct = (id: string) => {
     dispatch(removeCarrito(id));
   };
@@ -83,12 +100,12 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
                 </div>
               </div>
             );
-            }
-            
+          }
+
           )}
         </div>
         <div className={styles.totalPrice}>Precio Total: ${calcularPrecioTotal()}</div>
-        <button className={styles.checkout}>Realizar Pedido</button>
+        <button className={styles.checkout} onClick={handleClick}>Realizar Pedido</button>
       </div>
     </div>
   );
