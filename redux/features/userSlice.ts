@@ -1,38 +1,27 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { User } from "@/app/types/typeUser"; 
-
-
+import { User, UserList } from "@/app/types/typeUser";
 
 interface InitialState {
-    user: User | null;
+    user: UserList
 }
 
 const initialState: InitialState = {
-    user: null
+    user: []
 };
 
 export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        agregaruser: (state, action: PayloadAction<User | null>) => {
-            if (state !== null) {
-                state.user = action.payload; // Actualiza el estado con el nuevo usuario
-            }
+        agregarUser: (state, action: PayloadAction<User>) => {
+            state.user.push(action.payload);
         },
-        
-        
-        
-        removeuser: (state, action: PayloadAction<string>) => {
-            if (state.user && state.user.id === action.payload) {
-                state.user = null;
-            }
-        },
-        
-        
+        logOutUser: (state) => {
+            state.user.pop();
+        }
     }
 });
 
-export const { agregaruser, removeuser } = userSlice.actions;
+export const { agregarUser, logOutUser } = userSlice.actions;
 
 export default userSlice.reducer;
