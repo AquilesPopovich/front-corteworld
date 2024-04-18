@@ -2,6 +2,10 @@
 import React, { useState } from 'react';
 import styles from './register.module.css';
 import { FaTimes, FaGoogle} from 'react-icons/fa';
+import axios from 'axios';
+import Login from '../loggin/Login';
+import { useDispatch } from 'react-redux';
+import { agregaruser } from '@/redux/features/userSlice';
 
 interface RegisterProps {
   register: boolean;
@@ -10,22 +14,33 @@ interface RegisterProps {
 
 const Register: React.FC<RegisterProps> = ({ register, setRegister }) => {
   if (!register) return null;
+  
+  const dispatch = useDispatch();
 
   const [login, setLogin] = useState(false)
 
 
   const handleGoogleRegister = () => {
-    // Lógica para iniciar sesión con Google
+
   };
 
-  const handleSignupClick = () => {
-    // Lógica para redirigir a la página de registro
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Lógica para enviar datos de inicio de sesión
+    try {
+      const formData = new FormData(event.currentTarget);
+      const response = await axios.post('/user', formData);
+      const data = response.data;
+      if (data) {
+        console.log('Usuario creado:', data);
+        dispatch(agregaruser(data));
+      }
+      setLogin(false);
+      setRegister(false)
+    } catch (error: unknown) {
+      console.error('Error al loguear el usuario:');
+    }
   };
+  
 
   return (
     <div className={styles.modalOverlay}>
@@ -51,9 +66,13 @@ const Register: React.FC<RegisterProps> = ({ register, setRegister }) => {
         </form>
         <button className={`${styles.submitButton} bg-blue-400 `} onClick={handleGoogleRegister}><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
         <p>
-          ¿Ya contas con una cuenta? <button className={styles.link} onClick={()=>setLogin(true)}>Logueate aquí</button>
+          ¿Ya contas con una cuenta? <button className={styles.link} onClick={()=>{
+            setLogin(true)
+            setRegister(false)
+          }}>Logueate aquí</button>
         </p>
       </div>
+      <Login loggin={login} setLoggin={setLogin} />
     </div>
   );
 };

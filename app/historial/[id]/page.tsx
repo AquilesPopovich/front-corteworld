@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaShoppingCart, FaRegClock } from 'react-icons/fa';
-import { Menu } from '../ui/menu/Menu';
-import { Footer } from '../ui/footer/Footer';
+import { Menu } from '../../ui/menu/Menu';
+import { Footer } from '../../ui/footer/Footer';
+import { useSelector } from 'react-redux';
+import { useParams } from 'next/navigation';
+import axios from 'axios';
 
 const Historial = () => {
+
+  const {id} = useParams()
+  const [carritoRedux, setCarritoRedux] = useState(null)
+
+  useEffect(()=>{
+    const fetchData = async() =>{
+      try {
+        const {data} = await axios(`/carrito/${id}`)
+        if(data){
+          setCarritoRedux(data)
+        }
+      } catch (error) {
+        return error
+      }
+    }
+    fetchData()
+  }, [])
+
   const carrito = [
     {
       userC: { name: 'aquiles' },

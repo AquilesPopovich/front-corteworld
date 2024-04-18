@@ -18,16 +18,13 @@ export const productGet = createApi({
   reducerPath: "productGet",
   refetchOnFocus: true, 
   baseQuery: fetchBaseQuery({
-    baseUrl: "/product", 
+    baseUrl: "/products", 
   }),
   endpoints: (builder) => ({
     getProducts: builder.query<Product[], null>({
-      query: () => "product",
-    }),
-    getProductById: builder.query<Product, number>({
-      query: (id) => `product/${id}`,
-    }),
+      query: () => "products",
+    })
   }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery } = productGet;
+export const { useGetProductsQuery } = productGet;

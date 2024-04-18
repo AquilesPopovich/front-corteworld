@@ -1,8 +1,10 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Chat } from '@mui/icons-material';
 import { Menu } from '@/app/ui/menu/Menu';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
+import axios from 'axios';
 
 const DetailPage = () => {
     const producto = {
@@ -28,6 +30,24 @@ const DetailPage = () => {
             { name: 'javier', comentario: 'buen producto' },
         ]
     };
+    const [productoDetail, setProductoDetail] = useState(null);
+
+    const { id } = useParams();
+    
+    useEffect(() => {
+        const fetchData = async () => { 
+            try {
+                const { data } = await axios(`/products/${id}`);
+                if (!data) throw new Error('No se encontraron datos para el producto');
+                setProductoDetail(data);
+            } catch (error: unknown) {
+                console.error('Error al obtener los datos del producto:', error.message);
+            }
+        };
+        fetchData();
+    }, []);
+    
+    
 
     const [selectedImg, setSelectedImg] = useState(0); // Estado para almacenar la imagen seleccionada
 
