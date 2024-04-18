@@ -63,9 +63,10 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
         </form>
         <button className={`${styles.submitButton} bg-blue-400 `} onClick={handleGoogleLogin}><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
         <p>
-          ¿No tienes una cuenta? <button className={styles.link} onClick={()=> {
+          ¿No tienes una cuenta?
+          <button className={styles.link} onClick={()=> {
             setRegister(true)
-            setLoggin(false)
+            // setLoggin(false)
           }}>Regístrate aquí</button>
         </p>
       </div>

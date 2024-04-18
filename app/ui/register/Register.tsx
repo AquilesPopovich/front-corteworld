@@ -28,7 +28,7 @@ const Register: React.FC<RegisterProps> = ({ register, setRegister }) => {
     event.preventDefault();
     try {
       const formData = new FormData(event.currentTarget);
-      const response = await axios.post('/user', formData);
+      const response = await axios.post('https://corteworld.onrender.com/user', formData);
       const data = response.data;
       if (data) {
         console.log('Usuario creado:', data);
@@ -46,7 +46,7 @@ const Register: React.FC<RegisterProps> = ({ register, setRegister }) => {
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <h2 className={styles.textBlack}>Registrate aqui</h2>
-        <div className={styles.closeButton} onClick={() => setRegister(false)}>
+        <div className={styles.closeButton} onClick={() => {setRegister(false)}}>
           <FaTimes />
         </div>
         <form className={styles.formContainer} onSubmit={handleSubmit}>
@@ -66,7 +66,7 @@ const Register: React.FC<RegisterProps> = ({ register, setRegister }) => {
         </form>
         <button className={`${styles.submitButton} bg-blue-400 `} onClick={handleGoogleRegister}><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
         <p>
-          ¿Ya contas con una cuenta? <button className={styles.link} onClick={()=>{
+          ¿Ya tienes una cuenta? <button className={styles.link} onClick={()=>{
             setLogin(true)
             setRegister(false)
           }}>Logueate aquí</button>
