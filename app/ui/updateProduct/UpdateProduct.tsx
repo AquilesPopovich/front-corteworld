@@ -10,7 +10,7 @@ interface updateProductProps {
     setUpdateProduct: (value: boolean) => void;
   }
 
-const updateProduct: React.FC<updateProductProps> = ({ id, updateProduct, setUpdateProduct }) => {
+const UpdateProduct: React.FC<updateProductProps> = ({ id, updateProduct, setUpdateProduct }) => {
   const [nuevoProducto, setNuevoProducto] = useState({
     name: '',
     price: '',
@@ -143,4 +143,4 @@ const updateProduct: React.FC<updateProductProps> = ({ id, updateProduct, setUpd
   );
 };
 
-export default updateProduct;
+export default UpdateProduct;

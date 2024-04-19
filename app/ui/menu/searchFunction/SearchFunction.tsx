@@ -1,53 +1,34 @@
 'use client'
 
-import { getAllDeletedProducts, getAllProducts, searchOneDeletedProduct, searchOneProduct } from "@/redux/features/productsSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hook"
-import { useState } from "react";
+import { useAppDispatch } from "@/redux/hook"
 import SearchIcon from '@mui/icons-material/Search';
 import styles from './searchFunction.module.css';
+import { getAllProducts, searchOneProduct } from "@/redux/features/productsSlice";
 
 interface Props {
     status: boolean
 }
 
 export const SearchProduct: React.FC<Props> = ({ status }) => {
-
-    const searchProduct = useAppSelector(state => state.productsSlice.searchProducts);
-    const searchProductDeleted = useAppSelector(state => state.productsSlice.searchDeletedProducts);
-
-    const [productName, setProductName] = useState('');
     const dispatch = useAppDispatch();
 
-    const searchByCoincidence = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
-        const productString = event.target.value.toLowerCase();
-        if (productString.length === 0) {
-            if (status) {
-                await dispatch(getAllProducts());
-            } else {
-                await dispatch(getAllDeletedProducts());
-            }
-        } else {
-            if (status) {
-                await dispatch(searchOneProduct(productString, searchProduct));
-            } else {
-                await dispatch(searchOneDeletedProduct(productString, searchProductDeleted));
-            }
-        }
-        setProductName(productName);
-    }
+    const searchByCoincidence = async(event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
+        dispatch(searchOneProduct(event.target.value.toLowerCase()));
+        if(!event.target.value.length) dispatch(getAllProducts());
+      }
 
-    const handleReset = async (): Promise<void> => {
-        try {
-            if (status) {
-                await dispatch(getAllProducts());
-            } else {
-                await dispatch(getAllDeletedProducts());
-            }
-            setProductName('');
-        } catch (error) {
-            if (error instanceof Error) throw Error(error.message)
-        }
-    }
+    // const handleReset = async (): Promise<void> => {
+    //     try {
+    //         if (status) {
+    //             await dispatch(getAllProducts());
+    //         } else {
+    //             await dispatch(getAllDeletedProducts());
+    //         }
+    //         setProductName('');
+    //     } catch (error) {
+    //         if (error instanceof Error) throw Error(error.message)
+    //     }
+    // }
 
     return (
         <>
@@ -57,7 +38,8 @@ export const SearchProduct: React.FC<Props> = ({ status }) => {
                     type="text"
                     placeholder="Busca un producto"
                     className={`${styles.searchInput} text-black`}
-                    style={{ fontSize: '13px', paddingLeft: '15px' }}
+                    style={{ fontSize: '1.2rem', paddingLeft: '15px' }}
+                    onChange={searchByCoincidence}
                 />
             </div>
         </>

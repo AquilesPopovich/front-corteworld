@@ -7,9 +7,10 @@ import { Star, StarBorder } from '@mui/icons-material';
 import { useAppSelector } from '@/redux/hook';
 import axiosURL from '@/axiosConfig/axiosConfig';
 import { getAllProducts } from '@/redux/features/productsSlice';
+import UpdateProduct from '@/app/ui/updateProduct/UpdateProduct';
 
-const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, name: string, img: string, mark: string, price: number, segundaimg: string}) => {
-  const [hover, setHover] = useState(false);
+const CardProducto = ({ id, name, imgs, mark, price }: {id: string, name: string, imgs: string, mark: string, price: number}) => {
+  const [hover, setHover] = React.useState(false);
   const dispatch = useDispatch();
   const favorites = useSelector((state: any) => state.favorites.favorites);
   const user = useAppSelector(state => state.userSlice.user);
@@ -22,13 +23,30 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
     if (isFavorite) {
       dispatch(removeFavorite(id));
     } else {
-      dispatch(addFavorite({ id, name, img, mark, price, segundaimg }));
+      // Aquí puedes enviar el producto completo en lugar de solo el ID si lo prefieres
+      dispatch(addFavorite({
+        id, name, imgs, mark, price,
+        stock: 0,
+        category: '',
+        destacado: false,
+        discount: 0,
+        createdAt: new Date,
+        status: false
+      }));
     }
   };
 
   const handleAgregarCarrito = () => {
     if(!user) alert('Necesitas iniciar sesión para agregar un producto al carrito');
-    dispatch(agregarCarrito({ id, name, img, mark, price }));
+    dispatch(agregarCarrito({
+      id, name, imgs, mark, price,
+      stock: 0,
+      category: '',
+      destacado: false,
+      discount: 0,
+      createdAt: new Date,
+      status: false
+    }));
   };
 
   const deleteProduct = async (id) =>{
@@ -56,15 +74,16 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
         <div key={id} className="bg-gray-200 w-full h-80 flex justify-center items-center relative">
           <img 
             className={`w-full max-h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`} 
-            src={img} 
+            src={imgs} 
             alt={name} 
           />
-          <img 
+          {/* <img 
             className={`w-full max-h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`} 
             src={segundaimg} 
             alt={name} 
-          />
-          <div className="absolute bottom-2 left-2">
+          /> */}
+          <div className="absolute bottom-2 left-2"> {/* Posiciona la estrella en la esquina inferior izquierda */}
+            {/* Reemplaza el botón con los iconos de estrella */}
             {isFavorite ? (
               <Star 
                 onClick={handleFavoriteToggle} 
@@ -100,7 +119,7 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
           Agregar al carrito
         </button>
       </div>
-      <updateProduct id={id} updateProduct={updateProduct} setUpdateProduct={setUpdateProduct}/>
+      <UpdateProduct id={id} updateProduct={updateProduct} setUpdateProduct={setUpdateProduct}/>
     </div>
   );
 };

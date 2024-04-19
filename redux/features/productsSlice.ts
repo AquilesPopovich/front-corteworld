@@ -1,21 +1,17 @@
 import { ProductsList } from "@/app/types/typeProduct"
 import { createSlice } from "@reduxjs/toolkit"
-import axios from "axios"
 import { AppDispatch } from "../store"
+import axiosURL from "@/axiosConfig/axiosConfig"
 
 interface Products {
     products: ProductsList
     searchProducts: ProductsList
-    deletedProducts: ProductsList
-    searchDeletedProducts: ProductsList
     productsForFilter: ProductsList
 }
 
 const initialState: Products = {
     products: [],
     searchProducts: [],
-    deletedProducts: [],
-    searchDeletedProducts: [],
     productsForFilter: [],
 }
 
@@ -29,106 +25,80 @@ export const ProductsSlice = createSlice({
             state.productsForFilter = [...action.payload]
         },
         searchProducts: (state, action) => {
-            state.products = [...action.payload]
+            state.productsForFilter = state.products.filter(product => {
+                return product.name.toLowerCase().startsWith(action.payload)
+            })
         },
-        getDeletedProducts: (state, action) => {
-            state.deletedProducts = [...action.payload]
-            state.searchDeletedProducts = [...action.payload]
+        filterMarkProducts: (state, action) => {
+            state.productsForFilter = state.products.filter(product => {
+                return product.mark === action.payload
+            })
         },
-        searchDeletedProducts: (state,action ) => {
-            state.searchDeletedProducts = [...action.payload]
-        },
-        filterProducts: (state, action) => {
-            state.productsForFilter = [...action.payload]
+        filterPriceProducts: (state, action) => {
+            state.productsForFilter = state.products.filter(product => {
+                return product.price === action.payload
+            })
         },
         orderProductsState: (state, action) => {
-            state.products = [...action.payload]
+            if (action.payload === 'A-Name') state.productsForFilter = [...state.productsForFilter].sort((a, b) => a.name.localeCompare(b.name))
+            else if (action.payload === 'D-Name') state.productsForFilter = [...state.productsForFilter].sort((a, b) => b.name.localeCompare(a.name))
+            else if (action.payload === 'A-Price') state.productsForFilter = [...state.productsForFilter].sort((a, b) => a.price - b.price)
+            else if (action.payload === 'D-Price') state.productsForFilter = [...state.productsForFilter].sort((a, b) => b.price - a.price)
+            else if (action.payload === 'A-Date') state.productsForFilter = [...state.productsForFilter].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+            else if (action.payload === 'D-Date') state.productsForFilter = [...state.productsForFilter].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
         }
     }
 })
 
 export const getAllProducts = () => async (dispatch: AppDispatch) => {
     try {
-        const { data } = await axios.get('/products');
-        if (data.status === true) {
-            dispatch(getProducts(data.findProducts));
+        const { data } = await axiosURL.get('/products');
+        if (data) {
+            dispatch(getProducts(data));
         } else dispatch(getProducts([]));
     } catch (error) {
         if (error instanceof Error) throw Error(error.message)
     }
 }
 
-export const getAllDeletedProducts = () => async (dispatch: AppDispatch) => {
+export const searchOneProduct = (product: string) => async (dispatch: AppDispatch) => {
     try {
-        const {data} = await axios.get('/products/deleted');
-        if(data.status) dispatch(getDeletedProducts(data.findDeletedProducts));
-        else dispatch(getDeletedProducts([]));
+        if(product) dispatch(searchProducts(product));
+        else await dispatch(getAllProducts());
     } catch (error) {
         if (error instanceof Error) throw Error(error.message)
     }
 }
 
-export const searchOneProduct = (product: string, state: ProductsList) => async (dispatch: AppDispatch) => {
+export const filterByMark = (mark: string) => async (dispatch: AppDispatch) => {
     try {
-        dispatch(searchProducts(state.filter(productFound => {
-            return productFound.name.toLowerCase().startsWith(product);
-        })))
+        if (mark) dispatch(filterMarkProducts(mark));
+        else await dispatch(getAllProducts());
+
     } catch (error) {
         if (error instanceof Error) throw Error(error.message)
     }
 }
 
-export const searchOneDeletedProduct = (product: string, state: ProductsList) => async (dispatch: AppDispatch) => {
+export const filterByPrice = (price: number) => async (dispatch: AppDispatch) => {
     try {
-        dispatch(searchDeletedProducts(state.filter(productFound => {
-            return productFound.name.toLocaleLowerCase().startsWith(product);
-        })))
+        if (price) dispatch(filterPriceProducts(price));
+        else await dispatch(getAllProducts());
+
     } catch (error) {
         if (error instanceof Error) throw Error(error.message)
     }
 }
 
-export const filterByMark = (mark: string, state: ProductsList) => async (dispatch: AppDispatch) => {
+export const orderProducts = (order: string) => async (dispatch: AppDispatch) => {
     try {
-        if(mark === 'marca1') dispatch(filterProducts(state.filter(product => {
-            return product.mark.toLocaleLowerCase() === mark
-        })))
-        if(mark === 'marca2') dispatch(filterProducts(state.filter(product => {
-            return product.mark.toLocaleLowerCase() === mark
-        })))
-        if(mark === 'marca3') dispatch(filterProducts(state.filter(product => {
-            return product.mark.toLocaleLowerCase() === mark
-        })))
-        
+        if (order) dispatch(orderProductsState(order));
+        else await dispatch(getAllProducts());
     } catch (error) {
         if (error instanceof Error) throw Error(error.message)
     }
 }
 
-export const filterByPrice = (price: number, state: ProductsList) => async (dispatch: AppDispatch) => {
-    try {
-        dispatch(filterProducts(state.filter(product => {
-            return product.price === price
-        })))
-        
-    } catch (error) {
-        if (error instanceof Error) throw Error(error.message)
-    }
-}
-
-export const orderProducts = (order: string, state: ProductsList) => (dispatch: AppDispatch) => {
-    try {
-        if(order === 'A-Name') dispatch(orderProductsState([...state].sort((a, b) => a.name.localeCompare(b.name))));
-        else if(order === 'D-Name') dispatch(orderProductsState([...state].sort((a, b) => b.name.localeCompare(a.name))));
-        else if(order === 'A-Price') dispatch(orderProductsState([...state].sort((a, b) => a.price - b.price)));
-        else if(order === 'D-Price') dispatch(orderProductsState([...state].sort((a, b) => b.price - a.price)));
-        else if(order === 'A-Date') dispatch(orderProductsState([...state].sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())));
-        else if(order === 'D-Date') dispatch(orderProductsState([...state].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())));
-    } catch (error) {
-        if (error instanceof Error) throw Error(error.message)
-    }
-}
-
-export const { getProducts, searchProducts, getDeletedProducts, searchDeletedProducts, filterProducts, orderProductsState } = ProductsSlice.actions;
+export const { getProducts, searchProducts, filterMarkProducts, filterPriceProducts, orderProductsState } = ProductsSlice.actions;
 
 export default ProductsSlice.reducer;
