@@ -19,6 +19,8 @@ export const Menu = () => {
   const [carrito, setCarrito] = useState(false)
   const user = useAppSelector(state => state.userSlice.user);
 
+  console.log(user[0]?.name)
+
   if (user.length) {
     return (
       <nav className={`bg-pink-400 text-white flex justify-between items-center p-4 ${styles.navBar}`}>
@@ -54,7 +56,7 @@ export const Menu = () => {
           </div>
           
             <div className="ml-4 flex items-center">
-              <button className={`ml-1 ${styles.link}`}>${user[0]?.name}</button> 
+              <button className={`ml-1 ${styles.link}`}>{user[0]?.name}</button> 
             </div>
        
         </div>
