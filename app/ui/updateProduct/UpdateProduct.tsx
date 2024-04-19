@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import styles from './loggin.module.css';
-import { useDispatch } from 'react-redux';
+import styles from '../loggin/loggin.module.css';
 import axiosURL from '@/axiosConfig/axiosConfig';
-import { getProducts } from '@/redux/features/productsSlice';
+import { getAllProducts } from '@/redux/features/productsSlice';
+import { useAppDispatch } from '@/redux/hook';
 
 interface updateProductProps {
     id: string,
@@ -17,15 +17,15 @@ const UpdateProduct: React.FC<updateProductProps> = ({ id, updateProduct, setUpd
     stock: '',
     category: '',
     mark: '',
-    discount: ''
+    discount: '',
   });
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(()=>{
     const fetchData = async() =>{
         try {
-            const {data} = await axiosURL(`/productos/${id}`)
+            const {data} = await axiosURL(`/products/${id}`)
             if(data){
                 setNuevoProducto(data)
             }
@@ -43,12 +43,12 @@ const UpdateProduct: React.FC<updateProductProps> = ({ id, updateProduct, setUpd
     });
   };
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: any): Promise<void> => {
     event.preventDefault();
     try {
-      const {data} = await axiosURL.patch(`/productos/${id}`, nuevoProducto); 
+      const {data} = await axiosURL.patch(`/products/${id}`, nuevoProducto); 
       if (data) {
-        dispatch(getProducts())
+        dispatch(getAllProducts())
         setUpdateProduct(false)
       }
     } catch (error) {
@@ -62,7 +62,7 @@ const UpdateProduct: React.FC<updateProductProps> = ({ id, updateProduct, setUpd
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <h2 className={styles.textBlack}>Crear Producto</h2>
+        <h2 className={styles.textBlack}>Actualizar Producto</h2>
         <form className={styles.formContainer} onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label className={styles.label} htmlFor="name">Nombre</label>

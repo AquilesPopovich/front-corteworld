@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

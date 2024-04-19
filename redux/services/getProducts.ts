@@ -6,7 +6,7 @@ type Product = {
   name: string
   price: number
   mark: string
-  status: string //agregar en el back
+  status: boolean //agregar en el back
   stock: number
   discount: number
   category: string
