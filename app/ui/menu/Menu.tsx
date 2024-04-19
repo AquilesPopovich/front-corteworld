@@ -54,7 +54,7 @@ export const Menu = () => {
           </div>
           
             <div className="ml-4 flex items-center">
-              <button className={`ml-1 ${styles.link}`}>${user[0]?.name}</button> 
+              <button className={`ml-1 ${styles.link}`}>${user[0].name}</button> 
             </div>
        
         </div>
