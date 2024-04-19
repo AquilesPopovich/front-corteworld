@@ -5,6 +5,8 @@ import { Menu } from '@/app/ui/menu/Menu';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '@/redux/hook';
 
 const DetailPage = () => {
     const producto = {
@@ -33,6 +35,7 @@ const DetailPage = () => {
     const [productoDetail, setProductoDetail] = useState(null);
 
     const { id } = useParams();
+
     
     useEffect(() => {
         const fetchData = async () => { 
@@ -46,7 +49,15 @@ const DetailPage = () => {
         };
         fetchData();
     }, []);
+
+    const dispatch= useDispatch()
+  const user = useAppSelector(state => state.userSlice.user);
+
     
+    const handleAgregarCarrito = () => {
+        if(!user) alert('necesitas loguearte para agregar un producto al carrito')
+        dispatch(agregarCarrito({ id, name, img, mark, price }));
+      };
     
 
     const [selectedImg, setSelectedImg] = useState(0); // Estado para almacenar la imagen seleccionada
@@ -59,19 +70,9 @@ const DetailPage = () => {
     const [comentario, setComentario] = useState('');
     const [comentarios, setComentarios] = useState(producto.comentarios);
 
-    const handleCantidadChange = (event) => {
-        const value = parseInt(event.target.value);
-        if (!isNaN(value)) {
-            setCantidad(value);
-        }
-    };
 
     const handleComentarioChange = (e) => {
         setComentario(e.target.value);
-    };
-
-    const agregarAlCarrito = () => {
-        console.log(`Se agregarán ${cantidad} unidades del producto al carrito`);
     };
 
     const aumentarCantidad = () => {
@@ -134,7 +135,7 @@ const DetailPage = () => {
                                 <span className="mx-2">{cantidad}</span>
                                 <button onClick={aumentarCantidad} className="bg-pink-400 hover:bg-pink-700 text-white py-1 px-3 rounded-md focus:outline-none">+</button>
                             </div>
-                            <button onClick={agregarAlCarrito} className="bg-pink-400 hover:bg-pink-700 text-white py-2 px-4 rounded-md focus:outline-none">Agregar al carrito</button>
+                            <button onClick={handleAgregarCarrito} className="bg-pink-400 hover:bg-pink-700 text-white py-2 px-4 rounded-md focus:outline-none">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
