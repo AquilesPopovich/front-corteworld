@@ -7,7 +7,7 @@ import { agregarCarrito } from '@/redux/features/carritoSlice';
 
 import { Star, StarBorder } from '@mui/icons-material'; // Importa los iconos de estrella vacía y llena
 
-const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, name: string, img: string, mark: string, price: number, segundaimg: string}) => {
+const CardProducto = ({ id, name, imgs, mark, price }: {id: string, name: string, imgs: string, mark: string, price: number}) => {
   const [hover, setHover] = React.useState(false);
   const dispatch = useDispatch();
   const favorites = useSelector((state: any) => state.favorites.favorites);
@@ -19,12 +19,28 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
       dispatch(removeFavorite(id));
     } else {
       // Aquí puedes enviar el producto completo en lugar de solo el ID si lo prefieres
-      dispatch(addFavorite({ id, name, img, mark, price, segundaimg }));
+      dispatch(addFavorite({
+        id, name, imgs, mark, price,
+        stock: 0,
+        category: '',
+        destacado: false,
+        discount: 0,
+        createdAt: new Date,
+        status: false
+      }));
     }
   };
 
   const handleAgregarCarrito = () => {
-    dispatch(agregarCarrito({ id, name, img, mark, price }));
+    dispatch(agregarCarrito({
+      id, name, imgs, mark, price,
+      stock: 0,
+      category: '',
+      destacado: false,
+      discount: 0,
+      createdAt: new Date,
+      status: false
+    }));
   };
 
   return (
@@ -37,14 +53,14 @@ const CardProducto = ({ id, name, img, mark, price, segundaimg }: {id: number, n
         <div key={id} className="bg-gray-200 w-full h-80 flex justify-center items-center relative"> {/* Agrega relative al contenedor de la imagen */}
           <img 
             className={`w-full max-h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`} 
-            src={img} 
+            src={imgs} 
             alt={name} 
           />
-          <img 
+          {/* <img 
             className={`w-full max-h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`} 
             src={segundaimg} 
             alt={name} 
-          />
+          /> */}
           <div className="absolute bottom-2 left-2"> {/* Posiciona la estrella en la esquina inferior izquierda */}
             {/* Reemplaza el botón con los iconos de estrella */}
             {isFavorite ? (
