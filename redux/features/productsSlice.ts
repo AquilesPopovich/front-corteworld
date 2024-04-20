@@ -39,6 +39,11 @@ export const ProductsSlice = createSlice({
                 return product.price === action.payload
             })
         },
+        filterCategoryProducts: (state, action) => {
+            state.productsForFilter = state.products.filter(product => {
+                return product.category === action.payload
+            })
+        },
         orderProductsState: (state, action) => {
             if (action.payload === 'A-Name') state.productsForFilter = [...state.productsForFilter].sort((a, b) => a.name.localeCompare(b.name))
             else if (action.payload === 'D-Name') state.productsForFilter = [...state.productsForFilter].sort((a, b) => b.name.localeCompare(a.name))
@@ -90,6 +95,15 @@ export const filterByPrice = (price: number) => async (dispatch: AppDispatch) =>
     }
 }
 
+export const filterByCategory = (category: string) => async(dispatch: AppDispatch) => {
+    try {
+        if(category) dispatch(filterCategoryProducts(category));
+        else await dispatch(getAllProducts());
+    } catch (error) {
+        
+    }
+}
+
 export const orderProducts = (order: string) => async (dispatch: AppDispatch) => {
     try {
         if (order) dispatch(orderProductsState(order));
@@ -99,6 +113,6 @@ export const orderProducts = (order: string) => async (dispatch: AppDispatch) =>
     }
 }
 
-export const { getProducts, searchProducts, filterMarkProducts, filterPriceProducts, orderProductsState } = ProductsSlice.actions;
+export const { getProducts, searchProducts, filterMarkProducts, filterPriceProducts, filterCategoryProducts, orderProductsState } = ProductsSlice.actions;
 
 export default ProductsSlice.reducer;

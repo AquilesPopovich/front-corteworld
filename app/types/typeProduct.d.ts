@@ -10,6 +10,7 @@ export interface Products {
     discount: number
     createdAt: Date
     status: boolean
+    talla: string
 }
 
 export type ProductsList = Products[]

@@ -5,7 +5,7 @@ import { Menu } from '../ui/menu/Menu'
 import CardProducto from '../ui/cards/productos/cardProducto/CardProducto'
 import { Footer } from '../ui/footer/Footer'
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
-import { getAllProducts } from '@/redux/features/productsSlice'
+import { filterByCategory, getAllProducts } from '@/redux/features/productsSlice'
 import { filterByMark, filterByPrice, orderProducts } from '@/redux/features/productsSlice'
 
 const Productos = () => {
@@ -92,7 +92,10 @@ const Productos = () => {
   }, [])
 
   const productos = useAppSelector(state => state.productsSlice.productsForFilter);
+  console.log('PRODUCTOS', productos)
 
+  const productosDestacados = productos.filter(producto => producto.destacado === true);
+  console.log(productosDestacados)
   
   const markFilter = async(event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
     try {
@@ -110,9 +113,17 @@ const Productos = () => {
     }
   }
 
+  const categoryFilter = async(event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
+    try {
+      await dispatch(filterByCategory(event.target.value.toUpperCase()));
+    } catch (error) {
+      if (error instanceof Error) throw Error(error.message)
+    }
+  }
+
   const handleOrder = async(event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
     try {
-      dispatch(orderProducts(event.target.value));
+      dispatch(orderProducts(event.target.value.toUpperCase()));
     } catch (error) {
       if (error instanceof Error) throw Error(error.message)
     }
@@ -132,7 +143,6 @@ const Productos = () => {
               >
                 <option value="">Marca:</option>
                 <option value="corteiz">Corteiz</option>
-                <option value="lv">Luis Vutton</option>
               </select>
 
               <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-9/12"
@@ -143,6 +153,17 @@ const Productos = () => {
                 <option value="43000">$43.000</option>
                 <option value="12990">$12.990</option>
                 <option value="20990">$20.990</option>
+              </select>
+
+              <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-9/12"
+              onChange={categoryFilter}
+              >
+                <option value="">Category:</option>
+                <option value="poleras">Poleras</option>
+                <option value="polerones">Polerones</option>
+                <option value="pantalones">Pantalones</option>
+                <option value="shorts">Shorts</option>
+                <option value="gorros">Gorros</option>
               </select>
 
               <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-9/12"
@@ -162,7 +183,7 @@ const Productos = () => {
 
         {/* Lista de productos */}
         <div className="flex flex-wrap w-4/5 justify-center p-4">
-          {productos.map(producto => (
+          {productosDestacados?.map(producto => (
             <CardProducto
               key={producto.id}
               id={producto.id}
@@ -171,6 +192,7 @@ const Productos = () => {
               imgs={producto.imgs}
               mark={producto.mark}
               price={producto.price}
+              talla={producto.talla}
             />
           ))}
         </div>

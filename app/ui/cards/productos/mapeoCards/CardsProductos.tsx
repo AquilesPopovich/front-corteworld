@@ -93,6 +93,7 @@ const CardsProductos = () => {
             imgs={producto.imgs}
             mark={producto.mark}
             price={producto.price}
+            talla={producto.talla}
           />
         ))}
       </div>
