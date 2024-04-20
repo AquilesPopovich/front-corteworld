@@ -66,6 +66,19 @@ const CardProducto = ({ id, name, imgs, mark, price }: {id: string, name: string
     setUpdateProduct(true);
   };
 
+  const destacarProduct = async (id: string) => {
+    try {
+      const { data } = await axiosURL.patch(`/productos/${id}`, { destacado: true });
+      if (data) {
+        dispatch(getAllProducts());
+      }
+    } catch (error) {
+      console.error('Error highlighting the product:', error);
+    }
+  };
+  
+
+
   return (
     <div 
       className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-gray-400 flex flex-col justify-between items-center"
@@ -116,6 +129,10 @@ const CardProducto = ({ id, name, imgs, mark, price }: {id: string, name: string
           <button onClick={handleUpdateProduct}>Actualizar Producto</button> 
         </div>
       )}
+      <div className="ml-4 flex items-center">
+      <button onClick={() => destacarProduct(id)}>Destacar Product</button>
+      </div>
+
       <div className='pb-4 px-6'>
         <button onClick={handleAgregarCarrito} className="bg-pink-400 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md">
           Agregar al carrito
