@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import axiosURL from '@/axiosConfig/axiosConfig';
 
 interface crearProductoProps {
-    crearProducto: boolean;
-    setCrearProducto: (value: boolean) => void;
-  }
+  crearProducto: boolean;
+  setCrearProducto: (value: boolean) => void;
+}
 
 const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearProducto }) => {
   const [nuevoProducto, setNuevoProducto] = useState({
@@ -18,6 +18,9 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
     discount: ''
   });
 
+  const [file, setFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
+
   const handleChange = (event: any) => {
     setNuevoProducto({
       ...nuevoProducto,
@@ -25,28 +28,46 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
     });
   };
 
+  const handleFileChange = (event: any) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(selectedFile);
+  };
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    try {
-      const {data} = await axiosURL.post('/productos', nuevoProducto); 
-      if (data) {
-        console.log('Producto creado:', data);
-        setNuevoProducto({
-          name: '',
-          price: '',
-          stock: '',
-          category: '',
-          mark: '',
-          discount: ''
-        });
+    if (!file) {
+      try {
+        const { data } = await axiosURL.post('/productos', nuevoProducto);
+        if (data) {
+          console.log('Producto creado:', data);
+          setNuevoProducto({
+            name: '',
+            price: '',
+            stock: '',
+            category: '',
+            mark: '',
+            discount: ''
+          });
+        }
+      } catch (error) {
+        console.error('Error al crear el producto:', error);
       }
-    } catch (error) {
-      console.error('Error al crear el producto:', error);
+    }
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      const { data } = await axiosURL.post('/imgProduct', formData);
+      console.log(data);
     }
   };
 
-
-  if(!crearProducto) return null
+  if (!crearProducto) return null;
 
   return (
     <div className={styles.modalOverlay}>
@@ -54,7 +75,9 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
         <h2 className={styles.textBlack}>Crear Producto</h2>
         <form className={styles.formContainer} onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="name">Nombre</label>
+            <label className={styles.label} htmlFor="name">
+              Nombre
+            </label>
             <input
               className={styles.inputField}
               type="text"
@@ -66,7 +89,9 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
             />
           </div>
           <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="price">Precio</label>
+            <label className={styles.label} htmlFor="price">
+              Precio
+            </label>
             <input
               className={styles.inputField}
               type="number"
@@ -78,7 +103,9 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
             />
           </div>
           <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="stock">Stock</label>
+            <label className={styles.label} htmlFor="stock">
+              Stock
+            </label>
             <input
               className={styles.inputField}
               type="number"
@@ -90,7 +117,9 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
             />
           </div>
           <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="category">Categoría</label>
+            <label className={styles.label} htmlFor="category">
+              Categoría
+            </label>
             <input
               className={styles.inputField}
               type="text"
@@ -102,7 +131,9 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
             />
           </div>
           <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="mark">Marca</label>
+            <label className={styles.label} htmlFor="mark">
+              Marca
+            </label>
             <input
               className={styles.inputField}
               type="text"
@@ -113,8 +144,21 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
               onChange={handleChange}
             />
           </div>
+          <div>
+            <label htmlFor="imgs">Upload File</label>
+            <input type="file" onChange={handleFileChange} />
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Preview"
+                style={{ width: '100px', height: '100px', marginTop: '10px' }}
+              />
+            )}
+          </div>
           <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="discount">Descuento</label>
+            <label className={styles.label} htmlFor="discount">
+              Descuento
+            </label>
             <input
               className={styles.inputField}
               type="number"
@@ -125,7 +169,9 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
               onChange={handleChange}
             />
           </div>
-          <button className={`${styles.submitButton} bg-pink-400 `} type="submit">Crear Producto</button>
+          <button className={`${styles.submitButton} bg-pink-400 `} type="submit">
+            Crear Producto
+          </button>
         </form>
       </div>
     </div>
