@@ -33,7 +33,8 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
         destacado: false,
         discount: 0,
         createdAt: new Date,
-        status: false
+        status: false,
+        talla: ''
       }));
     }
   };
@@ -47,7 +48,8 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
       destacado: false,
       discount: 0,
       createdAt: new Date,
-      status: false
+      status: false,
+      talla: ''
     }));
   };
 
