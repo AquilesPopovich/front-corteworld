@@ -19,9 +19,6 @@ export const Menu = () => {
   const [carrito, setCarrito] = useState(false)
   const user = useAppSelector(state => state.userSlice.user);
 
-  console.log(user[0]?.name)
-  console.log(user[0]?.admin)
-  console.log(user[0]?.user?.name)
 
 
   if (user.length) {
@@ -29,7 +26,9 @@ export const Menu = () => {
       <nav className={`bg-pink-400 text-white flex justify-between items-center p-4 ${styles.navBar}`}>
         <div className="flex items-center">
           {/* Logo */}
-          <Link href="/" ><Image src={corteWorld} alt="CorteWorld" width={70} height={70} className={`${styles.logo}`} /></Link>
+          <Link href="/">
+  <Image src={corteWorld} alt="CorteWorld" width={70} height={70} className={`${styles.logo}`} />
+</Link>
           <div className="">
             <Link href="/" className={`ml-4 ${styles.link}`}>Home</Link>
           </div>
