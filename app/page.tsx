@@ -14,7 +14,7 @@ export default function Home() {
   const allProducts = useAppSelector(state => state.productsSlice.products);
 
   useEffect(() => {
-    dispatch(getAllProducts());
+        dispatch(getAllProducts());
   }, [])
 
   return (

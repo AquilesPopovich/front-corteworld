@@ -19,10 +19,6 @@ export const Menu = () => {
   const [carrito, setCarrito] = useState(false)
   const user = useAppSelector(state => state.userSlice.user);
 
-  console.log(user[0]?.name)
-  console.log(user[0]?.admin)
-  console.log(user[0]?.user?.name)
-
 
   if (user.length) {
     return (

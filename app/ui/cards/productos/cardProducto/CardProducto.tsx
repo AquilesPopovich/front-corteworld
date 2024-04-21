@@ -2,18 +2,18 @@
 
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '@/redux/features/favoriteSlice';
 import { agregarCarrito } from '@/redux/features/carritoSlice';
 import { Star, StarBorder } from '@mui/icons-material'; 
-import { useAppSelector } from '@/redux/hook';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import axiosURL from '@/axiosConfig/axiosConfig';
 import { getAllProducts } from '@/redux/features/productsSlice';
 import UpdateProduct from '@/app/ui/updateProduct/UpdateProduct';
 
 const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name: string, imgs: string, mark: string, price: number, talla: string}) => {
   const [hover, setHover] = React.useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const favorites = useSelector((state: any) => state.favorites.favorites);
   const user = useAppSelector(state => state.userSlice.user);
   const [updateProduct, setUpdateProduct] = useState(false);
@@ -54,7 +54,7 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
     }));
   };
 
-  const deleteProduct = async (id) =>{
+  const deleteProduct = async (id: string) =>{
     try {
       const {data} = await axiosURL.delete(`/productos/${id}`); 
       if (data) {
@@ -73,14 +73,12 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
     try {
       const { data } = await axiosURL.patch(`/productos/${id}`, { destacado: true });
       if (data) {
-        dispatch(getAllProducts());
+        await dispatch(getAllProducts());
       }
     } catch (error) {
       console.error('Error highlighting the product:', error);
     }
   };
-  
-
 
   return (
     <div 
@@ -92,7 +90,7 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
         <div key={id} className="bg-gray-100 w-full h-80 flex justify-center items-center relative">
           <img 
             className={`w-full max-h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`} 
-            src={imgs[0].img} 
+            src={imgs} 
             alt={name} 
           />
           {/* <img 
