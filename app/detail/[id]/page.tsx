@@ -7,32 +7,35 @@ import { useParams } from 'next/navigation';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/redux/hook';
+import axiosURL from '@/axiosConfig/axiosConfig';
 
 const DetailPage = () => {
-    const producto = {
-        id: 3,
-        imgs: [
-            'https://res.cloudinary.com/dphpu225t/image/upload/v1708733825/teclado_dx8rko.png',
-            'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
-            'https://res.cloudinary.com/diswtvj50/image/upload/v1708807040/cpu3_fcg4as.png'
-        ],
-        name: 'CPU Gamer',
-        mark: 'Corsair',
-        stock: 10,
-        category: 'buzos',
-        price: 1500,
-        comentarios: [
-            { name: 'javier', comentario: 'buen producto' },
-            { name: 'lucas', comentario: 'mal producto :c' },
-            { name: 'javier', comentario: 'buen producto' },
-            { name: 'javier', comentario: 'buen producto' },
-            { name: 'javier', comentario: 'buen producto' },
-            { name: 'javier', comentario: 'buen producto' },
-            { name: 'javier', comentario: 'buen producto' },
-            { name: 'javier', comentario: 'buen producto' },
-        ]
-    };
-    const [productoDetail, setProductoDetail] = useState(null);
+    // const producto = {
+    //     id: 3,
+    //     imgs: [
+    //         'https://res.cloudinary.com/dphpu225t/image/upload/v1708733825/teclado_dx8rko.png',
+    //         'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
+    //         'https://res.cloudinary.com/diswtvj50/image/upload/v1708807040/cpu3_fcg4as.png'
+    //     ],
+    //     name: 'CPU Gamer',
+    //     mark: 'Corsair',
+    //     stock: 10,
+    //     category: 'buzos',
+    //     price: 1500,
+    //     comentarios: [
+    //         { name: 'javier', comentario: 'buen producto' },
+    //         { name: 'lucas', comentario: 'mal producto :c' },
+    //         { name: 'javier', comentario: 'buen producto' },
+    //         { name: 'javier', comentario: 'buen producto' },
+    //         { name: 'javier', comentario: 'buen producto' },
+    //         { name: 'javier', comentario: 'buen producto' },
+    //         { name: 'javier', comentario: 'buen producto' },
+    //         { name: 'javier', comentario: 'buen producto' },
+    //     ]
+    // };
+    const [producto, setProducto] = useState(null);
+    const [imagenes, setImagenes] = useState([])
+    const [comentario, setComentario] = useState([])
 
     const { id } = useParams();
 
@@ -43,6 +46,11 @@ const DetailPage = () => {
                 const { data } = await axios(`/products/${id}`);
                 if (!data) throw new Error('No se encontraron datos para el producto');
                 setProductoDetail(data);
+                const {dataImg} = await axios(`/imgProduct/${id}`)
+                if(dataImg) setImagenes(dataImg)
+                const {dataComentario} = await axios(`/comentarios/${id}`)
+                if(dataComentario) setComentario(dataComentario)
+
             } catch (error: unknown) {
                 console.error('Error al obtener los datos del producto:', error.message);
             }
@@ -101,7 +109,7 @@ const DetailPage = () => {
                 <br />
                 <div className="flex flex-row gap-x-52 items-center md:flex-row space-y-4 md:space-x-4">
                     <div className="w-full md:w-1/6 flex flex-col items-center">
-                        {producto.imgs.map((img, index) => (
+                        {imagenes?.map((img, index) => (
                             <Image
                                 key={index}
                                 src={img}
@@ -115,7 +123,7 @@ const DetailPage = () => {
                     </div>
                     <div className="w-full md:w-1/2">
                         <Image
-                            src={producto.imgs[selectedImg]}
+                            src={imagenes?[selectedImg]}
                             alt={`Imagen grande ${selectedImg}`}
                             width={500} // Define el ancho deseado para la miniatura de la imagen
                             height={500}

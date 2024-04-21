@@ -17,6 +17,7 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
   const favorites = useSelector((state: any) => state.favorites.favorites);
   const user = useAppSelector(state => state.userSlice.user);
   const [updateProduct, setUpdateProduct] = useState(false);
+  
 
   const isFavorite = favorites.some((product: any) => product.id === id);
 
@@ -91,7 +92,7 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
         <div key={id} className="bg-gray-100 w-full h-80 flex justify-center items-center relative">
           <img 
             className={`w-full max-h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`} 
-            src={imgs} 
+            src={imgs[0].img} 
             alt={name} 
           />
           {/* <img 

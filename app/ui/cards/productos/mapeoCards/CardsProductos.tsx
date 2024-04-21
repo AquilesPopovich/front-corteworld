@@ -3,6 +3,7 @@
 import React from 'react'
 import CardProducto from '../cardProducto/CardProducto'
 import { ProductsList } from '@/app/types/typeProduct'
+import axiosURL from '@/axiosConfig/axiosConfig'
 
 interface Props{
   productos: ProductsList
@@ -11,7 +12,6 @@ interface Props{
 const CardsProductos: React.FC<Props> = ({productos}) => {
 
   const productosDestacados = productos?.filter(producto => producto.destacado);
-
   return (
     <div>
       <div className='flex justify-center text-center'>
@@ -19,18 +19,23 @@ const CardsProductos: React.FC<Props> = ({productos}) => {
 
       </div>
       <div className="flex flex-wrap justify-center">
-        {productosDestacados.map(producto => (
-          <CardProducto
-            key={producto.id}
-            id={producto.id}
-            name={producto.name}
-            // segundaimg={producto.segundaimg}
-            imgs={producto.imgs}
-            mark={producto.mark}
-            price={producto.price}
-            talla={producto.talla}
-          />
-        ))}
+        {productosDestacados.map(async(producto) => { 
+           const {data} = await axiosURL(`/imgProduct/${producto.id}`) 
+           
+           return(
+
+             <CardProducto
+               key={producto.id}
+               id={producto.id}
+               name={producto.name}
+               // segundaimg={producto.segundaimg}
+               imgs={data}
+               mark={producto.mark}
+               price={producto.price}
+               talla={producto.talla}
+             />
+           )
+        })}
       </div>
     </div>
   )
