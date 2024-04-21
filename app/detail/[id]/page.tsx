@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/redux/hook';
 import axiosURL from '@/axiosConfig/axiosConfig';
+import { agregarCarrito } from '@/redux/features/carritoSlice';
 
 const DetailPage = () => {
     const [producto, setProducto] = useState(null);
