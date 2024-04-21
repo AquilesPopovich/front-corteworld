@@ -20,12 +20,15 @@ export const Menu = () => {
   const user = useAppSelector(state => state.userSlice.user);
 
 
+
   if (user.length) {
     return (
       <nav className={`bg-pink-400 text-white flex justify-between items-center p-4 ${styles.navBar}`}>
         <div className="flex items-center">
           {/* Logo */}
-          <Link href="/" ><Image src={corteWorld} alt="CorteWorld" width={70} height={70} className={`${styles.logo}`} /></Link>
+          <Link href="/">
+  <Image src={corteWorld} alt="CorteWorld" width={70} height={70} className={`${styles.logo}`} />
+</Link>
           <div className="">
             <Link href="/" className={`ml-4 ${styles.link}`}>Home</Link>
           </div>
