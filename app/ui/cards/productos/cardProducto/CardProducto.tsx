@@ -83,12 +83,12 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
 
   return (
     <div 
-      className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-gray-400 flex flex-col justify-between items-center"
+      className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-gray-200 flex flex-col justify-between items-center"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
       <Link href='detail/1'>
-        <div key={id} className="bg-gray-200 w-full h-80 flex justify-center items-center relative">
+        <div key={id} className="bg-gray-100 w-full h-80 flex justify-center items-center relative">
           <img 
             className={`w-full max-h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`} 
             src={imgs} 

@@ -4,8 +4,9 @@ import styles from './loggin.module.css';
 import { FaTimes, FaGoogle} from 'react-icons/fa';
 import Register from '../register/Register';
 import { agregarUser } from '@/redux/features/userSlice';
-import { useDispatch } from 'react-redux';
 import axiosURL from '@/axiosConfig/axiosConfig';
+import { signIn, useSession } from 'next-auth/react';
+import { useAppDispatch } from '@/redux/hook';
 
 interface LoginProps {
   loggin: boolean;
@@ -15,7 +16,10 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
   if (!loggin) return null;
 
-  const dispatch = useDispatch()
+  const {data: session} = useSession();
+  console.log(session)
+
+  const dispatch = useAppDispatch()
 
   const [register, setRegister] = useState(false)
 
@@ -24,9 +28,10 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
     password: ''
   })
 
-  const handleGoogleLogin = () => {
-
-  };
+  const handleGoogleLogin = async() => {
+    const {data} = await axiosURL.get('/google/redirect');
+    if(data) console.log(data)
+    };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setInfoUser({
@@ -82,7 +87,7 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
           </div>
           <button className={`${styles.submitButton} bg-pink-400 `} type="submit">Iniciar Sesión</button>
         </form>
-        <button className={`${styles.submitButton} bg-blue-400 `} onClick={handleGoogleLogin}><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
+        <button className={`${styles.submitButton} bg-blue-400 `} onClick={() => signIn()}><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
         <p>
           ¿No tienes una cuenta?
           <button className={styles.link} onClick={()=> {

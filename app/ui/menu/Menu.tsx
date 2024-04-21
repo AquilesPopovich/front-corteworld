@@ -87,13 +87,13 @@ export const Menu = () => {
       {/* Enlaces con iconos */}
       <div className="flex items-center">
         <div className="ml-4 flex items-center">
-          <button onClick={()=> setCarrito(true)} className={`ml-1 text-pink-300 ${styles.link}`} ><ShoppingCartOutlinedIcon /></button>
+          <button onClick={()=> setCarrito(true)} className={`ml-1 text-pink-400 ${styles.link}`} ><ShoppingCartOutlinedIcon /></button>
         </div>
         <div className="ml-4 flex items-center">
           <Link href="/productos" className={`ml-1 ${styles.link}`}>Productos</Link>
         </div>
       <div className="ml-4 flex items-center">
-          <button onClick={()=> setLoggin(true)} className={`ml-1 text-pink-300 ${styles.link}`} ><PersonOutlineIcon /></button>
+          <button onClick={()=> setLoggin(true)} className={`ml-1 text-pink-400 ${styles.link}`} ><PersonOutlineIcon /></button>
         </div>
       </div>
       <MenuModal menu={menu} setMenu={setMenu} />

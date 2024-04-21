@@ -4,13 +4,13 @@
 
 :root {
   --foreground-rgb: 255, 255, 255; /* Cambiado a blanco */
-  --background-rgb: 0, 0, 0; /* Un solo color de fondo */
+  --background-rgb: 255, 195, 228; /* Cambiado a rosa claro */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255; /* Cambiado a blanco */
-    --background-rgb: 0, 0, 0; /* Un solo color de fondo */
+    --background-rgb: 255, 195, 228; /* Cambiado a rosa claro */
   }
 }
 

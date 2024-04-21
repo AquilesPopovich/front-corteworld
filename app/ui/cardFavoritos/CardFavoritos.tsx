@@ -23,7 +23,7 @@ const CardFavoritos = ({ id, name, img, mark, price, segundaimg }: {id: number, 
 
   return (
     <div 
-    className='max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-pink-300 text-black flex flex-col justify-between items-center relative'
+    className='max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-black text-white flex flex-col justify-between items-center relative'
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -59,7 +59,7 @@ const CardFavoritos = ({ id, name, img, mark, price, segundaimg }: {id: number, 
       </Link>
       <div className="px-6 py-4 text-center">
         <div className="font-bold text-xl mb-2">{name} ({mark})</div>
-        <p className="text-gray-900 font-bold text-xl mt-2">${price}</p>
+        <p className="text-pink-300 font-bold text-xl mt-2">${price}</p>
       </div>
       <div className='pb-4 px-6'>
         <button className="bg-pink-500 hover:bg-pink-700  text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md">
