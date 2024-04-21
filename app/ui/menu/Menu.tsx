@@ -19,6 +19,10 @@ export const Menu = () => {
   const [carrito, setCarrito] = useState(false)
   const user = useAppSelector(state => state.userSlice.user);
 
+  console.log(user[0]?.name)
+  console.log(user[0]?.admin)
+  console.log(user[0]?.user?.name)
+
 
   if (user.length) {
     return (
@@ -45,9 +49,9 @@ export const Menu = () => {
           <div className="ml-4 flex items-center">
             <button onClick={() => setCarrito(true)} className={`ml-1 text-pink-300 ${styles.link}`} ><ShoppingCartOutlinedIcon /></button>
           </div>
-          {user[0]?.admin && ( 
+          {user[0]?.user?.admin && ( 
             <div className="ml-4 flex items-center">
-              <button className={`ml-1 ${styles.link}`}>Admin</button> 
+             <Link href='/admin'> <button className={`ml-1 ${styles.link}`}>Admin</button> </Link>
             </div>
           )}
           <div className="ml-4 flex items-center">
@@ -55,7 +59,7 @@ export const Menu = () => {
           </div>
           
             <div className="ml-4 flex items-center">
-              <button className={`ml-1 ${styles.link}`}>{user[0]?.name}</button> 
+              <button className={`ml-1 ${styles.link}`}>{user[0]?.user?.name}</button> 
             </div>
        
         </div>
@@ -65,6 +69,7 @@ export const Menu = () => {
     );
   }
   
+
 
 
   return (

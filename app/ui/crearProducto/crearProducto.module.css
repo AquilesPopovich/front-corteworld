@@ -1,0 +1,94 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    right: 0; /* Cambiado de "left" a "right" */
+    bottom: 0;
+    width: 40vw;
+    height: 100vh;
+    z-index: 999;
+    display: flex;
+    justify-content: flex-end; /* Puedes ajustar esto si es necesario */
+    animation: slideInRight 0.5s forwards; /* Utilizando la animación slideInRight */
+    color: black;
+  }
+  
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%); /* Utilizando translateX(100%) */
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  .modalContent {
+    width: 70%;
+    height: 100%;
+    background-color: white;
+    padding: 20px;
+  }
+  
+  .closeButton {
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+  }
+  
+  .formContainer {
+    margin-top: 20px;
+  }
+  
+  .formGroup {
+    margin-bottom: 15px;
+  }
+  
+  .label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .inputField {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .submitButton {
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Utiliza justify-content para centrar horizontalmente */
+    margin-top: 10px;
+  }
+  
+  .submitButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      transform: translateX(-100%); 
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  

@@ -29,8 +29,11 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
   })
 
   const handleGoogleLogin = async() => {
-    const {data} = await axiosURL.get('/google/redirect');
-    if(data) console.log(data)
+    const {data} = await axiosURL.get('/google');
+    if(data){
+        console.log(data)
+        dispatch(agregarUser(data))
+    } 
     };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -87,7 +90,7 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
           </div>
           <button className={`${styles.submitButton} bg-pink-400 `} type="submit">Iniciar Sesión</button>
         </form>
-        <button className={`${styles.submitButton} bg-blue-400 `} onClick={() => signIn()}><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
+        <button className={`${styles.submitButton} bg-blue-400 `} onClick={() => handleGoogleLogin()}><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
         <p>
           ¿No tienes una cuenta?
           <button className={styles.link} onClick={()=> {
