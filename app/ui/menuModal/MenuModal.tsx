@@ -13,6 +13,9 @@ interface MenuModalProps {
 const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
   if (!menu) return null;
 
+  const user = useAppSelector(state => state.userSlice.user);
+
+
   const dispatch = useAppDispatch();
 
   const logOut = async() => {
@@ -36,7 +39,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
               <FaStar className={styles.icon} /> Favoritos
             </div>
           </Link>
-          <Link href="/historial" passHref>
+          <Link href={`/historial/${user[0]?.user?.id}`} passHref>
             <div className={styles.link}>
               <FaHistory className={styles.icon} /> Historial
             </div>

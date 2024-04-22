@@ -134,18 +134,18 @@ const Productos = () => {
       <Menu />
       <div className="flex" style={{ marginTop: '100px' }}>
         {/* Sección de filtros */}
-        <div className="w-1/5 p-4 border-r">
+        <div className="w-1/5 bg-white text-black p-4  h-screen" >
           {/* Botones de filtro */}
-          <div className="fixed top-0 left-0 p-4 w-1/5" style={{ marginTop: '100px' }}>
-            <div className="flex flex-col items-center gap-4 w-full">
-              <select className="bg-pink-500 text-white my-8 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-9/12"
+          <div className="fixed  top-0 left-0 p-4 w-1/5" style={{ marginTop: '100px' }}>
+            <div className="flex  flex-col items-center w-full">
+              <select className="bg-pink-500 text-white my-8 px-4 py-2 rounded hover:bg-pink-600 w-9/12"
               onChange={markFilter}
               >
                 <option value="">Marca:</option>
                 <option value="corteiz">Corteiz</option>
               </select>
 
-              <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-9/12"
+              <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 w-9/12"
               onChange={priceFilter}
               >
                 <option value="">Precio:</option>
@@ -155,7 +155,7 @@ const Productos = () => {
                 <option value="20990">$20.990</option>
               </select>
 
-              <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-9/12"
+              <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 w-9/12"
               onChange={categoryFilter}
               >
                 <option value="">Category:</option>
@@ -166,7 +166,7 @@ const Productos = () => {
                 <option value="gorros">Gorros</option>
               </select>
 
-              <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 focus:outline-none w-9/12"
+              <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 w-9/12"
               onChange={handleOrder}
               >
                 <option value="">Ordenar por:</option>

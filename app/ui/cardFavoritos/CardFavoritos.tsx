@@ -23,12 +23,12 @@ const CardFavoritos = ({ id, name, img, mark, price, segundaimg }: {id: number, 
 
   return (
     <div 
-    className='max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-black text-white flex flex-col justify-between items-center relative'
+    className='max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white text-black flex flex-col justify-between items-center relative'
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
       <Link href='detail/1'>
-        <div key={id} className="bg-gray-200 w-full h-80 flex justify-center items-center relative"> {/* Agrega relative al contenedor de la imagen */}
+        <div key={id} className=" bg-white text-black w-full h-80 flex justify-center items-center relative"> {/* Agrega relative al contenedor de la imagen */}
           <img 
             className={`w-full max-h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`} 
             src={img} 
