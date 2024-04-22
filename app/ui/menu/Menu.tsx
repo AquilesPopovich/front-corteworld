@@ -18,7 +18,7 @@ export const Menu = () => {
   const [loggin, setLoggin] = useState(false)
   const [carrito, setCarrito] = useState(false)
   const user = useAppSelector(state => state.userSlice.user);
-
+  const cantidadProductos = useAppSelector(state => state.carritoSlice.carrito);
 
 
   if (user.length) {
@@ -47,6 +47,9 @@ export const Menu = () => {
         <div className="flex items-center">
           <div className="ml-4 flex items-center">
             <button onClick={() => setCarrito(true)} className={`ml-1 text-pink-300 ${styles.link}`} ><ShoppingCartOutlinedIcon /></button>
+          </div>
+          <div>
+            {cantidadProductos.length}
           </div>
           {user[0]?.user?.admin && ( 
             <div className="ml-4 flex items-center">

@@ -1,4 +1,3 @@
-'use client'
 import React, { useEffect, useState } from 'react';
 import CardProducto from '../cardProducto/CardProducto';
 import { ProductsList } from '@/app/types/typeProduct';

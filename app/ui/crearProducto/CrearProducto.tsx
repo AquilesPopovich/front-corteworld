@@ -11,11 +11,11 @@ interface crearProductoProps {
 const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearProducto }) => {
   const [nuevoProducto, setNuevoProducto] = useState({
     name: '',
-    price: '',
-    stock: '',
+    price: 0,
+    stock: 0,
     category: '',
     mark: '',
-    discount: ''
+    discount: 0
   });
 
   const [file, setFile] = useState(null);
@@ -48,11 +48,11 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
           console.log('Producto creado:', data);
           setNuevoProducto({
             name: '',
-            price: '',
-            stock: '',
+            price: 0,
+            stock: 0,
             category: '',
             mark: '',
-            discount: ''
+            discount: 0
           });
         }
       } catch (error) {

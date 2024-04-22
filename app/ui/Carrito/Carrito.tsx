@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './carrito.module.css';
 import { removeCarrito } from '@/redux/features/carritoSlice';
 import axiosURL from '@/axiosConfig/axiosConfig';
+import Compra from '../compra/Compra';
 
 interface CarritoProps {
   carrito: boolean;
@@ -11,27 +12,36 @@ interface CarritoProps {
 }
 
 const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
+  const [compra, setCompra] = useState(false);
+  const [idCompra, setIdCompra] = useState(0)
 
   const carritoRedux = useSelector((state: any) => state.carritoSlice.carrito);
   const user = useSelector((state: any) => state.userSlice.user);
   const [cantidadProductos, setCantidadProductos] = useState<{ [key: string]: number }>({});
   const [productosRenderizados, setProductosRenderizados] = useState([])
-  const productosUnicos = carritoRedux.filter((producto, index, self) =>
-    index === self.findIndex((p) => p.id === producto.id)
+  const productosUnicos = carritoRedux.filter((producto: any, index: any, self: any) =>
+    index === self.findIndex((p: any) => p.id === producto.id)
   );
+  const [idProductos, setIdProductos] = useState([])
+
   const dispatch = useDispatch();
+  
+  useEffect(() => {
+    const ids = carritoRedux.map((producto: any) => producto.id);
+    setIdProductos(ids);
+  }, [carritoRedux]);
 
-  const infoCarrito = {
-    userC: user[0],
-    productos: carritoRedux
-  }
-
-  const handleClick = async(event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     try {
-      const {data} = await axiosURL.post('/carrito', infoCarrito)
-      if(data){
+      const { data } = await axiosURL.post('/carrito', {
+        userId: user[0]?.id,
+        productId: idProductos
+      })
+      if (data) {
         console.log(data)
-        setCarrito(false);
+        setIdCompra(data.id)
+        setCompra(true)
       }
     } catch (error) {
       if (error instanceof Error) throw Error(error.message)
@@ -72,7 +82,6 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
 
   if (!carrito) return null;
 
-
   return (
     <div className={styles.modal}>
       <div className={styles.overlay} onClick={handleCloseCarrito}></div>
@@ -107,6 +116,7 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
         <div className={styles.totalPrice}>Precio Total: ${calcularPrecioTotal()}</div>
         <button className={styles.checkout} onClick={handleClick}>Realizar Pedido</button>
       </div>
+      <Compra compra={compra} setCompra={setCompra} productos={carritoRedux} idCompra={idCompra} setCarrito={setCarrito} />
     </div>
   );
 };

@@ -2,18 +2,18 @@
 
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '@/redux/features/favoriteSlice';
 import { agregarCarrito } from '@/redux/features/carritoSlice';
 import { Star, StarBorder } from '@mui/icons-material'; 
-import { useAppSelector } from '@/redux/hook';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import axiosURL from '@/axiosConfig/axiosConfig';
 import { getAllProducts } from '@/redux/features/productsSlice';
 import UpdateProduct from '@/app/ui/updateProduct/UpdateProduct';
 
-const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name: string, imgs: string, mark: string, price: number, talla: string}) => {
+const CardProducto = ({ id, name, imgs, mark, price}: {id: string, name: string, imgs: string, mark: string, price: number}) => {
   const [hover, setHover] = React.useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const favorites = useSelector((state: any) => state.favorites.favorites);
   const user = useAppSelector(state => state.userSlice.user);
   const [updateProduct, setUpdateProduct] = useState(false);
@@ -22,7 +22,7 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
   const isFavorite = favorites.some((product: any) => product.id === id);
 
   const handleFavoriteToggle = () => {
-    if(!user) alert('Necesitas iniciar sesión para agregar un producto a favoritos');
+    if(!user.length) return alert('Necesitas iniciar sesión para agregar un producto a favoritos');
     if (isFavorite) {
       dispatch(removeFavorite(id));
     } else {
@@ -33,28 +33,26 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
         category: '',
         destacado: false,
         discount: 0,
-        createdAt: new Date,
+        createdAt: new Date().toISOString(),
         status: false,
-        talla: ''
       }));
     }
   };
 
   const handleAgregarCarrito = () => {
-    if(!user) alert('Necesitas iniciar sesión para agregar un producto al carrito');
+    if(!user.length) return alert('Necesitas iniciar sesión para agregar un producto al carrito');
     dispatch(agregarCarrito({
       id, name, imgs, mark, price,
-      stock: 0,
+      stock: 1,
       category: '',
       destacado: false,
       discount: 0,
-      createdAt: new Date,
+      createdAt: new Date().toISOString(),
       status: false,
-      talla: ''
     }));
   };
 
-  const deleteProduct = async (id) =>{
+  const deleteProduct = async (id: string) =>{
     try {
       const {data} = await axiosURL.delete(`/productos/${id}`); 
       if (data) {
@@ -73,14 +71,12 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
     try {
       const { data } = await axiosURL.patch(`/productos/${id}`, { destacado: true });
       if (data) {
-        dispatch(getAllProducts());
+        await dispatch(getAllProducts());
       }
     } catch (error) {
       console.error('Error highlighting the product:', error);
     }
   };
-  
-
 
   return (
     <div 

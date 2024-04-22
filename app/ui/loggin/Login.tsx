@@ -16,8 +16,7 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
   if (!loggin) return null;
 
-  const {data: session} = useSession();
-  console.log(session)
+  // const {data: session} = useSession();
 
   const dispatch = useAppDispatch()
 
@@ -90,7 +89,7 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
           </div>
           <button className={`${styles.submitButton} bg-pink-400 `} type="submit">Iniciar Sesión</button>
         </form>
-        <button className={`${styles.submitButton} bg-blue-400 `} onClick={() => handleGoogleLogin()}><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
+        <button className={`${styles.submitButton} bg-blue-400 `} onClick={handleGoogleLogin}><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
         <p>
           ¿No tienes una cuenta?
           <button className={styles.link} onClick={()=> {

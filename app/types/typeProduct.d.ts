@@ -8,9 +8,8 @@ export interface Products {
     destacado: boolean
     mark: string
     discount: number
-    createdAt: Date
+    createdAt: string
     status: boolean
-    talla: string
 }
 
 export type ProductsList = Products[]
