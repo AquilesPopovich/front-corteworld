@@ -118,12 +118,12 @@ const CardProducto = ({ id, name, imgs, mark, price}: {id: string, name: string,
         <div className="font-bold text-xl text-black mb-2">{name} ({mark})</div>
         <p className="text-gray-900 font-bold text-xl mt-2">${price}</p>
       </div>
-      {user[0]?.admin && ( 
+      {user[0]?.user?.admin && ( 
         <div className="ml-4 flex items-center">
           <button onClick={() => deleteProduct(id)}>Eliminar Producto</button> 
         </div>
       )}
-      {user[0]?.admin && ( 
+      {user[0]?.user?.admin && ( 
         <div className="ml-4 flex items-center">
           <button onClick={handleUpdateProduct}>Actualizar Producto</button> 
         </div>
