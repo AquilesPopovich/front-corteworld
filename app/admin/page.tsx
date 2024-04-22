@@ -1,6 +1,8 @@
 'use client'
 import { useAppSelector } from '@/redux/hook';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import UsuariosDeshabilitados from '../ui/usuariosDeshabilitados/UsuariosDeshabilitados';
+import axiosURL from '@/axiosConfig/axiosConfig';
 
 // Wrap components that use useState with dynamic import
 const CrearProducto = React.lazy(() => import('../ui/crearProducto/CrearProducto'));
@@ -10,7 +12,34 @@ const Admin = () => {
   const user = useAppSelector(state => state.userSlice.user);
   const productos = useAppSelector(state => state.productsSlice.products);
 
+  useEffect
+
+
   const [crearProducto, setCrearProducto] = useState(false);
+
+  const [usuarios, setUsuarios] = useState([])
+
+  const [filtrados, setFiltrados] = useState([])
+
+  useEffect(()=>{
+    const fetchData = async() =>{
+      try {
+        const {data} = await axiosURL('/user')
+        if(data) setUsuarios(data)
+      } catch (error) {
+        
+      }
+    }
+    fetchData()
+  },[])
+
+  if(usuarios){
+    const usuariosFiltrados = usuarios.filter((usuario) => usuario?.status === false)
+    setFiltrados(usuariosFiltrados)
+  }
+
+ 
+  const [mostrarUsuarios, setMostrarUsuarios] = useState(false)
 
   const productosDeshabilitados = productos.filter(producto => !producto.status);
 
@@ -39,6 +68,20 @@ const Admin = () => {
             />
           </React.Suspense>
         ))}
+        <button onClick={()=> setMostrarUsuarios(true)}>Mostrar Usuarios Deshabilitados</button>
+        {filtrados?.map((user) => {
+
+        if(!mostrarUsuarios) return null
+        
+        return(
+          <React.Suspense key={user?.id} fallback={<div>Loading...</div>}>
+            <UsuariosDeshabilitados
+              id={user?.id}
+              name={user?.name}
+              email={user?.email}
+            />
+          </React.Suspense>
+        )})}
       </div>
     </div>
   );
