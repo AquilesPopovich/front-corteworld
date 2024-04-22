@@ -11,7 +11,7 @@ import axiosURL from '@/axiosConfig/axiosConfig';
 import { getAllProducts } from '@/redux/features/productsSlice';
 import UpdateProduct from '@/app/ui/updateProduct/UpdateProduct';
 
-const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name: string, imgs: string, mark: string, price: number, talla: string}) => {
+const CardProducto = ({ id, name, imgs, mark, price}: {id: string, name: string, imgs: string, mark: string, price: number}) => {
   const [hover, setHover] = React.useState(false);
   const dispatch = useAppDispatch();
   const favorites = useSelector((state: any) => state.favorites.favorites);
@@ -22,7 +22,7 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
   const isFavorite = favorites.some((product: any) => product.id === id);
 
   const handleFavoriteToggle = () => {
-    if(!user) alert('Necesitas iniciar sesión para agregar un producto a favoritos');
+    if(!user.length) return alert('Necesitas iniciar sesión para agregar un producto a favoritos');
     if (isFavorite) {
       dispatch(removeFavorite(id));
     } else {
@@ -33,24 +33,22 @@ const CardProducto = ({ id, name, imgs, mark, price, talla }: {id: string, name:
         category: '',
         destacado: false,
         discount: 0,
-        createdAt: new Date,
+        createdAt: new Date().toISOString(),
         status: false,
-        talla: ''
       }));
     }
   };
 
   const handleAgregarCarrito = () => {
-    if(!user) alert('Necesitas iniciar sesión para agregar un producto al carrito');
+    if(!user.length) return alert('Necesitas iniciar sesión para agregar un producto al carrito');
     dispatch(agregarCarrito({
       id, name, imgs, mark, price,
-      stock: 0,
+      stock: 1,
       category: '',
       destacado: false,
       discount: 0,
-      createdAt: new Date,
+      createdAt: new Date().toISOString(),
       status: false,
-      talla: ''
     }));
   };
 
