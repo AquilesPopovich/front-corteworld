@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './crearProducto.module.css';
-import { useDispatch } from 'react-redux';
 import axiosURL from '@/axiosConfig/axiosConfig';
 
 interface crearProductoProps {
@@ -41,7 +40,6 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    if (!file) {
       try {
         const { data } = await axiosURL.post('/productos', nuevoProducto);
         if (data) {
@@ -57,7 +55,6 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
         }
       } catch (error) {
         console.error('Error al crear el producto:', error);
-      }
     }
     if (file) {
       const formData = new FormData();
