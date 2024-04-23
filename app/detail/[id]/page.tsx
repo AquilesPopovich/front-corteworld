@@ -3,12 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { Chat } from '@mui/icons-material';
 import { Menu } from '@/app/ui/menu/Menu';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/redux/hook';
 import axiosURL from '@/axiosConfig/axiosConfig';
 import { agregarCarrito } from '@/redux/features/carritoSlice';
+import { useParams } from 'next/navigation';
 
 const DetailPage = () => {
     const [producto, setProducto] = useState(null);
@@ -20,32 +19,32 @@ const DetailPage = () => {
     const [ropaSeleccionada, setRopaSeleccionada] = useState([]);
     const [cantidad, setCantidad] = useState(1);
     const user = useAppSelector(state => state.userSlice.user);
-    const router = useRouter();
-    const { id } = router.query;
     const dispatch = useDispatch();
+const {id} = useParams()
 
     useEffect(() => {
         const fetchData = async () => { 
             try {
-                const { data } = await axios.get(`/products/${id}`);
+                const { data } = await axiosURL(`/products/${id}`);
                 if(data){
                     setProducto(data);
-                    const { dataImg } = await axios.get(`/imgProduct/${id}`);
+                    const response = await axiosURL(`/imgProduct/${id}`);
+                    const dataImg =  response.data
                     if (dataImg) setImagenes(dataImg);
-                    const { dataComentario } = await axios.get(`/comentarios/${id}`);
+                    const res = await axiosURL(`/comentarios/${id}`);
+                    const dataComentario = res.data
                     if (dataComentario) setComentarios(dataComentario);
-                    const { dataStock } = await axiosURL(`/stock-controller/${id}`);
+                    const respuesta = await axiosURL(`/stock-controller/${id}`);
+                    const dataStock = respuesta.data
                     if(dataStock) setInfoStock(dataStock)
                 }
               
-            } catch (error) {
+            } catch (error: any) {
                 console.error('Error al obtener los datos del producto:', error.message);
             }
         };
-        if (id) {
             fetchData();
-        }
-    }, [id]);
+    }, []);
 
     const handleAgregarCarrito = () => {
         if (!user) alert('Necesitas iniciar sesión para agregar un producto al carrito');
