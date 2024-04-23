@@ -1,9 +1,8 @@
-'use client'
 import React, { useEffect, useState } from 'react';
 import { Chat } from '@mui/icons-material';
 import { Menu } from '@/app/ui/menu/Menu';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/redux/hook';
@@ -16,28 +15,35 @@ const DetailPage = () => {
     const [comentario, setComentario] = useState('');
     const [comentarios, setComentarios] = useState([]);
     const [selectedImg, setSelectedImg] = useState(0);
+    const [infoStock, setInfoStock] = useState([]);
+    const [ropaSeleccionada, setRopaSeleccionada] = useState([]);
     const [cantidad, setCantidad] = useState(1);
     const user = useAppSelector(state => state.userSlice.user);
-    const { id } = useParams();
+    const router = useRouter();
+    const { id } = router.query;
     const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchData = async () => { 
             try {
-                const { data } = await axios(`/products/${id}`);
+                const { data } = await axios.get(`/products/${id}`);
                 if(data){
                     setProducto(data);
-                    const { dataImg } = await axios(`/imgProduct/${id}`);
+                    const { dataImg } = await axios.get(`/imgProduct/${id}`);
                     if (dataImg) setImagenes(dataImg);
-                    const { dataComentario } = await axios(`/comentarios/${id}`);
+                    const { dataComentario } = await axios.get(`/comentarios/${id}`);
                     if (dataComentario) setComentarios(dataComentario);
+                    const { dataStock } = await axiosURL(`/stock-controller/${id}`);
+                    if(dataStock) setInfoStock(dataStock)
                 }
               
-            } catch (error: any) {
+            } catch (error) {
                 console.error('Error al obtener los datos del producto:', error.message);
             }
         };
-        fetchData();
+        if (id) {
+            fetchData();
+        }
     }, [id]);
 
     const handleAgregarCarrito = () => {
@@ -76,6 +82,8 @@ const DetailPage = () => {
         }
     };
 
+    const stockPorRopaSeleccionada = infoStock.filter((ropa) => ropa.id === ropaSeleccionada.id);
+
     return (
         <>
             <Menu />
@@ -111,6 +119,17 @@ const DetailPage = () => {
                             <p className="text-lg mb-2">Stock: {producto?.stock}</p>
                             <p className="text-lg mb-2">Categoría: {producto?.category}</p>
                             <p className="text-lg mb-4">Precio: ${producto?.price}</p>
+                            <div>
+                                <select name="" id="">
+                                    {infoStock?.map((color) =>{ 
+                                        setRopaSeleccionada(color)
+                                        return( 
+                                        <option value={color.color}>{color.color}</option>
+)})}
+                                </select>
+                            <p>stock disponible: {stockPorRopaSeleccionada.stock}</p>
+                   
+                </div>
                             <div className="flex items-center mb-4">
                                 <label htmlFor="cantidad" className="mr-2">Cantidad:</label>
                                 <button onClick={reducirCantidad} className="bg-pink-400 hover:bg-pink-700 text-white py-1 px-3 rounded-md focus:outline-none">-</button>
@@ -120,6 +139,13 @@ const DetailPage = () => {
                             <button onClick={handleAgregarCarrito} className="bg-pink-400 hover:bg-pink-700 text-white py-2 px-4 rounded-md focus:outline-none">Agregar al carrito</button>
                         </div>
                     </div>
+                </div>
+                <div>
+                    {infoStock?.map((talla) => { 
+                        setRopaSeleccionada(talla)
+                        return( 
+                        <button>{talla.talla}</button>
+)})}
                 </div>
 
                 <h2 className="text-2xl font-bold mb-4 ml-5">Comentarios</h2>
