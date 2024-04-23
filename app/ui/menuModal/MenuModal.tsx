@@ -21,6 +21,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
   const logOut = async() => {
     try {
       dispatch(logOutUser());
+      setMenu(false)
     } catch (error) {
       if (error instanceof Error) throw Error(error.message)
     }

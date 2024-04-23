@@ -1,28 +1,46 @@
 'use client'
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '@/redux/features/favoriteSlice';
 import { agregarCarrito } from '@/redux/features/carritoSlice';
-import { Star, StarBorder } from '@mui/icons-material'; 
+import { Star, StarBorder } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import axiosURL from '@/axiosConfig/axiosConfig';
 import { getAllProducts } from '@/redux/features/productsSlice';
 import UpdateProduct from '@/app/ui/updateProduct/UpdateProduct';
 
-const CardProducto = ({ id, name, imgs, mark, price}: {id: string, name: string, imgs: string, mark: string, price: number}) => {
+const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mark: string, price: number }) => {
   const [hover, setHover] = React.useState(false);
   const dispatch = useAppDispatch();
   const favorites = useSelector((state: any) => state.favorites.favorites);
   const user = useAppSelector(state => state.userSlice.user);
   const [updateProduct, setUpdateProduct] = useState(false);
-  
+  const [imgs, setImgs] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axiosURL.get(`/imgProduct/${id}`)
+        console.log(data)
+        if (data) setImgs(data);
+      } catch (error) {
+        console.error('Error al traer imagenes:', error);
+      }
+    }
+    fetchData();
+  }, [])
+
+  const urls = imgs?.map((img) => {
+    return (img['file'])
+  })
+
 
   const isFavorite = favorites.some((product: any) => product.id === id);
 
   const handleFavoriteToggle = () => {
-    if(!user.length) return alert('Necesitas iniciar sesión para agregar un producto a favoritos');
+    if (!user.length) return alert('Necesitas iniciar sesión para agregar un producto a favoritos');
     if (isFavorite) {
       dispatch(removeFavorite(id));
     } else {
@@ -40,7 +58,7 @@ const CardProducto = ({ id, name, imgs, mark, price}: {id: string, name: string,
   };
 
   const handleAgregarCarrito = () => {
-    if(!user.length) return alert('Necesitas iniciar sesión para agregar un producto al carrito');
+    if (!user.length) return alert('Necesitas iniciar sesión para agregar un producto al carrito');
     dispatch(agregarCarrito({
       id, name, imgs, mark, price,
       stock: 1,
@@ -52,9 +70,9 @@ const CardProducto = ({ id, name, imgs, mark, price}: {id: string, name: string,
     }));
   };
 
-  const deleteProduct = async (id: string) =>{
+  const deleteProduct = async (id: string) => {
     try {
-      const {data} = await axiosURL.delete(`/productos/${id}`); 
+      const { data } = await axiosURL.delete(`/productos/${id}`);
       if (data) {
         dispatch(getAllProducts());
       }
@@ -79,36 +97,36 @@ const CardProducto = ({ id, name, imgs, mark, price}: {id: string, name: string,
   };
 
   return (
-    <div 
+    <div
       className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white text-black flex flex-col justify-between items-center"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
       <Link href='detail/1'>
         <div key={id} className="bg-gray-100 w-full h-80 flex justify-center items-center relative">
+          <img
+            className={`w-full max-h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`}
+            src={urls[0]} 
+            alt={name}
+          />
           <img 
-            className={`w-full max-h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`} 
-            src='@/public/images/corteWorld.png' 
+            className={`w-full max-h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`} 
+            src={urls[1]} 
             alt={name} 
           />
-          {/* <img 
-            className={`w-full max-h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`} 
-            src={segundaimg} 
-            alt={name} 
-          /> */}
           <div className="absolute bottom-2 left-2"> {/* Posiciona la estrella en la esquina inferior izquierda */}
             {/* Reemplaza el botón con los iconos de estrella */}
             {isFavorite ? (
-              <Star 
-                onClick={handleFavoriteToggle} 
-                className="text-pink-700 cursor-pointer" 
-                style={{ fontSize: '2rem' }} 
+              <Star
+                onClick={handleFavoriteToggle}
+                className="text-pink-700 cursor-pointer"
+                style={{ fontSize: '2rem' }}
               />
             ) : (
-              <StarBorder 
-                onClick={handleFavoriteToggle} 
-                className="text-pink-400 cursor-pointer" 
-                style={{ fontSize: '2rem' }} 
+              <StarBorder
+                onClick={handleFavoriteToggle}
+                className="text-pink-400 cursor-pointer"
+                style={{ fontSize: '2rem' }}
               />
             )}
           </div>
@@ -118,18 +136,18 @@ const CardProducto = ({ id, name, imgs, mark, price}: {id: string, name: string,
         <div className="font-bold text-xl text-black mb-2">{name} ({mark})</div>
         <p className="text-gray-900 font-bold text-xl mt-2">${price}</p>
       </div>
-      {user[0]?.user?.admin && ( 
+      {user[0]?.user?.admin && (
         <div className="ml-4 flex items-center">
-          <button onClick={() => deleteProduct(id)}>Eliminar Producto</button> 
+          <button onClick={() => deleteProduct(id)}>Eliminar Producto</button>
         </div>
       )}
-      {user[0]?.user?.admin && ( 
+      {user[0]?.user?.admin && (
         <div className="ml-4 flex items-center">
-          <button onClick={handleUpdateProduct}>Actualizar Producto</button> 
+          <button onClick={handleUpdateProduct}>Actualizar Producto</button>
         </div>
       )}
       <div className="ml-4 flex items-center">
-      <button onClick={() => destacarProduct(id)}>Destacar Product</button>
+        <button onClick={() => destacarProduct(id)}>Destacar Product</button>
       </div>
 
       <div className='pb-4 px-6'>
@@ -137,7 +155,7 @@ const CardProducto = ({ id, name, imgs, mark, price}: {id: string, name: string,
           Agregar al carrito
         </button>
       </div>
-      <UpdateProduct id={id} updateProduct={updateProduct} setUpdateProduct={setUpdateProduct}/>
+      <UpdateProduct id={id} updateProduct={updateProduct} setUpdateProduct={setUpdateProduct} />
     </div>
   );
 };
