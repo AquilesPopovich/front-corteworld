@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from 'react';
 import { Chat } from '@mui/icons-material';
 import { Menu } from '@/app/ui/menu/Menu';
