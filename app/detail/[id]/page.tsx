@@ -127,7 +127,7 @@ const DetailPage = () => {
                                         <option value={color.color}>{color.color}</option>
 )})}
                                 </select>
-                            <p>stock disponible: {stockPorRopaSeleccionada.stock}</p>
+                            <p>stock disponible: {stockPorRopaSeleccionada?.stock}</p>
                    
                 </div>
                             <div className="flex items-center mb-4">
