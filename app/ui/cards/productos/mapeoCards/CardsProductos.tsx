@@ -11,7 +11,7 @@ interface Props {
 const CardsProductos: React.FC<Props> = ({ productos }) => {
 
   return (
-    <div className=' inset-0 h-full  w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]'>
+    <div className=' inset-0 h-full  w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#ff69b4_100%)]'>
       <div className='flex justify-center text-center'>
         <h2 className=' font-bold text-xl mt-10'>Productos destacados</h2>
       </div>

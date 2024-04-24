@@ -54,43 +54,52 @@ const Admin = () => {
   return (
     <div className={style.adminContainer}>
       <Menu />
-      <div>
-        <button className={style.button} onClick={() => setCrearProducto(true)}>Crear producto</button>
-        <React.Suspense fallback={<div className={style.loader}>Loading...</div>}>
-          {crearProducto && <CrearProducto crearProducto={crearProducto} setCrearProducto={setCrearProducto} />}
-        </React.Suspense>
-      </div>
-      <div>
-        <button className={style.button}>Mostrar productos deshabilitados</button>
-        {productosDeshabilitados?.map(productoDeshabilitado => (
-          <React.Suspense key={productoDeshabilitado?.id} fallback={<div className={style.loader}>Loading...</div>}>
-            <CardProducto
-              id={productoDeshabilitado?.id}
-              name={productoDeshabilitado?.name}
-              img={productoDeshabilitado?.imgs}
-              mark={productoDeshabilitado?.mark}
-              price={productoDeshabilitado?.price}
-            />
+      <div className={style.contenedor}>
+      <h2 className={style.textAdm}>Funciones de admin</h2>
+        <div className={style.divB}>
+          <button className={style.button} onClick={() => setCrearProducto(true)}>Crear producto</button>
+          <React.Suspense fallback={<div className={style.loader}>Loading...</div>}>
+            {crearProducto && <CrearProducto crearProducto={crearProducto} setCrearProducto={setCrearProducto} />}
           </React.Suspense>
-        ))}
-        <button className={style.button} onClick={() => setMostrarUsuarios(true)}>Mostrar Usuarios Deshabilitados</button>
-        {filtrados?.map((user) => {
-          if (!mostrarUsuarios) return null;
-          return (
-            <React.Suspense key={user?.id} fallback={<div className={style.loader}>Loading...</div>}>
-              <UsuariosDeshabilitados
-                id={user?.id}
-                name={user?.name}
-                email={user?.email}
+        </div>
+        <div className={style.divB}>
+          <button className={style.button}>Mostrar productos deshabilitados</button>
+          {productosDeshabilitados?.map(productoDeshabilitado => (
+            <React.Suspense key={productoDeshabilitado?.id} fallback={<div className={style.loader}>Loading...</div>}>
+              <CardProducto
+                id={productoDeshabilitado?.id}
+                name={productoDeshabilitado?.name}
+                img={productoDeshabilitado?.imgs}
+                mark={productoDeshabilitado?.mark}
+                price={productoDeshabilitado?.price}
               />
             </React.Suspense>
-          )
-        })}
+          ))}
+          </div>
+          <div className={style.divB}>
+          <button className={style.button} onClick={() => setMostrarUsuarios(true)}>Mostrar Usuarios Deshabilitados</button>
+          {filtrados?.map((user) => {
+            if (!mostrarUsuarios) return null;
+            return (
+              <React.Suspense key={user?.id} fallback={<div className={style.loader}>Loading...</div>}>
+                <UsuariosDeshabilitados
+                  id={user?.id}
+                  name={user?.name}
+                  email={user?.email}
+                />
+              </React.Suspense>
+            )
+          })}
+        </div>
+        <div className={style.divB}>
+          <button className={style.button} onClick={() => setImagenes(true)}>Añadir imágenes</button>
+          <ImagenProducto imagenes={imagenes} setImagenes={setImagenes} productos={productos} />
+        </div>
+        <div className={style.divB}>
+          <button className={style.button} onClick={() => setStock(true)}>Agregar stock, colores y tallas a un producto</button>
+          <AgregarStock stock={stock} setStock={setStock} productos={productos} />
+        </div>
       </div>
-      <button className={style.button} onClick={() => setImagenes(true)}>Añadir imágenes</button>
-      <ImagenProducto imagenes={imagenes} setImagenes={setImagenes} productos={productos} />
-      <button className={style.button} onClick={() => setStock(true)}>Agregar stock, colores y tallas a un producto</button>
-      <AgregarStock stock={stock} setStock={setStock} productos={productos} />
     </div>
   );
 };

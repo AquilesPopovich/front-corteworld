@@ -101,16 +101,17 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
       className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white text-black flex flex-col justify-between items-center"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      style={{ width: '300px', maxWidth: '100%', height: '400px', maxHeight: '100%' }} // Estilos para el contenedor
     >
       <Link href='detail/1'>
-        <div key={id} className="bg-gray-100 w-full h-80 flex justify-center items-center relative">
+        <div key={id} className="bg-gray-100 w-full h-80 flex justify-center items-center relative" style={{ width: '100%', height: '80%', maxHeight: '80%' }}> {/* Estilos para la imagen */}
           <img
-            className={`w-full max-h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`}
+            className={`w-full h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`}
             src={urls[0]} 
             alt={name}
           />
           <img 
-            className={`w-full max-h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`} 
+            className={`w-full h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`} 
             src={urls[1]} 
             alt={name} 
           />
@@ -157,7 +158,8 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
       </div>
       <UpdateProduct id={id} updateProduct={updateProduct} setUpdateProduct={setUpdateProduct} />
     </div>
-  );
+);
+
 };
 
 export default CardProducto;
