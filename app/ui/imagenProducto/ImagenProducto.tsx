@@ -37,18 +37,11 @@ const ImagenProducto: React.FC<Props> = ({ imagenes, setImagenes, productos }) =
         event.preventDefault();
         try {
             if (file) {
-                const reader = new FileReader();
-                reader.onloadend = async () => {
-                    const base64String = reader.result.split(',')[1];
-                    const data = {
-                        file: base64String,
-                        idProduct: selectedProductId, // Asegúrate de tener este estado
-                    };
-                    console.log(data)
-                    const response = await axiosURL.post('/imgProduct', data);
-                    console.log(response.data);
-                };
-                reader.readAsDataURL(file);
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', 'ml_default');
+                const cloudinaryResponse = await axiosURL.post(`/imgProduct/upload/${selectedProductId}`, formData);
+                console.log(cloudinaryResponse.data); 
             }
             
         } catch (error) {

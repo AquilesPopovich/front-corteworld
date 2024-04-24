@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react';
 import styles from './crearProducto.module.css';
 import axiosURL from '@/axiosConfig/axiosConfig';
@@ -11,7 +12,7 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
   const [nuevoProducto, setNuevoProducto] = useState({
     name: '',
     price: 0,
-    stock: 0,
+    destacado: Boolean,
     category: '',
     mark: '',
     discount: 0
@@ -21,9 +22,13 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
   const [imagePreview, setImagePreview] = useState('');
 
   const handleChange = (event: any) => {
+    let { name, value } = event.target;
+    if (name === 'destacado') {
+      value = Boolean(Number(value));
+    }
     setNuevoProducto({
       ...nuevoProducto,
-      [event.target.name]: event.target.value
+      [name]: value
     });
   };
 
@@ -40,29 +45,32 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-      try {
-        const { data } = await axiosURL.post('/productos', nuevoProducto);
-        if (data) {
-          console.log('Producto creado:', data);
-          setNuevoProducto({
-            name: '',
-            price: 0,
-            stock: 0,
-            category: '',
-            mark: '',
-            discount: 0
-          });
-        }
-      } catch (error) {
-        console.error('Error al crear el producto:', error);
-    }
-    if (file) {
-      const formData = new FormData();
-      formData.append('file', file);
-      const { data } = await axiosURL.post('/imgProduct', formData);
-      console.log(data);
+    try {
+      const { data } = await axiosURL.post('/products', nuevoProducto);
+      if (data) {
+        console.log('Producto creado:', data);
+        setNuevoProducto({
+          name: '',
+          price: 0,
+          destacado: Boolean,
+          category: '',
+          mark: '',
+          discount: 0
+        });
+      }
+  
+      if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', 'ml_default');
+        const cloudinaryResponse = await axiosURL.post(`/imgProduct/upload/${data.id}`, formData);
+        console.log(cloudinaryResponse.data); 
+      }
+    } catch (error) {
+      console.error('Error al crear el producto:', error);
     }
   };
+  
 
   if (!crearProducto) return null;
 
@@ -100,18 +108,19 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
             />
           </div>
           <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="stock">
-              Stock
+            <label className={styles.label} htmlFor="destacado">
+              Destacado
             </label>
             <input
               className={styles.inputField}
               type="number"
-              id="stock"
-              name="stock"
+              id="destacado"
+              name="destacado"
               required
-              value={nuevoProducto.stock}
+              value={Number(nuevoProducto.destacado)}
               onChange={handleChange}
             />
+
           </div>
           <div className={styles.formGroup}>
             <label className={styles.label} htmlFor="category">
