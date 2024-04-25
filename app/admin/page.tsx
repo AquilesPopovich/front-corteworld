@@ -6,6 +6,7 @@ import axiosURL from '@/axiosConfig/axiosConfig';
 import ImagenProducto from '../ui/imagenProducto/ImagenProducto';
 import { getAllProducts } from '@/redux/features/productsSlice';
 import AgregarStock from '../ui/agregarStock/AgregarStock';
+import Link from 'next/link';
 
 // Wrap components that use useState with dynamic import
 const CrearProducto = React.lazy(() => import('../ui/crearProducto/CrearProducto'));
@@ -57,8 +58,8 @@ const Admin = () => {
   if (!user[0]?.user?.admin) return null;
 
   return (
-    <div>
-      <div>
+    <div className=' flex flex-col justify-evenly items-center w-screen h-screen'>
+      <div className=' bg-black'>
         <button onClick={() => setCrearProducto(true)}>Crear producto</button>
         <React.Suspense fallback={<div>Loading...</div>}>
           {crearProducto && <CrearProducto crearProducto={crearProducto} setCrearProducto={setCrearProducto} />}
@@ -97,6 +98,11 @@ const Admin = () => {
       <ImagenProducto imagenes={imagenes} setImagenes={setImagenes} productos={productos}/>
       <button onClick={()=> setStock(true)} >Agregar stock, colores y tallas a un producto</button>
       <AgregarStock stock={stock} setStock={setStock} productos={productos} />
+      <Link href='/'>
+        <button>
+          Back
+        </button>
+      </Link>
     </div>
   );
 };

@@ -16,24 +16,21 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
   if (!loggin) return null;
 
-  // const {data: session} = useSession();
-
   const dispatch = useAppDispatch()
-
   const [register, setRegister] = useState(false)
-
   const [infoUser, setInfoUser] = useState({
     email: '',
     password: ''
   })
 
-  const handleGoogleLogin = async() => {
-    const {data} = await axiosURL.get('/google');
-    if(data){
-        console.log(data)
-        dispatch(agregarUser(data))
-    } 
-    };
+  // Iniciar sesión con Google
+  const handleGoogleLogin = async () => {
+    try {
+      await signIn('google');
+    } catch (error) {
+      console.error('Error al iniciar sesión con Google:', error);
+    }
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setInfoUser({
@@ -55,11 +52,10 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
       setRegister(false)
       setLoggin(false);
     } catch (error: unknown) {
-      console.error('Error al registrar el usuario:');
+      console.error('Error al registrar el usuario:', error);
     }
   };
   
-
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
