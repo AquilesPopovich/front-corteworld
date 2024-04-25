@@ -14,6 +14,8 @@ const AgregarStockModal: React.FC<Props> = ({ stock, setStock, productos }) => {
     const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
     const [selectedSize, setSelectedSize] = useState<string>('');
     const [color, setColor] = useState<string>('');
+    const [stockInput, setStockInput] = useState<number>(0); 
+    
 
     if(!stock) return null
 
@@ -30,13 +32,21 @@ const AgregarStockModal: React.FC<Props> = ({ stock, setStock, productos }) => {
         setColor(event.target.value);
     };
 
+    const handleStockChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = parseInt(event.target.value);
+        if (!isNaN(newValue)) {
+            setStockInput(newValue);
+        }
+    };
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
             const stockData = {
                 productId: selectedProductId,
-                size: selectedSize,
-                color: color
+                talla: selectedSize,
+                color: color,
+                stock: stock
             };
 
             await axios.post('/stock-controller', stockData);
@@ -83,6 +93,18 @@ const AgregarStockModal: React.FC<Props> = ({ stock, setStock, productos }) => {
                             value={color}
                             onChange={handleColorChange}
                             placeholder="Agregar el color de la prenda"
+                        />
+                    </div>
+                    <div>
+                        <label className="text-black" htmlFor="stock">Stock</label>
+                        <input
+                            className="text-black"
+                            type="text"
+                            id="stock" 
+                            name="stock"
+                            value={stockInput} 
+                            onChange={handleStockChange}
+                            placeholder="Agregar el stock de la prenda"
                         />
                     </div>
                     <button type="submit">Añadir Stock</button>
