@@ -23,8 +23,7 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
     const fetchData = async () => {
       try {
         const { data } = await axiosURL.get(`/imgProduct/${id}`)
-        console.log(data)
-        if (data) setImgs(data);
+        if (data) setImgs(data.map((img: any) => img.file));
       } catch (error) {
         console.error('Error al traer imagenes:', error);
       }
@@ -32,9 +31,7 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
     fetchData();
   }, [])
 
-  const urls = imgs?.map((img) => {
-    return (img['file'])
-  })
+ 
 
 
   const isFavorite = favorites.some((product: any) => product.id === id);
@@ -107,12 +104,12 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
         <div key={id} className="bg-gray-100 w-full h-80 flex justify-center items-center relative" style={{ width: '100%', height: '80%', maxHeight: '80%' }}> {/* Estilos para la imagen */}
           <img
             className={`w-full h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`}
-            src={urls[0]} 
+            src={imgs[0]} 
             alt={name}
           />
           <img 
             className={`w-full h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`} 
-            src={urls[1]} 
+            src={imgs[1]} 
             alt={name} 
           />
           <div className="absolute bottom-2 left-2"> {/* Posiciona la estrella en la esquina inferior izquierda */}

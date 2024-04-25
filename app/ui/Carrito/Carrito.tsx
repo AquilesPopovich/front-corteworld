@@ -25,6 +25,8 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
   const [idProductos, setIdProductos] = useState([])
 
   const dispatch = useDispatch();
+
+  console.log(productosUnicos)
   
   useEffect(() => {
     const ids = carritoRedux.map((producto: any) => producto.id);
@@ -95,7 +97,7 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
 
             return (
               <div className={styles.producto} key={producto.id}>
-                <img src={producto.img} alt={producto.name} />
+                <img src={producto.imgs[0].file} alt={producto.name} />
                 <div>
                   <h3>{producto.name}</h3>
                   <p>{producto.mark}</p>
