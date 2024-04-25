@@ -1,0 +1,96 @@
+.adminContainer {
+  margin-top: 100px;
+  justify-content: center;
+  display: flex;
+}
+
+.button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.textAdm{
+  text-align: center;
+  background-color: #ff15b9;
+}
+
+.contenedor{
+  display: flex;
+  align-items: center;
+  border: 2px solid pink;
+  margin: 40px;
+  border-radius: 9px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  flex-direction: column;
+  width: 60%;
+  height: 72vh;
+}
+
+.contenedor .divB{
+  display: flex;
+  justify-content: center;
+    padding: 10px;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 9px;
+    width: 90%;
+    text-align: center;
+    margin-top: 24px;
+}
+
+.button:hover {
+  color: #ff15b9;
+
+}
+
+.divB:hover{
+  border: 2px solid #ff15b9;
+  
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.userCard {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.menu {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.loader {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid #3498db;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

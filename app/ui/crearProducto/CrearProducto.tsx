@@ -78,6 +78,7 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <h2 className={styles.textBlack}>Crear Producto</h2>
+        <button onClick={()=> setCrearProducto(false)}>x</button>
         <form className={styles.formContainer} onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label className={styles.label} htmlFor="name">

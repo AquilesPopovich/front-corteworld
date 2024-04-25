@@ -2,6 +2,7 @@
 import { ProductsList } from "@/app/types/typeProduct";
 import axiosURL from "@/axiosConfig/axiosConfig";
 import { useAppSelector } from "@/redux/hook";
+import style from './imagenProducto.module.css'
 import { useState } from "react";
 
 interface Props {
@@ -51,7 +52,10 @@ const ImagenProducto: React.FC<Props> = ({ imagenes, setImagenes, productos }) =
 
 
     return (
-        <div>
+        <div className={style.modalOverlay}>
+            <div className={style.modalContent}>
+
+          
             <button onClick={() => setImagenes(false)}>X</button>
             <form action="" onSubmit={handleSubmit}>
                 <div>
@@ -74,6 +78,7 @@ const ImagenProducto: React.FC<Props> = ({ imagenes, setImagenes, productos }) =
                 </div>
                 <button type="submit">Añadir Imagen a producto</button>
             </form>
+            </div>
         </div>
     )
 }
