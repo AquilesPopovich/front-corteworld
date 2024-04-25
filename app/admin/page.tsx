@@ -7,6 +7,7 @@ import axiosURL from '@/axiosConfig/axiosConfig';
 import ImagenProducto from '../ui/imagenProducto/ImagenProducto';
 import { getAllProducts } from '@/redux/features/productsSlice';
 import AgregarStock from '../ui/agregarStock/AgregarStock';
+import Link from 'next/link';
 import { Menu } from '../ui/menu/Menu';
 import style from './admin.module.css';
 
