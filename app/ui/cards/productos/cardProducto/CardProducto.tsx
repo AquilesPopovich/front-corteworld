@@ -112,7 +112,9 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
             src={imgs[1]} 
             alt={name} 
           />
-          <div className="absolute bottom-2 left-2"> {/* Posiciona la estrella en la esquina inferior izquierda */}
+          </div>
+            </Link>
+          <div className="absolute top-2 left-0.5"> {/* Posiciona la estrella en la esquina inferior izquierda */}
             {/* Reemplaza el botón con los iconos de estrella */}
             {isFavorite ? (
               <Star
@@ -128,8 +130,6 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
               />
             )}
           </div>
-        </div>
-      </Link>
       <div className="px-6 py-4 text-center">
         <div className="font-bold text-xl text-black mb-2">{name} ({mark})</div>
         <p className="text-gray-900 font-bold text-xl mt-2">${price}</p>
