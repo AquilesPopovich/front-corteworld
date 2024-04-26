@@ -100,7 +100,7 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
       onMouseLeave={() => setHover(false)}
       style={{ width: '300px', maxWidth: '100%', height: '400px', maxHeight: '100%' }} // Estilos para el contenedor
     >
-      <Link href='detail/1'>
+      <Link href={`detail/${id}`}>
         <div key={id} className="bg-gray-100 w-full h-80 flex justify-center items-center relative" style={{ width: '100%', height: '80%', maxHeight: '80%' }}> {/* Estilos para la imagen */}
           <img
             className={`w-full h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`}

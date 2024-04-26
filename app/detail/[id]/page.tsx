@@ -8,6 +8,7 @@ import { useAppSelector } from '@/redux/hook';
 import axiosURL from '@/axiosConfig/axiosConfig';
 import { agregarCarrito } from '@/redux/features/carritoSlice';
 import { useParams } from 'next/navigation';
+import axios from 'axios';
 
 const DetailPage = () => {
     const [producto, setProducto] = useState(null);
@@ -20,7 +21,8 @@ const DetailPage = () => {
     const [cantidad, setCantidad] = useState(1);
     const user = useAppSelector(state => state.userSlice.user);
     const dispatch = useDispatch();
-const {id} = useParams()
+    const {id} = useParams()
+
 
     useEffect(() => {
         const fetchData = async () => { 
@@ -73,16 +75,25 @@ const {id} = useParams()
         e.preventDefault();
         if (comentario.trim() !== '') {
             try {
-                const nuevoComentario = { userId: user[0]?.user?.id, comentario: comentario, productId: id };
-                const { data } = await axios.post(`/comentarios`, nuevoComentario);
-                setComentarios([...comentarios, data]);
+                const nuevoComentario = { userId: user[0]?.user?.id, comentario: String(comentario), productId: id };
+                console.log(nuevoComentario)
+                const { data } = await axiosURL.post(`/comentarios`, nuevoComentario);
+                if(data){
+                    const respuesta = await axiosURL(`/comentarios/${id}`)
+                    setComentarios([...comentarios, respuesta.data])
+                    setComentario('')
+                }
             } catch (error) {
                 console.error('Error al agregar comentario:', error.message);
             }
         }
     };
 
+
+
     const stockPorRopaSeleccionada = infoStock.filter((ropa) => ropa.id === ropaSeleccionada.id);
+
+    console.log(comentarios)
 
     return (
         <>
@@ -94,7 +105,7 @@ const {id} = useParams()
                         {imagenes?.map((img, index) => (
                             <Image
                                 key={index}
-                                src={img}
+                                src={img.file}
                                 alt={`Imagen ${index}`}
                                 width={100}
                                 height={100}
@@ -105,7 +116,7 @@ const {id} = useParams()
                     </div>
                     <div className="w-full md:w-1/2">
                         <Image
-                            src={imagenes[selectedImg]}
+                            src={imagenes[selectedImg]?.file}
                             alt={`Imagen grande ${selectedImg}`}
                             width={500}
                             height={500}
@@ -150,14 +161,14 @@ const {id} = useParams()
 
                 <h2 className="text-2xl font-bold mb-4 ml-5">Comentarios</h2>
                 <div className="w-full mt-8 ml-11" style={{ maxHeight: '300px', overflowY: 'auto' }}>
-                    {comentarios.map((comentario, index) => (
+                    {comentarios.map((comentari, index) => (
                         <div key={index} className="flex mb-4 items-start">
                             <div className="w-8 h-8 bg-gray-200 flex items-center justify-center rounded-full mr-4">
                                 <Chat />
                             </div>
-                            <div className="bg-gray-100 p-4 rounded-lg w-11/12">
-                                <p className="text-lg font-semibold">{comentario.name}</p>
-                                <p className="text-lg">{comentario.comentario}</p>
+                            <div className="bg-gray-100 text-black p-4 rounded-lg w-11/12">
+                                <p className="text-lg font-semibold">{comentari?.user?.name}</p>
+                                <p className="text-lg">{comentari?.comentario}</p>
                             </div>
                         </div>
                     ))}
@@ -169,7 +180,7 @@ const {id} = useParams()
                         name="comentario"
                         value={comentario}
                         onChange={handleComentarioChange}
-                        className=" w-11/12 border rounded-md p-2"
+                        className=" w-11/12 border text-black rounded-md p-2"
                     ></textarea>
                     <button type="submit" className="mt-2 bg-pink-400 hover:bg-pink-700 text-white py-2 px-4 rounded-md focus:outline-none">Enviar comentario</button>
                 </form>

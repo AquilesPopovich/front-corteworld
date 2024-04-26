@@ -26,7 +26,6 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
 
   const dispatch = useDispatch();
 
-  console.log(productosUnicos)
   
   useEffect(() => {
     const ids = carritoRedux.map((producto: any) => producto.id);
