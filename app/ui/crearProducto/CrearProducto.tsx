@@ -57,6 +57,8 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
           mark: '',
           discount: 0
         });
+        setCrearProducto(false)
+        window.alert('PRODUCTO CREADO')
       }
   
       if (file) {

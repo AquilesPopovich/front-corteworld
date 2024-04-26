@@ -31,7 +31,7 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
     fetchData();
   }, [])
 
- 
+
 
 
   const isFavorite = favorites.some((product: any) => product.id === id);
@@ -95,44 +95,65 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
 
   return (
     <div
-      className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white text-black flex flex-col justify-between items-center"
+      className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white text-black flex flex-col justify-evenly items-center"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      style={{ width: '300px', maxWidth: '100%', height: '400px', maxHeight: '100%' }} // Estilos para el contenedor
+      style={{ width: '300px', maxWidth: '100%', height: '70vh', maxHeight: '100%' }} // Estilos para el contenedor
     >
-      <Link href={`detail/${id}`}>
-        <div key={id} className="bg-gray-100 w-full h-80 flex justify-center items-center relative" style={{ width: '100%', height: '80%', maxHeight: '80%' }}> {/* Estilos para la imagen */}
-          <img
-            className={`w-full h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`}
-            src={imgs[0]} 
-            alt={name}
-          />
-          <img 
-            className={`w-full h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`} 
-            src={imgs[1]} 
-            alt={name} 
-          />
+      {user[0]?.user?.admin && (
+        <Link className=' h-2/4 -mb-16' href={`detail/${id}`}>
+          <div key={id} className=" w-full h-80 flex justify-center items-center relative" style={{ width: '100%', height: '80%', maxHeight: '80%' }}> {/* Estilos para la imagen */}
+            <img
+              className={`w-full h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`}
+              src={imgs[0]}
+              alt={name}
+            />
+            <img
+              className={`w-full h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`}
+              src={imgs[1]}
+              alt={name}
+            />
           </div>
-            </Link>
-          <div className="absolute top-2 left-0.5"> {/* Posiciona la estrella en la esquina inferior izquierda */}
-            {/* Reemplaza el botón con los iconos de estrella */}
-            {isFavorite ? (
-              <Star
-                onClick={handleFavoriteToggle}
-                className="text-pink-700 cursor-pointer"
-                style={{ fontSize: '2rem' }}
-              />
-            ) : (
-              <StarBorder
-                onClick={handleFavoriteToggle}
-                className="text-pink-400 cursor-pointer"
-                style={{ fontSize: '2rem' }}
-              />
-            )}
+        </Link>
+      )}
+
+      {!user[0]?.user?.admin && (
+        <Link className=' h-3/4 -mb-16' href={`detail/${id}`}>
+          <div key={id} className=" w-full h-80 flex justify-center items-center relative" style={{ width: '100%', height: '80%', maxHeight: '80%' }}> {/* Estilos para la imagen */}
+            <img
+              className={`w-full h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`}
+              src={imgs[0]}
+              alt={name}
+            />
+            <img
+              className={`w-full h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`}
+              src={imgs[1]}
+              alt={name}
+            />
           </div>
-      <div className="px-6 py-4 text-center">
-        <div className="font-bold text-xl text-black mb-2">{name} ({mark})</div>
-        <p className="text-gray-900 font-bold text-xl mt-2">${price}</p>
+        </Link>
+
+      )}
+
+      <div className="absolute top-2 left-0.5"> {/* Posiciona la estrella en la esquina inferior izquierda */}
+        {/* Reemplaza el botón con los iconos de estrella */}
+        {isFavorite ? (
+          <Star
+            onClick={handleFavoriteToggle}
+            className="text-pink-700 cursor-pointer"
+            style={{ fontSize: '2rem' }}
+          />
+        ) : (
+          <StarBorder
+            onClick={handleFavoriteToggle}
+            className="text-pink-400 cursor-pointer"
+            style={{ fontSize: '2rem' }}
+          />
+        )}
+      </div>
+      <div className="px-6 py-2 text-center">
+        <div className="font-bold text-black mb-2">{name} ({mark})</div>
+        <p className="text-gray-900 font-bold text-lg mt-2">${price}</p>
       </div>
       {user[0]?.user?.admin && (
         <div className="ml-4 flex items-center">
@@ -144,9 +165,11 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
           <button onClick={handleUpdateProduct}>Actualizar Producto</button>
         </div>
       )}
-      <div className="ml-4 flex items-center">
-        <button onClick={() => destacarProduct(id)}>Destacar Product</button>
-      </div>
+      {user[0]?.user?.admin && (
+        <div className="ml-4 flex items-center">
+          <button onClick={() => destacarProduct(id)}>Destacar Product</button>
+        </div>
+      )}
 
       <div className='pb-4 px-6'>
         <button onClick={handleAgregarCarrito} className="bg-pink-400 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md">
@@ -155,7 +178,7 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
       </div>
       <UpdateProduct id={id} updateProduct={updateProduct} setUpdateProduct={setUpdateProduct} />
     </div>
-);
+  );
 
 };
 
