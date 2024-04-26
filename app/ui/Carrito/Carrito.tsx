@@ -93,10 +93,9 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
         <h2>Carrito de Compras</h2>
         <div className={styles.items}>
           {productosUnicos.map((producto: any) => {
-
             return (
               <div className={styles.producto} key={producto.id}>
-                <img src={producto.imgs[0].file} alt={producto.name} />
+                <img src={producto.imgs[0]} alt={producto.name} />
                 <div>
                   <h3>{producto.name}</h3>
                   <p>{producto.mark}</p>
