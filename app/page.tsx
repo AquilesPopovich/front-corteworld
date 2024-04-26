@@ -13,7 +13,7 @@ import Image from "next/image";
 
 export default function Home() {
   const dispatch = useAppDispatch();
-  const allProducts = useAppSelector(state => state.productsSlice.products);
+  const allProducts = useAppSelector(state => state.productsSlice.productsForFilter);
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -25,11 +25,14 @@ export default function Home() {
       <div className={styles.divCategoriasCarrusel}>
         <Carrousel />
       </div>
+      <div className="fixed bottom-24 right-4 text-black">
+        {/* <p className=" font-extrabold">Escríbenos al wsp!</p> */}
+      <a className="fixed bottom-4 right-12 size-20 z-50 rounded-full bg-transparent hover:bg-pink-300 hover:transition-colors" href="https://wa.me/986475277">
+        <Image src={wsp} alt="WhatsApp" />
+      </a>
+      </div>
       {allProducts && <CardsProductos productos={allProducts} />}
 
-      {/* <a href="https://wa.me/986475277">
-        <Image src={wsp} alt="WhatsApp" />
-      </a> */}
       <Footer />
     </div>
   );

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CardProducto from '../cardProducto/CardProducto';
 import { ProductsList } from '@/app/types/typeProduct';
-import axiosURL from '@/axiosConfig/axiosConfig';
-import { useAppSelector } from '@/redux/hook';
 
 interface Props {
   productos: ProductsList;
