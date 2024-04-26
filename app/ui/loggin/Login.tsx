@@ -23,10 +23,9 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
     password: ''
   })
 
-  // Iniciar sesión con Google
   const handleGoogleLogin = async () => {
     try {
-      await signIn('google');
+      await axiosURL.get('/google');
     } catch (error) {
       console.error('Error al iniciar sesión con Google:', error);
     }

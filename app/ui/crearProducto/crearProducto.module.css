@@ -8,10 +8,10 @@
     z-index: 99900;
     display: flex;
     justify-content: flex-end; /* Puedes ajustar esto si es necesario */
-    animation: slideInRight 0.5s forwards; /* Utilizando la animación slideInRight */
     color: black;
     overflow-y: auto;
   }
+  
   
   @keyframes slideInRight {
     from {

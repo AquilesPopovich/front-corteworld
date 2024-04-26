@@ -8,13 +8,15 @@ import { Menu } from './ui/menu/Menu';
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { getAllProducts } from "@/redux/features/productsSlice";
+import wsp from '../public/images/wsp.png'
+import Image from "next/image";
 
 export default function Home() {
   const dispatch = useAppDispatch();
   const allProducts = useAppSelector(state => state.productsSlice.products);
 
   useEffect(() => {
-        dispatch(getAllProducts());
+    dispatch(getAllProducts());
   }, [])
 
   return (
@@ -23,7 +25,11 @@ export default function Home() {
       <div className={styles.divCategoriasCarrusel}>
         <Carrousel />
       </div>
-      {allProducts && <CardsProductos productos={allProducts}/>}
+      {allProducts && <CardsProductos productos={allProducts} />}
+
+      {/* <a href="https://wa.me/986475277">
+        <Image src={wsp} alt="WhatsApp" />
+      </a> */}
       <Footer />
     </div>
   );

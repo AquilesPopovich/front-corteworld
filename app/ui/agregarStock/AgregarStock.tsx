@@ -1,8 +1,8 @@
 // AgregarStockModal.tsx
 import { ProductsList } from "@/app/types/typeProduct";
-import axios from "axios";
 import { useState } from "react";
 import style from './stock.module.css';
+import axiosURL from "@/axiosConfig/axiosConfig";
 
 interface Props {
     stock: boolean;
@@ -11,105 +11,93 @@ interface Props {
 }
 
 const AgregarStockModal: React.FC<Props> = ({ stock, setStock, productos }) => {
-    const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
-    const [selectedSize, setSelectedSize] = useState<string>('');
-    const [color, setColor] = useState<string>('');
-    const [stockInput, setStockInput] = useState<number>(0); 
-    
 
-    if(!stock) return null
+    const [newStock, setNewStock] = useState({
+        productId: '',
+        talla: '',
+        color: '',
+        stock: 0
+    })
 
+    if (!stock) return null
 
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedProductId(event.target.value);
-    };
-
-    const handleSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedSize(event.target.value);
-    };
-
-    const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setColor(event.target.value);
-    };
-
-    const handleStockChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = parseInt(event.target.value);
-        if (!isNaN(newValue)) {
-            setStockInput(newValue);
-        }
-    };
+    const handleChange = async (event: any) => {
+        setNewStock({
+            ...newStock,
+            [event.target.name]: event.target.value
+        })
+    }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            const stockData = {
-                productId: selectedProductId,
-                talla: selectedSize,
-                color: color,
-                stock: stock
-            };
-
-            await axios.post('/stock-controller', stockData);
-
-            setSelectedProductId(null);
-            setSelectedSize('');
-            setColor('');
-            setStock(false); 
+            const { data } = await axiosURL.post('/stock-controller', newStock);
+            if (data) {
+                console.log('Stock creado:', data);
+            }
+            setNewStock({
+                productId: '',
+                talla: '',
+                color: '',
+                stock: 0
+            })
         } catch (error) {
             console.error('Error al añadir el stock:', error);
         }
     };
 
     return (
-        <div className={style.modalOverlay}>
-            <div className={style.modalContent}>
-                <button onClick={()=> setStock(false)}>x</button>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <select className="text-black" value={selectedProductId || ''} onChange={handleSelectChange}>
-                            <option value="">Selecciona un producto</option>
-                            {productos.map(producto => (
-                                <option key={producto.id} value={producto.id}>{producto.name}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div>
-                        <select className="text-black" value={selectedSize} onChange={handleSizeChange}>
-                            <option value="">Selecciona un tamaño</option>
-                            <option value='xs'>xs</option>
-                            <option value='s'>s</option>
-                            <option value='m'>m</option>
-                            <option value='l'>l</option>
-                            <option value='xl'>xl</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label className="text-black" htmlFor="color">Color</label>
-                        <input
-                            className="text-black"
-                            type="text"
-                            id="color"
-                            name="color"
-                            value={color}
-                            onChange={handleColorChange}
-                            placeholder="Agregar el color de la prenda"
-                        />
-                    </div>
-                    <div>
-                        <label className="text-black" htmlFor="stock">Stock</label>
-                        <input
-                            className="text-black"
-                            type="text"
-                            id="stock" 
-                            name="stock"
-                            value={stockInput} 
-                            onChange={handleStockChange}
-                            placeholder="Agregar el stock de la prenda"
-                        />
-                    </div>
-                    <button type="submit">Añadir Stock</button>
-                </form>
-            </div>
+        <div className='fixed flex justify-start items-center h-3/4 w-3/6 left-1/4 bottom-10 border-solid rounded-lg bg-slate-50 p-4'>
+            <form className='flex flex-col justify-evenly items-start h-full w-full' onSubmit={handleSubmit}>
+                <div className="text-black text-xl flex flex-col gap-2 ">
+                    <h1 className="font-bold">Producto: </h1>
+                    <select className="text-black" value={newStock.productId || ''} onChange={handleChange}>
+                        <option value="">Selecciona un producto</option>
+                        {productos.map(producto => (
+                            <option key={producto.id} value={producto.id}>{producto.name}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className="text-black text-xl flex flex-col gap-2 ">
+                    <h1 className="font-bold">Talla: </h1>
+                    <select className="text-black" value={newStock.talla} onChange={handleChange}>
+                        <option value="">Selecciona una Talla:</option>
+                        <option value='xs'>XS</option>
+                        <option value='s'>S</option>
+                        <option value='m'>M</option>
+                        <option value='l'>L</option>
+                        <option value='xl'>XL</option>
+                    </select>
+                </div>
+                <div>
+                    <label className='flex flex-col font-bold text-xl' htmlFor="color">Color</label>
+                    <input
+                        className=' border-gray-900 bg-gray-200 border-2 rounded-lg'
+                        type="text"
+                        id="color"
+                        name="color"
+                        value={newStock.color}
+                        onChange={handleChange}
+                        placeholder="Color de la prenda"
+                    />
+                </div>
+                <div>
+                    <label className='flex flex-col font-bold text-xl'  htmlFor="stock">Stock</label>
+                    <input
+                        className=' border-gray-900 bg-gray-200 border-2 rounded-lg'
+                        type="text"
+                        id="stock"
+                        name="stock"
+                        value={newStock.stock}
+                        onChange={handleChange}
+                        placeholder="N° de Stock"
+                    />
+                </div>
+                <div className="flex gap-8">
+                <button className=' bg-pink-200 rounded-md hover:bg-pink-400' type="submit">Añadir Stock</button>
+                <button className=' bg-pink-200 rounded-md hover:bg-pink-400' onClick={() => setStock(false)}>Cancelar</button>
+                </div>
+            </form>
         </div>
     )
 }

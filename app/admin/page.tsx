@@ -7,7 +7,6 @@ import axiosURL from '@/axiosConfig/axiosConfig';
 import ImagenProducto from '../ui/imagenProducto/ImagenProducto';
 import { getAllProducts } from '@/redux/features/productsSlice';
 import AgregarStock from '../ui/agregarStock/AgregarStock';
-import Link from 'next/link';
 import { Menu } from '../ui/menu/Menu';
 import style from './admin.module.css';
 
@@ -53,20 +52,23 @@ const Admin = () => {
   if (!user[0]?.user?.admin) return null;
 
   return (
-    <div className={style.adminContainer}>
+    <div className='flex h-screen w-screen justify-start items-center text-black'>
       <Menu />
-      <div className={style.contenedor}>
-      <h2 className={style.textAdm}>Funciones de admin</h2>
-        <div className={style.divB}>
-          <button className={style.button} onClick={() => setCrearProducto(true)}>Crear producto</button>
-          <React.Suspense fallback={<div className={style.loader}>Loading...</div>}>
-            {crearProducto && <CrearProducto crearProducto={crearProducto} setCrearProducto={setCrearProducto} />}
-          </React.Suspense>
+      <div className=' bg-white border rounded-lg flex flex-col justify-evenly items-center h-screen p-3 w-fit'>
+        <div className='mt-24'>
+          <h2 className=' text-3xl'>Funciones de admin</h2>
         </div>
-        <div className={style.divB}>
-          <button className={style.button}>Mostrar productos deshabilitados</button>
+          <button className='w-full m-1 cursor-pointer hover:scale-110 transition' onClick={() => setCrearProducto(true)}>Crear producto</button>
+          <React.Suspense fallback={<div className={style.loader}></div>}>
+            {crearProducto && <CrearProducto crearProducto={crearProducto} setCrearProducto={setCrearProducto} />}
+          <button className='w-full m-1 cursor-pointer hover:scale-110 transition' onClick={() => setImagenes(true)}>Añadir imágenes</button>
+          <ImagenProducto imagenes={imagenes} setImagenes={setImagenes} productos={productos} />
+          <button className='w-full m-1 cursor-pointer hover:scale-110 transition' onClick={() => setStock(true)}>Stock, colores y tallas</button>
+          <AgregarStock stock={stock} setStock={setStock} productos={productos} />
+          </React.Suspense>
+          <button className='w-full m-1 cursor-pointer hover:scale-110 transition'>Mostrar productos deshabilitados</button>
           {productosDeshabilitados?.map(productoDeshabilitado => (
-            <React.Suspense key={productoDeshabilitado?.id} fallback={<div className={style.loader}>Loading...</div>}>
+            <React.Suspense key={productoDeshabilitado?.id} fallback={<div className={style.loader}></div>}>
               <CardProducto
                 id={productoDeshabilitado?.id}
                 name={productoDeshabilitado?.name}
@@ -76,13 +78,11 @@ const Admin = () => {
               />
             </React.Suspense>
           ))}
-          </div>
-          <div className={style.divB}>
-          <button className={style.button} onClick={() => setMostrarUsuarios(true)}>Mostrar Usuarios Deshabilitados</button>
+          <button className='w-full m-1 cursor-pointer hover:scale-110 transition' onClick={() => setMostrarUsuarios(true)}>Mostrar Usuarios Deshabilitados</button>
           {filtrados?.map((user) => {
             if (!mostrarUsuarios) return null;
             return (
-              <React.Suspense key={user?.id} fallback={<div className={style.loader}>Loading...</div>}>
+              <React.Suspense key={user?.id} fallback={<div className={style.loader}></div>}>
                 <UsuariosDeshabilitados
                   id={user?.id}
                   name={user?.name}
@@ -91,15 +91,6 @@ const Admin = () => {
               </React.Suspense>
             )
           })}
-        </div>
-        <div className={style.divB}>
-          <button className={style.button} onClick={() => setImagenes(true)}>Añadir imágenes</button>
-          <ImagenProducto imagenes={imagenes} setImagenes={setImagenes} productos={productos} />
-        </div>
-        <div className={style.divB}>
-          <button className={style.button} onClick={() => setStock(true)}>Agregar stock, colores y tallas a un producto</button>
-          <AgregarStock stock={stock} setStock={setStock} productos={productos} />
-        </div>
       </div>
     </div>
   );
