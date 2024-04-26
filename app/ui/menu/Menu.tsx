@@ -40,7 +40,7 @@ export const Menu = () => {
         {/* SearchBar */}
         <div>
           {/* Después cambiar status por los de products */}
-          <SearchProduct status={true}/>
+          <SearchProduct/>
         </div>
   
         {/* Enlaces con iconos */}
