@@ -31,9 +31,6 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
     fetchData();
   }, [])
 
-
-
-
   const isFavorite = favorites.some((product: any) => product.id === id);
 
   const handleFavoriteToggle = () => {
@@ -69,9 +66,10 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
 
   const deleteProduct = async (id: string) => {
     try {
-      const { data } = await axiosURL.delete(`/productos/${id}`);
+      const { data } = await axiosURL.patch(`/products/${id}`, { status: false });
       if (data) {
         dispatch(getAllProducts());
+        console.log(data)
       }
     } catch (error) {
       console.error('Error al eliminar el producto:', error);
@@ -84,7 +82,7 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
 
   const destacarProduct = async (id: string) => {
     try {
-      const { data } = await axiosURL.patch(`/productos/${id}`, { destacado: true });
+      const { data } = await axiosURL.patch(`/products/${id}`, { destacado: true });
       if (data) {
         await dispatch(getAllProducts());
       }
@@ -93,6 +91,18 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
     }
   };
 
+  const noDestacarProduct = async(id: string) => {
+    try {
+      const {data} = await axiosURL.patch(`/products/${id}`, {destacado: false})
+      if(data){
+        await dispatch(getAllProducts())
+        console.log(data)
+      }
+    } catch (error) {
+      console.error('Error highlighting the product:', error);
+    }
+  }
+
   return (
     <div
       className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white text-black flex flex-col justify-evenly items-center"
@@ -100,6 +110,7 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
       onMouseLeave={() => setHover(false)}
       style={{ width: '300px', maxWidth: '100%', height: '70vh', maxHeight: '100%' }} // Estilos para el contenedor
     >
+
       {user[0]?.user?.admin && (
         <Link className=' h-2/4 -mb-16' href={`detail/${id}`}>
           <div key={id} className=" w-full h-80 flex justify-center items-center relative" style={{ width: '100%', height: '80%', maxHeight: '80%' }}> {/* Estilos para la imagen */}
@@ -168,6 +179,11 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
       {user[0]?.user?.admin && (
         <div className="ml-4 flex items-center">
           <button onClick={() => destacarProduct(id)}>Destacar Product</button>
+        </div>
+      )}
+      {user[0]?.user?.admin && (
+        <div className="ml-4 flex items-center">
+          <button onClick={() => noDestacarProduct(id)}>No Destacar Product</button>
         </div>
       )}
 

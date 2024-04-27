@@ -26,8 +26,6 @@ const Productos = () => {
   const productos = useAppSelector(state => state.productsSlice.productsForFilter);
   console.log('PRODUCTOS', productos)
 
-  const productosDestacados = productos.filter(producto => producto.destacado === true);
-  console.log(productosDestacados)
 
   const markFilter = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
     try {
@@ -117,7 +115,7 @@ const Productos = () => {
 
         {/* Lista de productos */}
         <div className="flex flex-wrap w-4/5 justify-center p-4">
-          {productosDestacados?.map(producto => (
+          {productos?.map(producto => (
             <CardProducto
               key={producto.id}
               id={producto.id}
