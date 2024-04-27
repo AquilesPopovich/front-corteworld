@@ -23,7 +23,6 @@ const DetailPage = () => {
     const dispatch = useDispatch();
     const {id} = useParams()
 
-    console.log('coments',comentarios)
 
     useEffect(() => {
         const fetchData = async () => { 
@@ -36,7 +35,6 @@ const DetailPage = () => {
                     if (dataImg) setImagenes(dataImg);
                     const res = await axiosURL(`/comentarios/${id}`);
                     const dataComentario = res.data
-                    console.log(dataComentario)
                     if (dataComentario) setComentarios(dataComentario);
                     const respuesta = await axiosURL(`/stock-controller/${id}`);
                     const dataStock = respuesta.data
@@ -95,6 +93,8 @@ const DetailPage = () => {
 
     const stockPorRopaSeleccionada = infoStock.filter((ropa) => ropa.id === ropaSeleccionada.id);
 
+    console.log(infoStock)
+    console.log('ropa',ropaSeleccionada)
 
     return (
         <>
@@ -134,12 +134,12 @@ const DetailPage = () => {
                             <div>
                                 <select name="" id="">
                                     {infoStock?.map((color) =>{ 
-                                        setRopaSeleccionada(color)
                                         return( 
-                                        <option value={color.color}>{color.color}</option>
+                                        <option className='text-black' onClick={()=>setRopaSeleccionada(color)} value={color.color}>{color.color}</option>
 )})}
                                 </select>
-                            <p>stock disponible: {stockPorRopaSeleccionada?.stock}</p>
+                                <p>stock disponible: {stockPorRopaSeleccionada ? stockPorRopaSeleccionada.stock : 'Cargando...'}</p>
+
                    
                 </div>
                             <div className="flex items-center mb-4">
@@ -154,9 +154,8 @@ const DetailPage = () => {
                 </div>
                 <div>
                     {infoStock?.map((talla) => { 
-                        setRopaSeleccionada(talla)
                         return( 
-                        <button>{talla.talla}</button>
+                        <button className='text-black' onClick={()=>setRopaSeleccionada(talla) } >{talla.talla}</button>
 )})}
                 </div>
 
