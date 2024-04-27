@@ -51,7 +51,8 @@ const AgregarStockModal: React.FC<Props> = ({ stock, setStock, productos }) => {
             <form className='flex flex-col justify-evenly items-start h-full w-full' onSubmit={handleSubmit}>
                 <div className="text-black text-xl flex flex-col gap-2 ">
                     <h1 className="font-bold">Producto: </h1>
-                    <select className="text-black" value={newStock.productId || ''} onChange={handleChange}>
+
+                    <select className="text-black" name='productId' id="name" onChange={handleChange}>
                         <option value="">Selecciona un producto</option>
                         {productos.map(producto => (
                             <option key={producto.id} value={producto.id}>{producto.name}</option>
@@ -60,7 +61,7 @@ const AgregarStockModal: React.FC<Props> = ({ stock, setStock, productos }) => {
                 </div>
                 <div className="text-black text-xl flex flex-col gap-2 ">
                     <h1 className="font-bold">Talla: </h1>
-                    <select className="text-black" value={newStock.talla} onChange={handleChange}>
+                    <select className="text-black" name="talla" value={newStock.talla} onChange={handleChange}>
                         <option value="">Selecciona una Talla:</option>
                         <option value='xs'>XS</option>
                         <option value='s'>S</option>

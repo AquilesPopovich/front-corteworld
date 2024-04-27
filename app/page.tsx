@@ -14,25 +14,25 @@ import Image from "next/image";
 export default function Home() {
   const dispatch = useAppDispatch();
   const allProducts = useAppSelector(state => state.productsSlice.productsForFilter);
+  const productosDestacados = allProducts.filter((producto) => producto.destacado === true);
+  console.log(productosDestacados)
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, [])
 
   return (
-    <div style={{ marginTop: '100px' }}  className=' inset-0 h-full  w-full  bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#ff69b4_100%)]'>
+    <div style={{ marginTop: '100px' }} className=' inset-0 h-full  w-full  bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#ff69b4_100%)]'>
       <Menu />
       <div className={styles.divCategoriasCarrusel}>
         <Carrousel />
       </div>
       <div className="fixed bottom-24 right-4 text-black">
-        {/* <p className=" font-extrabold">Escríbenos al wsp!</p> */}
-      <a className="fixed bottom-4 right-12 size-20 z-50 rounded-full bg-transparent hover:bg-pink-300 hover:transition-colors" href="https://wa.me/986475277">
-        <Image src={wsp} alt="WhatsApp" />
-      </a>
+        <a className="fixed bottom-4 right-12 size-20 z-50 rounded-full bg-transparent hover:bg-pink-300 hover:transition-colors" href="https://wa.me/986475277">
+          <Image src={wsp} alt="WhatsApp" />
+        </a>
       </div>
-      {allProducts && <CardsProductos productos={allProducts} />}
-
+      {productosDestacados && <CardsProductos productos={productosDestacados} />}
       <Footer />
     </div>
   );
