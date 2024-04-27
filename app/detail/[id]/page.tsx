@@ -91,10 +91,12 @@ const DetailPage = () => {
 
 
 
-    const stockPorRopaSeleccionada = infoStock.filter((ropa) => ropa.id === ropaSeleccionada.id);
+    const stockPorRopaSeleccionada = infoStock.find((ropa) => ropa.id === ropaSeleccionada)?.stock || 'selecciona un color/talla...';
 
-    console.log(infoStock)
-    console.log('ropa',ropaSeleccionada)
+    console.log('info', infoStock)
+    console.log('seleccionada', ropaSeleccionada)
+
+    console.log('ropa',stockPorRopaSeleccionada)
 
     return (
         <>
@@ -132,16 +134,13 @@ const DetailPage = () => {
                             <p className="text-lg mb-2">Categoría: {producto?.category}</p>
                             <p className="text-lg mb-4">Precio: ${producto?.price}</p>
                             <div>
-                                <select name="" id="">
-                                    {infoStock?.map((color) =>{ 
-                                        return( 
-                                        <option className='text-black' onClick={()=>setRopaSeleccionada(color)} value={color.color}>{color.color}</option>
-)})}
+                                <select name="" id="" onChange={(e) => setRopaSeleccionada(e.target.value)}>
+                                    {infoStock?.map((color) => ( 
+                                        <option className='text-black' key={color.id} value={color.id}>{color.color}</option>
+                                    ))}
                                 </select>
-                                <p>stock disponible: {stockPorRopaSeleccionada ? stockPorRopaSeleccionada.stock : 'Cargando...'}</p>
-
-                   
-                </div>
+                                <p>stock disponible: {stockPorRopaSeleccionada ? stockPorRopaSeleccionada : 'selecciona un color/talla...'}</p>
+                            </div>
                             <div className="flex items-center mb-4">
                                 <label htmlFor="cantidad" className="mr-2">Cantidad:</label>
                                 <button onClick={reducirCantidad} className="bg-pink-400 hover:bg-pink-700 text-white py-1 px-3 rounded-md focus:outline-none">-</button>
@@ -153,11 +152,10 @@ const DetailPage = () => {
                     </div>
                 </div>
                 <div>
-                    {infoStock?.map((talla) => { 
-                        return( 
-                        <button className='text-black' onClick={()=>setRopaSeleccionada(talla) } >{talla.talla}</button>
-)})}
-                </div>
+    {infoStock?.map((talla) => ( 
+        <button className='text-black' key={talla.id} onClick={() => setRopaSeleccionada(talla.id)}>{talla.talla}</button>
+    ))}
+</div>
 
                 <h2 className="text-2xl font-bold mb-4 ml-5">Comentarios</h2>
                 <div className="w-full mt-8 ml-11" style={{ maxHeight: '300px', overflowY: 'auto' }}>
