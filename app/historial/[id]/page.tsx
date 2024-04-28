@@ -8,14 +8,17 @@ import axios from 'axios';
 
 const Historial = () => {
   const { id } = useParams();
-  const [carritoRedux, setCarritoRedux] = useState(null);
+  const [carrito, setCarrito] = useState([]);
+
+
+  console.log(carrito)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await axios(`/carrito/${id}`);
         if (data) {
-          setCarritoRedux(data);
+          setCarrito(data);
         }
       } catch (error) {
         return error;
@@ -24,52 +27,52 @@ const Historial = () => {
     fetchData();
   }, []);
 
-  const carrito = [
-    {
-      userC: { name: 'aquiles' },
-      createdAd: '10:10:2024',
-      productos: [
-        {
-          id: 4,
-          img: 'https://res.cloudinary.com/diswtvj50/image/upload/v1708809448/cropped3_tikrfq.png',
-          segundaimg: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
-          name: 'Alienware',
-          mark: 'Dell',
-          price: 2000,
-        },
-        {
-          id: 5,
-          img: 'https://res.cloudinary.com/diswtvj50/image/upload/v1708805538/tarjetagrafica2_sprphn.png',
-          segundaimg: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
-          name: 'GeForce RTX 3070',
-          mark: 'Nvidia',
-          price: 500,
-        },
-        {
-          id: 7,
-          img: 'https://res.cloudinary.com/diswtvj50/image/upload/v1708807476/cropped2_bxpo8c.png',
-          segundaimg: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
-          name: 'Iphone 14 Pro Black',
-          mark: 'Apple',
-          price: 3000,
-        },
-      ],
-    },
-    {
-      userC: { name: 'Lucas' },
-      createdAd: '10:10:2024',
-      productos: [
-        {
-          id: 8,
-          img: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733825/audio_sjyb5v.png',
-          segundaimg: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
-          name: 'Audifonos BlackShark',
-          mark: 'Razer',
-          price: 450,
-        },
-      ],
-    },
-  ];
+  // const carrito = [
+  //   {
+  //     userC: { name: 'aquiles' },
+  //     createdAd: '10:10:2024',
+  //     productos: [
+  //       {
+  //         id: 4,
+  //         img: 'https://res.cloudinary.com/diswtvj50/image/upload/v1708809448/cropped3_tikrfq.png',
+  //         segundaimg: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
+  //         name: 'Alienware',
+  //         mark: 'Dell',
+  //         price: 2000,
+  //       },
+  //       {
+  //         id: 5,
+  //         img: 'https://res.cloudinary.com/diswtvj50/image/upload/v1708805538/tarjetagrafica2_sprphn.png',
+  //         segundaimg: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
+  //         name: 'GeForce RTX 3070',
+  //         mark: 'Nvidia',
+  //         price: 500,
+  //       },
+  //       {
+  //         id: 7,
+  //         img: 'https://res.cloudinary.com/diswtvj50/image/upload/v1708807476/cropped2_bxpo8c.png',
+  //         segundaimg: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
+  //         name: 'Iphone 14 Pro Black',
+  //         mark: 'Apple',
+  //         price: 3000,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     userC: { name: 'Lucas' },
+  //     createdAd: '10:10:2024',
+  //     productos: [
+  //       {
+  //         id: 8,
+  //         img: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733825/audio_sjyb5v.png',
+  //         segundaimg: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
+  //         name: 'Audifonos BlackShark',
+  //         mark: 'Razer',
+  //         price: 450,
+  //       },
+  //     ],
+  //   },
+  // ];
 
   // Función para calcular el total de la compra
   const calcularTotalCompra = (productos) => {
@@ -85,22 +88,22 @@ const Historial = () => {
             <FaRegClock />
             <h1 className="font-bold">Historial de Compras</h1>
           </div>
-          {carrito.map((orden, index) => (
+          {carrito?.map((orden, index) => (
             <div key={index} className="flex justify-center mb-4">
               <div className="w-full md:w-3/4">
                 <div className="bg-white text-black border rounded-lg p-4 mb-4">
                   <div className="flex items-center mb-2">
                     <FaShoppingCart className="mr-2" />
-                    <span>Compra realizada por {orden.userC.name}</span>
+                    <span>Compra realizada por {orden?.userC?.name}</span>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {orden.productos.map((producto, idx) => (
+                    {orden?.productos?.map((producto, idx) => (
                       <div key={idx} className="bg-pink-100 border border-black p-2 flex items-center">
-                        <img src={producto.img} alt={producto.name} className="w-12 h-12 rounded-lg mr-2" />
+                        <img src={producto?.imgs[0]} alt={producto?.name} className="w-12 h-12 rounded-lg mr-2" />
                         <div>
-                          <p className="text-lg font-semibold">{producto.name}</p>
-                          <p className="text-sm">{producto.mark}</p>
-                          <p className="text-lg">${producto.price}</p>
+                          <p className="text-lg font-semibold">{producto?.name}</p>
+                          <p className="text-sm">{producto?.mark}</p>
+                          <p className="text-lg">${producto?.price}</p>
                         </div>
                       </div>
                     ))}
@@ -108,10 +111,10 @@ const Historial = () => {
                   <div className="flex justify-between mt-4">
                     <div>
                       <FaRegClock className="mr-2" />Fecha: 
-                      <span className="text-lg">{orden.createdAd}</span>
+                      <span className="text-lg">{orden?.createdAd}</span>
                     </div>
                     <div>
-                      <span className="font-semibold">Total: ${calcularTotalCompra(orden.productos)}</span>
+                      <span className="font-semibold">Total: ${calcularTotalCompra(orden?.productos)}</span>
                     </div>
                   </div>
                 </div>
