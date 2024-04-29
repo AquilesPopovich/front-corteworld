@@ -22,7 +22,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div style={{ marginTop: '100px' }} className=' inset-0 h-full  w-full  bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#ff69b4_100%)]'>
+    <div style={{ marginTop: '100px' }} className=' inset-0 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#ff69b4_100%)]'>
       <Menu />
       <div className={styles.divCategoriasCarrusel}>
         <Carrousel />

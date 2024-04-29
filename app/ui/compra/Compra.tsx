@@ -8,10 +8,11 @@ interface Props {
     setCompra: (value: boolean) => void,
     productos: ProductsList,
     idCompra: number,
+    setIdCompra: (value: number) => void
     setCarrito: (value: boolean) => void
 }
 
-const Compra: React.FC<Props> = ({ compra, setCompra, productos, idCompra, setCarrito }) => {
+const Compra: React.FC<Props> = ({ compra, setCompra, productos, idCompra, setIdCompra, setCarrito }) => {
     if (!compra) return null;
 
     const [payment, setPayment] = useState({
@@ -63,30 +64,38 @@ const Compra: React.FC<Props> = ({ compra, setCompra, productos, idCompra, setCa
     return (
         <div className="fixed top-0 left-0 w-screen h-screen bg-gray-900 bg-opacity-50 flex items-center justify-center py-6">
             <div className={`flex flex-col items-center justify-center gap-5 z-10 bg-pink-100 w-2/4 h-5/6 border border-gray-200 rounded`}>
-                <div onClick={deleteCarrito} className='relative cursor-pointer'>
+                <div onClick={() => {deleteCarrito(); setIdCompra(0);}} className='relative cursor-pointer'>
                     <FaTimes />
                 </div>
-                {/* <h2 className="text-xl font-semibold mb-4">Productos seleccionados de {carrito?.userC?.name}</h2> */}
                 <div className=' overflow-y-auto mb-10'>
                     {productos?.map(producto => (
                         <div key={producto.id} className=' flex flex-col gap-2'>
                             <img src={producto?.imgs} alt={producto?.name} className="w-16 h-16 mr-2" />
-                                <p className="font-semibold">{producto?.name}</p>
-                                {/* <p>Cantidad: {producto?.}</p> */}
-                                <p>Precio: {producto?.price}</p>
+                            <p className="font-semibold">{producto?.name}</p>
+                            {/* <p>Cantidad: {producto?.}</p> */}
+                            <p>Precio: {producto?.price}</p>
                         </div>
                     ))}
                 </div>
                 <div className="mt-8 w-2/4">
-                    <label htmlFor="direction" className="block font-semibold">Dirección de envío:</label>
+                    <p>Escribe tu dirección para llevar tu pedido:</p>
+                    <label htmlFor="direction" className="block font-semibold text-xl">Dirección de envío:</label>
                     <input type="text" id="direction" name="direction" value={payment.direction} onChange={handleChange} className="border border-gray-200 rounded px-4 py-2 mt-2 w-full" />
                 </div>
-                <button className="bg-pink-500 text-white px-4 py-2 rounded mt-4" onClick={createPayment}>Ir a pagar</button>
-                <button className="bg-red-500 text-white px-4 py-2 rounded mt-4" onClick={deleteCarrito}>Cancelar pago</button>
+                {payment.direction &&
+                    <form name='rec20108_btn1' method='post' action='https://www.webpay.cl/backpub/external/form-pay'>
+                        <input type='hidden' name='idFormulario' value='174072' />
+                        <input type='hidden' name='monto' value='100' />
+                        <input type='image' title='Imagen' name='button1' src='https://www.webpay.cl/assets/img/boton_webpaycl.svg' value='Boton 1' />
+                        <button hidden className="bg-pink-500 text-white px-4 py-2 rounded mt-4" onClick={createPayment}>Ir a pagar</button>
+                    </form>
+                }
+
+                <button className="bg-red-500 text-white px-4 py-2 rounded mt-4" onClick={() => {deleteCarrito(); setIdCompra(0);}}>Cancelar pago</button>
             </div>
         </div>
     );
-    
+
 
 }
 export default Compra;

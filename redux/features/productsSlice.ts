@@ -34,11 +34,6 @@ export const ProductsSlice = createSlice({
                 return product.mark === action.payload
             })
         },
-        filterPriceProducts: (state, action) => {
-            state.productsForFilter = state.products.filter(product => {
-                return product.price === action.payload
-            })
-        },
         filterCategoryProducts: (state, action) => {
             state.productsForFilter = state.products.filter(product => {
                 return product.category === action.payload
@@ -85,16 +80,6 @@ export const filterByMark = (mark: string) => async (dispatch: AppDispatch) => {
     }
 }
 
-export const filterByPrice = (price: number) => async (dispatch: AppDispatch) => {
-    try {
-        if (price) dispatch(filterPriceProducts(price));
-        else await dispatch(getAllProducts());
-
-    } catch (error) {
-        if (error instanceof Error) throw Error(error.message)
-    }
-}
-
 export const filterByCategory = (category: string) => async(dispatch: AppDispatch) => {
     try {
         if(category) dispatch(filterCategoryProducts(category));
@@ -113,6 +98,6 @@ export const orderProducts = (order: string) => async (dispatch: AppDispatch) =>
     }
 }
 
-export const { getProducts, searchProducts, filterMarkProducts, filterPriceProducts, filterCategoryProducts, orderProductsState } = ProductsSlice.actions;
+export const { getProducts, searchProducts, filterMarkProducts, filterCategoryProducts, orderProductsState } = ProductsSlice.actions;
 
 export default ProductsSlice.reducer;

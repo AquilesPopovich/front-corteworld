@@ -26,7 +26,7 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
 
   const dispatch = useDispatch();
 
-  
+
   useEffect(() => {
     const ids = carritoRedux.map((producto: any) => producto.id);
     setIdProductos(ids);
@@ -35,12 +35,12 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
   const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
+      if(!idProductos.length) return window.alert('No hay productos para comprar!')
       const { data } = await axiosURL.post('/carrito', {
         userId: user[0]?.id,
         productId: idProductos
       })
       if (data) {
-        console.log(data)
         setIdCompra(data.id)
         setCompra(true)
       }
@@ -114,9 +114,9 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
           )}
         </div>
         <div className={styles.totalPrice}>Precio Total: ${calcularPrecioTotal()}</div>
-        <button className={styles.checkout} onClick={handleClick}>Realizar Pedido</button>
+          <button className={styles.checkout} onClick={handleClick}>Realizar Pedido</button>
       </div>
-      <Compra compra={compra} setCompra={setCompra} productos={carritoRedux} idCompra={idCompra} setCarrito={setCarrito} />
+      <Compra compra={compra} setCompra={setCompra} productos={carritoRedux} idCompra={idCompra} setIdCompra={setIdCompra} setCarrito={setCarrito} />
     </div>
   );
 };
