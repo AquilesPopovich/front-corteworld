@@ -15,7 +15,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
 
   const user = useAppSelector(state => state.userSlice.user);
 
-
+  console.log(user[0]?.user?.id)
   const dispatch = useAppDispatch();
 
   const logOut = async() => {

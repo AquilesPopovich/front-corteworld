@@ -5,7 +5,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import styles from './searchFunction.module.css';
 import { getAllProducts, searchOneProduct } from "@/redux/features/productsSlice";
 
-
 export const SearchProduct = () => {
     const dispatch = useAppDispatch();
 

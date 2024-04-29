@@ -24,6 +24,7 @@ const Productos = () => {
   }, [])
 
   const productos = useAppSelector(state => state.productsSlice.productsForFilter);
+  const productsStatus = productos.filter((producto) => producto.status === true);
   console.log('PRODUCTOS', productos)
 
 
@@ -115,7 +116,7 @@ const Productos = () => {
 
         {/* Lista de productos */}
         <div className="flex flex-wrap w-4/5 justify-center p-4">
-          {productos?.map(producto => (
+          {productsStatus?.map(producto => (
             <CardProducto
               key={producto.id}
               id={producto.id}

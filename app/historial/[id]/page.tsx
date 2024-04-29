@@ -4,75 +4,34 @@ import { FaShoppingCart, FaRegClock } from 'react-icons/fa';
 import { Menu } from '../../ui/menu/Menu';
 import { Footer } from '../../ui/footer/Footer';
 import { useParams } from 'next/navigation';
-import axios from 'axios';
+import axiosURL from '@/axiosConfig/axiosConfig';
 
 const Historial = () => {
   const { id } = useParams();
   const [carrito, setCarrito] = useState([]);
-
-
-  console.log(carrito)
+  const [imgs, setImgs] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios(`/carrito/${id}`);
+        const { data } = await axiosURL(`/carrito/user/${id}`);
         if (data) {
           setCarrito(data);
+          const imgPromises = data.flatMap((orden: any) =>
+            orden?.productos?.map(async (producto: any) => {
+              const { data: imgData } = await axiosURL(`/imgProduct/${producto.id}`);
+              return imgData;
+            })
+          );
+          const imgResponses = await Promise.all(imgPromises);
+          setImgs(imgResponses);
         }
       } catch (error) {
-        return error;
+        console.error('Error fetching data:', error);
       }
     };
     fetchData();
   }, []);
-
-  // const carrito = [
-  //   {
-  //     userC: { name: 'aquiles' },
-  //     createdAd: '10:10:2024',
-  //     productos: [
-  //       {
-  //         id: 4,
-  //         img: 'https://res.cloudinary.com/diswtvj50/image/upload/v1708809448/cropped3_tikrfq.png',
-  //         segundaimg: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
-  //         name: 'Alienware',
-  //         mark: 'Dell',
-  //         price: 2000,
-  //       },
-  //       {
-  //         id: 5,
-  //         img: 'https://res.cloudinary.com/diswtvj50/image/upload/v1708805538/tarjetagrafica2_sprphn.png',
-  //         segundaimg: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
-  //         name: 'GeForce RTX 3070',
-  //         mark: 'Nvidia',
-  //         price: 500,
-  //       },
-  //       {
-  //         id: 7,
-  //         img: 'https://res.cloudinary.com/diswtvj50/image/upload/v1708807476/cropped2_bxpo8c.png',
-  //         segundaimg: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
-  //         name: 'Iphone 14 Pro Black',
-  //         mark: 'Apple',
-  //         price: 3000,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     userC: { name: 'Lucas' },
-  //     createdAd: '10:10:2024',
-  //     productos: [
-  //       {
-  //         id: 8,
-  //         img: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733825/audio_sjyb5v.png',
-  //         segundaimg: 'https://res.cloudinary.com/dphpu225t/image/upload/v1708733824/mouse_pubjux.png',
-  //         name: 'Audifonos BlackShark',
-  //         mark: 'Razer',
-  //         price: 450,
-  //       },
-  //     ],
-  //   },
-  // ];
 
   // Función para calcular el total de la compra
   const calcularTotalCompra = (productos) => {
@@ -99,7 +58,13 @@ const Historial = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {orden?.productos?.map((producto, idx) => (
                       <div key={idx} className="bg-pink-100 border border-black p-2 flex items-center">
-                        <img src={producto?.imgs[0]} alt={producto?.name} className="w-12 h-12 rounded-lg mr-2" />
+                        {imgs?.map((img) => {
+                          if(img?.[0].product?.id === producto?.id){
+                            return (
+                              <img src={img?.[0].file} alt={producto?.name} className="w-12 h-12 rounded-lg mr-2" />
+                            )
+                          }
+                        })}
                         <div>
                           <p className="text-lg font-semibold">{producto?.name}</p>
                           <p className="text-sm">{producto?.mark}</p>
@@ -110,8 +75,16 @@ const Historial = () => {
                   </div>
                   <div className="flex justify-between mt-4">
                     <div>
-                      <FaRegClock className="mr-2" />Fecha: 
-                      <span className="text-lg">{orden?.createdAd}</span>
+                      <FaRegClock className="mr-2" />Fecha:{" "}
+                      <span className="text-lg">
+                        {new Date(orden?.createdAt).toLocaleString("es-ES", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </span>
                     </div>
                     <div>
                       <span className="font-semibold">Total: ${calcularTotalCompra(orden?.productos)}</span>

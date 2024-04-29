@@ -15,7 +15,7 @@ export default function Home() {
   const dispatch = useAppDispatch();
   const allProducts = useAppSelector(state => state.productsSlice.productsForFilter);
   const productosDestacados = allProducts.filter((producto) => producto.destacado === true);
-  console.log(productosDestacados)
+  const productsStatus = productosDestacados.filter((producto) => producto.status === true);
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -32,7 +32,7 @@ export default function Home() {
           <Image src={wsp} alt="WhatsApp" />
         </a>
       </div>
-      {productosDestacados && <CardsProductos productos={productosDestacados} />}
+      {productsStatus && <CardsProductos productos={productsStatus} />}
       <Footer />
     </div>
   );

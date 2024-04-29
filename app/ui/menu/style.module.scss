@@ -1,0 +1,83 @@
+.button{
+    margin: 5px;
+    z-index: 2;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: black;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .burger{
+    width: 100%;
+    &::after, &::before {
+      content: "";
+      display: block;
+      height: 1px;
+      width: 40%;
+      margin: auto;
+      background-color: white;
+      position: relative;
+      transition: transform 0.3s;
+    }
+  
+    &::after{
+      top: -5px;
+    }
+  
+    &::before{
+      top: 5px;
+    }
+  }
+  
+  .burgerActive{
+    &::after{
+      transform: rotate(45deg);
+      top: -1px;
+    }
+    &::before{
+      transform: rotate(-45deg);
+      top: 0px;
+    }
+  }
+
+  .link {
+    position: relative;
+    transition: 0.5s;
+    font-weight: 600;
+  }
+
+  .link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: rgb(245, 158, 179);
+    transition: width 0.3s;
+  }
+
+  .link:hover::after {
+    width: 100%;
+  }
+
+  .navBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.95);
+  }
+
+  .logo{
+    transition: 0.2s;
+  }
+
+  .logo:hover{
+    transform: scale(1.1);
+  }

@@ -42,7 +42,6 @@ const UpdateProduct: React.FC<updateProductProps> = ({ id, updateProduct, setUpd
       [event.target.name]: event.target.value
     });
   };
-  console.log(nuevoProducto)
 
   const handleSubmit = async (event: any): Promise<void> => {
     event.preventDefault();

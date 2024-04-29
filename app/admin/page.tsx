@@ -9,6 +9,7 @@ import { getAllProducts } from '@/redux/features/productsSlice';
 import AgregarStock from '../ui/agregarStock/AgregarStock';
 import { Menu } from '../ui/menu/Menu';
 import style from './admin.module.css';
+import ProductosDeshabilitados from '../ui/productosDeshabilitados/ProductosDeshabilitados';
 
 const CrearProducto = React.lazy(() => import('../ui/crearProducto/CrearProducto'));
 const CardProducto = React.lazy(() => import('../ui/cards/productos/cardProducto/CardProducto'));
@@ -20,6 +21,7 @@ const Admin = () => {
   const [imagenes, setImagenes] = useState(false);
   const [stock, setStock] = useState(false);
   const [crearProducto, setCrearProducto] = useState(false);
+  const [deshabilitados, setDeshabilitados] = useState(false);
   const [usuarios, setUsuarios] = useState([]);
   const [filtrados, setFiltrados] = useState([]);
   const [mostrarUsuarios, setMostrarUsuarios] = useState(false);
@@ -66,18 +68,10 @@ const Admin = () => {
           <button className='w-full m-1 cursor-pointer hover:scale-110 transition' onClick={() => setStock(true)}>Stock, colores y tallas</button>
           <AgregarStock stock={stock} setStock={setStock} productos={productos} />
           </React.Suspense>
-          <button className='w-full m-1 cursor-pointer hover:scale-110 transition'>Mostrar productos deshabilitados</button>
-          {productosDeshabilitados?.map(productoDeshabilitado => (
-            <React.Suspense key={productoDeshabilitado?.id} fallback={<div className={style.loader}></div>}>
-              <CardProducto
-                id={productoDeshabilitado?.id}
-                name={productoDeshabilitado?.name}
-                img={productoDeshabilitado?.imgs}
-                mark={productoDeshabilitado?.mark}
-                price={productoDeshabilitado?.price}
-              />
-            </React.Suspense>
-          ))}
+          <button className='w-full m-1 cursor-pointer hover:scale-110 transition' onClick={() => setDeshabilitados(true)}>Mostrar productos deshabilitados</button>
+          <div className='fixed left-2/4'>
+            <ProductosDeshabilitados deshabilitados={deshabilitados} setDeshabilitados={setDeshabilitados} productosDeshabilitados={productosDeshabilitados}  />
+          </div>
           <button className='w-full m-1 cursor-pointer hover:scale-110 transition' onClick={() => setMostrarUsuarios(true)}>Mostrar Usuarios Deshabilitados</button>
           {filtrados?.map((user) => {
             if (!mostrarUsuarios) return null;

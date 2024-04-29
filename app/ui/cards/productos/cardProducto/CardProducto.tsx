@@ -69,10 +69,20 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
       const { data } = await axiosURL.patch(`/products/${id}`, { status: false });
       if (data) {
         dispatch(getAllProducts());
-        console.log(data)
       }
     } catch (error) {
       console.error('Error al eliminar el producto:', error);
+    }
+  };
+
+  const restaurarProduct = async (id: string) => {
+    try {
+      const { data } = await axiosURL.patch(`/products/${id}`, { status: true });
+      if (data) {
+        dispatch(getAllProducts());
+      }
+    } catch (error) {
+      console.error('Error al restaurar el producto:', error);
     }
   };
 
@@ -87,19 +97,19 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
         await dispatch(getAllProducts());
       }
     } catch (error) {
-      console.error('Error highlighting the product:', error);
+      console.error('Error al destacar the product:', error);
     }
   };
 
-  const noDestacarProduct = async(id: string) => {
+  const noDestacarProduct = async (id: string) => {
     try {
-      const {data} = await axiosURL.patch(`/products/${id}`, {destacado: false})
-      if(data){
+      const { data } = await axiosURL.patch(`/products/${id}`, { destacado: false })
+      if (data) {
         await dispatch(getAllProducts())
         console.log(data)
       }
     } catch (error) {
-      console.error('Error highlighting the product:', error);
+      console.error('Error al no destacar the product:', error);
     }
   }
 
@@ -166,24 +176,29 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
         <div className="font-bold text-black mb-2">{name} ({mark})</div>
         <p className="text-gray-900 font-bold text-lg mt-2">${price}</p>
       </div>
+
       {user[0]?.user?.admin && (
-        <div className="ml-4 flex items-center">
-          <button onClick={() => deleteProduct(id)}>Eliminar Producto</button>
-        </div>
-      )}
-      {user[0]?.user?.admin && (
-        <div className="ml-4 flex items-center">
-          <button onClick={handleUpdateProduct}>Actualizar Producto</button>
-        </div>
-      )}
-      {user[0]?.user?.admin && (
-        <div className="ml-4 flex items-center">
-          <button onClick={() => destacarProduct(id)}>Destacar Product</button>
-        </div>
-      )}
-      {user[0]?.user?.admin && (
-        <div className="ml-4 flex items-center">
-          <button onClick={() => noDestacarProduct(id)}>No Destacar Product</button>
+        <div className='flex flex-col overflow-y-auto w-4/5'>
+          <div className="ml-4 flex items-center">
+            <button onClick={() => deleteProduct(id)}>Eliminar Producto</button>
+          </div>
+          <hr className="w-full border-t-2 border-gray-300 my-4" />
+          <div className="ml-4 flex items-center">
+            <button onClick={() => restaurarProduct(id)}>Restaurar Producto</button>
+          </div>
+          <hr className="w-full border-t-2 border-gray-300 my-4" />
+          <div className="ml-4 flex items-center">
+            <button onClick={handleUpdateProduct}>Actualizar Producto</button>
+          </div>
+          <hr className="w-full border-t-2 border-gray-300 my-4" />
+          <div className="ml-4 flex items-center">
+            <button onClick={() => destacarProduct(id)}>Destacar Producto</button>
+          </div>
+          <hr className="w-full border-t-2 border-gray-300 my-4" />
+          <div className="ml-4 flex items-center">
+            <button onClick={() => noDestacarProduct(id)}>No Destacar Producto</button>
+          </div>
+          <br />
         </div>
       )}
 
