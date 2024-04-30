@@ -5,6 +5,8 @@ import { Menu } from '../../ui/menu/Menu';
 import { Footer } from '../../ui/footer/Footer';
 import { useParams } from 'next/navigation';
 import axiosURL from '@/axiosConfig/axiosConfig';
+import Image from 'next/image';
+import wsp from '../../../public/images/wsp.png'
 
 const Historial = () => {
   const { id } = useParams();
@@ -96,6 +98,10 @@ const Historial = () => {
           ))}
         </div>
       </div>
+      <a className="fixed bottom-6 right-5 size-14 hover:scale-150 transition-transform z-30 rounded-full bg-transparent" 
+        href="https://wa.me/986475277">
+          <Image src={wsp} alt="WhatsApp" />
+        </a>
       <Footer />
     </>
   );

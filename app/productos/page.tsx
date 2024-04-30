@@ -7,6 +7,8 @@ import { Footer } from '../ui/footer/Footer'
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { filterByCategory, getAllProducts } from '@/redux/features/productsSlice'
 import { filterByMark, orderProducts } from '@/redux/features/productsSlice'
+import wsp from '../../public/images/wsp.png'
+import Image from "next/image";
 
 const Productos = () => {
 
@@ -112,6 +114,10 @@ const Productos = () => {
               />
             ))}
           </div>
+        <a className="fixed bottom-6 right-5 size-14 hover:scale-150 transition-transform z-30 rounded-full bg-transparent" 
+        href="https://wa.me/986475277">
+          <Image src={wsp} alt="WhatsApp" />
+        </a>
         </div>
           <Footer />
       </div>

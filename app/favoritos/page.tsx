@@ -1,10 +1,11 @@
 'use client'
 import React from 'react'
 import { useSelector } from 'react-redux';
-import CardProducto from '../ui/cards/productos/cardProducto/CardProducto';
 import { Menu } from '../ui/menu/Menu';
 import { Footer } from '../ui/footer/Footer';
 import CardFavoritos from '../ui/cardFavoritos/CardFavoritos';
+import Image from 'next/image';
+import wsp from '../../public/images/wsp.png'
 
 const Favoritos = () => {
 
@@ -36,6 +37,10 @@ const Favoritos = () => {
           </div>
   
         </div>
+        <a className="fixed bottom-6 right-5 size-14 hover:scale-150 transition-transform z-30 rounded-full bg-transparent" 
+        href="https://wa.me/986475277">
+          <Image src={wsp} alt="WhatsApp" />
+        </a>
         <Footer />
       </div>
     )

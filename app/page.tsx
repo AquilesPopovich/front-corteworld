@@ -27,11 +27,10 @@ export default function Home() {
       <div className={styles.divCategoriasCarrusel}>
         <Carrousel />
       </div>
-      <div className="fixed bottom-24 right-4 text-black">
-        <a className="fixed bottom-4 right-12 size-20 z-50 rounded-full bg-transparent hover:bg-pink-300 hover:transition-colors" href="https://wa.me/986475277">
+        <a className="fixed bottom-6 right-5 size-14 hover:scale-150 transition-transform z-30 rounded-full bg-transparent" 
+        href="https://wa.me/986475277">
           <Image src={wsp} alt="WhatsApp" />
         </a>
-      </div>
       {productsStatus && <CardsProductos productos={productsStatus} />}
       <Footer />
     </div>
