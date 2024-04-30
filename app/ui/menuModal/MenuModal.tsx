@@ -1,9 +1,13 @@
 'use client'
-import Link from 'next/link';
-import styles from './menuModal.module.css';
+import styles from './style.module.scss';
 import { FaStar, FaHistory, FaPowerOff, FaTimes } from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { logOutUser } from '@/redux/features/userSlice';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { menuSlide } from '../menu/Anim';
+import Link from '../link/index';
 
 interface MenuModalProps {
   menu: boolean;
@@ -12,13 +16,31 @@ interface MenuModalProps {
 
 const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
   if (!menu) return null;
-
   const user = useAppSelector(state => state.userSlice.user);
-
-  console.log(user[0]?.user?.id)
   const dispatch = useAppDispatch();
+  const pathname = usePathname();
+  const [selectedIndicator, setSelectedIndicator] = useState(pathname);
 
-  const logOut = async() => {
+  const navItems = [
+
+    {
+
+      title: "Favoritos",
+
+      href: "/favoritos",
+
+    },
+
+    {
+
+      title: "Historial",
+
+      href: `/historial/${user[0]?.user?.id}`,
+
+    },
+  ]
+
+  const logOut = async () => {
     try {
       dispatch(logOutUser());
       setMenu(false)
@@ -28,30 +50,36 @@ const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
   }
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent}>
-      <h2 className='text-black'>Menu</h2>
-        <div className={styles.closeButton} onClick={() => setMenu(false)}>
-          <FaTimes />
-        </div>
-        <div className={styles.menuLinks}>
-          <Link href="/favoritos" passHref>
-            <div className={styles.link}>
-              <FaStar className={styles.icon} /> Favoritos
+    <motion.div
+      variants={menuSlide}
+      initial="initial"
+      animate="enter"
+      exit="exit"
+      className={styles.menu}
+    >
+
+      <div className={styles.body}>
+          <div onMouseLeave={() => { setSelectedIndicator(pathname) }} className={styles.nav}>
+            <div className={styles.header}>
+              <p>Menu</p>
             </div>
-          </Link>
-          <Link href={`/historial/${user[0]?.user?.id}`} passHref>
-            <div className={styles.link}>
-              <FaHistory className={styles.icon} /> Historial
-            </div>
-          </Link>
-        </div>
-        <div className={styles.logoutButton} onClick={() => logOut()}>
-          <FaPowerOff className={styles.icon} />
-          <span>Logout</span>
-        </div>
+            {
+              navItems.map((data, index) => {
+                return <Link
+                  key={index}
+                  data={{ ...data, index }}
+                  isActive={selectedIndicator == data.href}
+                  setSelectedIndicator={setSelectedIndicator}>
+                </Link>
+              })
+            }
+          </div>
+          <button onClick={() => logOut()}>
+            LogOut
+            <FaPowerOff className={styles.icon} />
+          </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
