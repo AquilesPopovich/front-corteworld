@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { menuSlide } from '../menu/Anim';
 import Link from '../link/index';
+import { deleteCarrito } from '@/redux/features/carritoSlice';
 
 interface MenuModalProps {
   menu: boolean;
@@ -42,6 +43,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
 
   const logOut = async () => {
     try {
+      dispatch(deleteCarrito()); 
       dispatch(logOutUser());
       setMenu(false)
     } catch (error) {

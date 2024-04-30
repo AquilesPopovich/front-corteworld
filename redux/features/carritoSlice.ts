@@ -31,10 +31,15 @@ export const CarritoSlice = createSlice({
             state.carrito = state.carrito.filter(producto => producto.id !== action.payload);
             // Guardar el estado del carrito en localStorage después de eliminar un producto
             localStorage.setItem(CARRITO_STORAGE_KEY, JSON.stringify(state.carrito));
+        },
+        deleteCarrito: (state, _action) =>{
+            state.carrito = []
+            localStorage.setItem(CARRITO_STORAGE_KEY, JSON.stringify(state.carrito));
+
         }
     }
 });
 
-export const { agregarCarrito, removeCarrito } = CarritoSlice.actions;
+export const { agregarCarrito, removeCarrito, deleteCarrito } = CarritoSlice.actions;
 
 export default CarritoSlice.reducer;
