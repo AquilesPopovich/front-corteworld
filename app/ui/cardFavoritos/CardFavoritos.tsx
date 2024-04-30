@@ -1,16 +1,30 @@
 'use client'
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '@/redux/features/favoriteSlice';
 import { Star, StarBorder } from '@mui/icons-material'; // Importa los iconos de estrella vacía y llena
+import axiosURL from '@/axiosConfig/axiosConfig';
 
-const CardFavoritos = ({ id, name, img, mark, price, segundaimg }: {id: number, name: string, img: string, mark: string, price: number, segundaimg: string}) => {
-  const [hover, setHover] = React.useState(false);
+const CardFavoritos = ({ id, name, mark, price }: { id: number, name: string, mark: string, price: number }) => {
+  const [hover, setHover] = useState(false);
   const dispatch = useDispatch();
+  const [imgs, setImgs] = useState([]);
   const favorites = useSelector((state: any) => state.favorites.favorites);
 
   const isFavorite = favorites.some((product: any) => product.id === id);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axiosURL.get(`/imgProduct/${id}`)
+        if (data) setImgs(data.map((img: any) => img.file));
+      } catch (error) {
+        console.error('Error al traer imagenes:', error);
+      }
+    }
+    fetchData();
+  }, [])
 
   const handleFavoriteToggle = () => {
     if (isFavorite) {
@@ -22,41 +36,41 @@ const CardFavoritos = ({ id, name, img, mark, price, segundaimg }: {id: number, 
   };
 
   return (
-    <div 
-    className='max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white text-black flex flex-col justify-between items-center relative'
+    <div
+      className='max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white text-black flex flex-col justify-between items-center relative'
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
       <Link href='detail/1'>
         <div key={id} className=" bg-white text-black w-full h-80 flex justify-center items-center relative"> {/* Agrega relative al contenedor de la imagen */}
-          <img 
-            className={`w-full max-h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`} 
-            src={img} 
-            alt={name} 
+          <img
+            className={`w-full max-h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`}
+            src={imgs[0]}
+            alt={name}
           />
-          <img 
-            className={`w-full max-h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`} 
-            src={segundaimg} 
-            alt={name} 
+          <img
+            className={`w-full max-h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`}
+            src={imgs[1]}
+            alt={name}
           />
-            </div>
-          </Link>
-          <div className="absolute top-2 left-0.5"> {/* Posiciona la estrella en la esquina inferior izquierda */}
-            {/* Reemplaza el botón con los iconos de estrella */}
-            {isFavorite ? (
-              <Star 
-                onClick={handleFavoriteToggle} 
-                className="text-pink-700 cursor-pointer" 
-                style={{ fontSize: '2rem' }} 
-              />
-            ) : (
-              <StarBorder 
-                onClick={handleFavoriteToggle} 
-                className="text-pink-400 cursor-pointer" 
-                style={{ fontSize: '2rem' }} 
-              />
-            )}
-          </div>
+        </div>
+      </Link>
+      <div className="absolute top-2 left-0.5"> {/* Posiciona la estrella en la esquina inferior izquierda */}
+        {/* Reemplaza el botón con los iconos de estrella */}
+        {isFavorite ? (
+          <Star
+            onClick={handleFavoriteToggle}
+            className="text-pink-700 cursor-pointer"
+            style={{ fontSize: '2rem' }}
+          />
+        ) : (
+          <StarBorder
+            onClick={handleFavoriteToggle}
+            className="text-pink-400 cursor-pointer"
+            style={{ fontSize: '2rem' }}
+          />
+        )}
+      </div>
       <div className="px-6 py-4 text-center">
         <div className="font-bold text-xl mb-2">{name} ({mark})</div>
         <p className="text-pink-300 font-bold text-xl mt-2">${price}</p>

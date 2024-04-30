@@ -76,9 +76,9 @@ const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
               })
             }
           </div>
-          <button onClick={() => logOut()}>
+          <button className={`flex flex-row-reverse justify-end text-xl w-fit items-center ${styles.link}` } onClick={() => logOut()}>
             LogOut
-            <FaPowerOff className={styles.icon} />
+            <FaPowerOff className={styles.logo} />
           </button>
       </div>
     </motion.div>

@@ -45,3 +45,24 @@
         gap: 40px;
     }
 }
+
+.link {
+    position: relative;
+    transition: 0.5s;
+    font-weight: 600;
+  }
+
+  .link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: rgb(245, 158, 179);
+    transition: width 0.3s;
+  }
+
+  .link:hover::after {
+    width: 100%;
+  }

@@ -57,7 +57,7 @@ const Productos = () => {
   return (
     <>
       <Menu />
-      <div className="grid" style={{ marginTop: '100px' }}>
+      <div className="flex flex-col justify-between" style={{ marginTop: '100px' }}>
         <div className='mr-14'>
           <div className="fixed top-auto left-0 w-1/5 bg-white rounded-md text-black" >
             <div className=" flex flex-col items-center justify-stretch h-screen">
@@ -100,26 +100,23 @@ const Productos = () => {
             </div>
           </div>
 
-          {/* Lista de productos */}
-          <div className="flex flex-row-reverse flex-wrap justify-start w-4/5 ml-60 p-4">
+          <div className="flex flex-row-reverse flex-wrap justify-start w-4/5 ml-60 p-4 mb-96">
             {productsStatus?.map(producto => (
               <CardProducto
                 key={producto.id}
                 id={producto.id}
                 name={producto.name}
-                // segundaimg={producto.segundaimg}
-                // imgs={producto.imgs}
                 mark={producto.mark}
                 price={producto.price}
               />
             ))}
           </div>
-        <a className="fixed bottom-6 right-5 size-14 hover:scale-150 transition-transform z-30 rounded-full bg-transparent" 
-        href="https://wa.me/986475277">
-          <Image src={wsp} alt="WhatsApp" />
-        </a>
+          <a className="fixed bottom-6 right-5 size-14 hover:scale-150 transition-transform z-30 rounded-full bg-transparent"
+            href="https://wa.me/986475277">
+            <Image src={wsp} alt="WhatsApp" />
+          </a>
         </div>
-          <Footer />
+        <Footer />
       </div>
     </>
   )
