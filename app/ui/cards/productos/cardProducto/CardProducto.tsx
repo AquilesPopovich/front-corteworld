@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import axiosURL from '@/axiosConfig/axiosConfig';
 import { getAllProducts } from '@/redux/features/productsSlice';
 import UpdateProduct from '@/app/ui/updateProduct/UpdateProduct';
+import { motion } from 'framer-motion';
 
 const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mark: string, price: number }) => {
   const [hover, setHover] = React.useState(false);
@@ -18,6 +19,7 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
   const user = useAppSelector(state => state.userSlice.user);
   const [updateProduct, setUpdateProduct] = useState(false);
   const [imgs, setImgs] = useState([]);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +64,7 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
       createdAt: new Date().toISOString(),
       status: false,
     }));
+    setAddedToCart(true)
   };
 
   const deleteProduct = async (id: string) => {
@@ -202,10 +205,33 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
         </div>
       )}
 
-      <div className='pb-4 px-6'>
-        <button onClick={handleAgregarCarrito} className="bg-pink-400 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md">
-          Agregar al carrito
-        </button>
+<div className='pb-4 px-6'>
+        {addedToCart ? (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="text-green-500 font-bold"
+          >
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              ✓
+            </motion.span>
+            Producto agregado
+          </motion.div>
+        ) : (
+          <motion.button 
+            onClick={handleAgregarCarrito} 
+            className="bg-pink-400 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md"
+            whileTap={{ scale: 0.9 }} // Animación al hacer clic
+          >
+            Agregar al carrito
+          </motion.button>
+        )}
       </div>
       <UpdateProduct id={id} updateProduct={updateProduct} setUpdateProduct={setUpdateProduct} />
     </div>
