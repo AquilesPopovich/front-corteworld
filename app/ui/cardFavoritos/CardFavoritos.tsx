@@ -31,7 +31,7 @@ const CardFavoritos = ({ id, name, mark, price }: { id: number, name: string, ma
       dispatch(removeFavorite(id));
     } else {
       // Aquí puedes enviar el producto completo en lugar de solo el ID si lo prefieres
-      dispatch(addFavorite({ id, name, img, mark, price, segundaimg }));
+      dispatch(addFavorite({ id, name, mark, price }));
     }
   };
 
@@ -73,7 +73,7 @@ const CardFavoritos = ({ id, name, mark, price }: { id: number, name: string, ma
       </div>
       <div className="px-6 py-4 text-center">
         <div className="font-bold text-xl mb-2">{name} ({mark})</div>
-        <p className="text-pink-300 font-bold text-xl mt-2">${price}</p>
+        <p className="text-pink-400 font-bold text-xl mt-2">${price}</p>
       </div>
       <div className='pb-4 px-6'>
         <button className="bg-pink-500 hover:bg-pink-700  text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md">

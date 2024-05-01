@@ -31,6 +31,7 @@ export default function Home() {
         href="https://wa.me/986475277">
           <Image src={wsp} alt="WhatsApp" />
         </a>
+        <h2 className='flex justify-center mt-10 font-light text-black font-serif text-6xl'>Productos Destacados</h2>
       {productsStatus && <CardsProductos productos={productsStatus} />}
       <Footer />
     </div>

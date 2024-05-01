@@ -28,9 +28,14 @@
   padding: 2.5rem;
   height: 60vh;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ea8eb4 white;
+  scroll-behavior: smooth;
   position: fixed;
   display: flex;
   flex-direction: column;
+  border-radius: 7px;
+  justify-content: space-around;
 }
 
 .close {
@@ -42,14 +47,14 @@
 
 .items {
   margin-top: 20px;
+  margin-bottom: 1rem;
 }
 
 .producto {
   display: flex;
   align-items: center;
   justify-content: start;
-  gap: 5rem;
-  margin-bottom: 5%;
+  border: black 2px solid;
 }
 
 .producto img {
@@ -65,14 +70,15 @@
 
 .checkout {
   margin-top: 1rem;
-  background-color: #7f0639;
+  background-color: rgb(244, 114, 182);
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 7px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .checkout:hover {
-  background-color: #ff009d;
+  background-color: rgb(190, 24, 93);
 }

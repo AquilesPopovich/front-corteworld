@@ -45,12 +45,12 @@ const Historial = () => {
       <Menu />
       <div className="mt-10">
         <div className="container mx-auto pt-24 pb-8">
-          <div className="flex items-center gap-3 mb-6 text-3xl ml-2">
+          <div className="flex text-black items-center gap-3 text-3xl ml-2 mb-10">
             <FaRegClock />
-            <h1 className="font-bold">Historial de Compras</h1>
+            <h1 className="font-bold text-5xl font-serif text-black">Historial de Compras</h1>
           </div>
           {carrito?.map((orden, index) => (
-            <div key={index} className="flex justify-center mb-4">
+            <div key={index} className="flex justify-center">
               <div className="w-full md:w-3/4">
                 <div className="bg-white text-black border rounded-lg p-4 mb-4">
                   <div className="flex items-center mb-2">

@@ -57,7 +57,7 @@ const Productos = () => {
   return (
     <>
       <Menu />
-      <div className="flex flex-col justify-between" style={{ marginTop: '100px' }}>
+      <div className="flex flex-col justify-between " style={{ marginTop: '100px' }}>
         <div className='mr-14'>
           <div className="fixed top-auto left-0 w-1/5 bg-white rounded-md text-black" >
             <div className=" flex flex-col items-center justify-stretch h-screen">

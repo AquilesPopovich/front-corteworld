@@ -16,7 +16,7 @@ const Favoritos = () => {
       <div className="flex flex-col min-h-screen">
         <Menu />
         <div className='flex flex-col items-center mt-36 flex-grow'>
-          <h2 className=' font-light text-6xl'>Productos Favoritos</h2>
+          <h2 className=' font-light text-black font-serif text-6xl'>Productos Favoritos</h2>
           <div className='flex flex-wrap justify-center mt-12'>
             {favorites.length > 0 ? (
               favorites.map((product: any) => (

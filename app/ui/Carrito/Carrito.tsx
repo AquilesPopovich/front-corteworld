@@ -35,7 +35,7 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
   const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
-      if(!idProductos.length) return window.alert('No hay productos para comprar!')
+      if (!idProductos.length) return window.alert('No hay productos para comprar!')
       const { data } = await axiosURL.post('/carrito', {
         userId: user[0]?.id,
         productId: idProductos
@@ -75,7 +75,6 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
     }
   };
 
-  // Actualizar productosRenderizados una sola vez
   useEffect(() => {
     const newProductosRenderizados = carritoRedux.map((producto: any) => producto.id);
     setProductosRenderizados(newProductosRenderizados);
@@ -90,31 +89,34 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
         <span className={styles.close} onClick={handleCloseCarrito}>
           &times;
         </span>
-        <h2>Carrito de Compras</h2>
-        <div className={styles.items}>
-          {productosUnicos.map((producto: any) => {
-            return (
-              <div className={styles.producto} key={producto.id}>
-                <img src={producto.imgs[0]} alt={producto.name} />
-                <div>
-                  <h3>{producto.name}</h3>
-                  <p>{producto.mark}</p>
-                  <p>Precio: ${producto.price}</p>
-                  <div>
-                    <button onClick={() => decrementarCantidad(producto.id)}>-</button>
-                    <span>{cantidadProductos[producto.id] || 1}</span>
-                    <button onClick={() => incrementarCantidad(producto.id)}>+</button>
+        <h2 className='text-2xl font-sans'>Carrito de Compras</h2>
+        <div className={` flex flex-col gap-4 ${styles.items}`}>
+          {productosUnicos.length ? (
+            productosUnicos.map((producto: any) => {
+              return (
+                <div className={`bg-pink-100 flex ${styles.producto}`} key={producto.id}>
+                  <img src={producto.imgs[0]} alt={producto.name} />
+                  <div className='flex justify-evenly items-start w-full'>
+                    <h3>{producto.name}</h3>
+                    <p>{producto.mark}</p>
+                    <p>Precio: ${producto.price}</p>
+                    <div className='text-2xl'>
+                      <button className='text-black hover:text-pink-500' onClick={() => decrementarCantidad(producto.id)}> - </button>
+                      <span> {cantidadProductos[producto.id] || 1} </span>
+                      <button className='text-black hover:text-pink-500' onClick={() => incrementarCantidad(producto.id)}> + </button>
+                    </div>
+                    <button className=' rounded-lg bg-pink-300 hover:bg-pink-500' onClick={() => removeProduct(producto.id)}>Eliminar</button>
                   </div>
-                  <button onClick={() => removeProduct(producto.id)}>Eliminar</button>
                 </div>
-              </div>
-            );
+              );
+            })
+          ) : (
+            <p className=' text-lg text-slate-500'>No hay productos en el carrito.</p>
+          )
           }
-
-          )}
         </div>
         <div className={styles.totalPrice}>Precio Total: ${calcularPrecioTotal()}</div>
-          <button className={styles.checkout} onClick={handleClick}>Realizar Pedido</button>
+        <button className={styles.checkout} onClick={handleClick}>Realizar Pedido</button>
       </div>
       <Compra compra={compra} setCompra={setCompra} productos={carritoRedux} idCompra={idCompra} setIdCompra={setIdCompra} setCarrito={setCarrito} />
     </div>
