@@ -55,10 +55,13 @@ export const Menu = () => {
                 <Link href='/admin'> <button className={`ml-1 ${styles.link}`}>Admin</button> </Link>
               </div>
             )}
-
             <div className="ml-4 flex items-center">
-              <h1 className={`ml-1 ${styles.link}`}>{user[0]?.user?.name}</h1>
+              <h1 className={`ml-1 ${styles.link}`}>{user[0]?.name}</h1>
             </div>
+            <div className="ml-4 flex items-center">
+          <button onClick={() => setLoggin(true)} className={`ml-1 text-pink-400 ${styles.link}`} ><PersonOutlineIcon /></button>
+        </div>
+            <Login loggin={loggin} setLoggin={setLoggin} />
             <Link href="/">
               <Image src={corteWorld} alt="CorteWorld" width={70} height={70} className={`${styles.logo} ml-4 mr-4`} />
             </Link>
@@ -70,9 +73,6 @@ export const Menu = () => {
       </div>
     );
   }
-
-
-
 
   return (
     <nav className={`bg-pink-400 text-white flex justify-between items-center p-4 ${styles.navBar}`}>

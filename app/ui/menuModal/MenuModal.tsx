@@ -1,14 +1,11 @@
 'use client'
 import styles from './style.module.scss';
-import { FaStar, FaHistory, FaPowerOff, FaTimes } from 'react-icons/fa';
-import { useAppDispatch, useAppSelector } from '@/redux/hook';
-import { logOutUser } from '@/redux/features/userSlice';
+import { useAppSelector } from '@/redux/hook';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { menuSlide } from '../menu/Anim';
 import Link from '../link/index';
-import { deleteCarrito } from '@/redux/features/carritoSlice';
 
 interface MenuModalProps {
   menu: boolean;
@@ -18,7 +15,6 @@ interface MenuModalProps {
 const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
   if (!menu) return null;
   const user = useAppSelector(state => state.userSlice.user);
-  const dispatch = useAppDispatch();
   const pathname = usePathname();
   const [selectedIndicator, setSelectedIndicator] = useState(pathname);
 
@@ -41,16 +37,6 @@ const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
     },
   ]
 
-  const logOut = async () => {
-    try {
-      dispatch(deleteCarrito()); 
-      dispatch(logOutUser());
-      setMenu(false)
-    } catch (error) {
-      if (error instanceof Error) throw Error(error.message)
-    }
-  }
-
   return (
     <motion.div
       variants={menuSlide}
@@ -61,25 +47,21 @@ const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
     >
 
       <div className={styles.body}>
-          <div onMouseLeave={() => { setSelectedIndicator(pathname) }} className={styles.nav}>
-            <div className={styles.header}>
-              <p>Menu</p>
-            </div>
-            {
-              navItems.map((data, index) => {
-                return <Link
-                  key={index}
-                  data={{ ...data, index }}
-                  isActive={selectedIndicator == data.href}
-                  setSelectedIndicator={setSelectedIndicator}>
-                </Link>
-              })
-            }
+        <div onMouseLeave={() => { setSelectedIndicator(pathname) }} className={styles.nav}>
+          <div className={styles.header}>
+            <p>Menu</p>
           </div>
-          <button className={`flex flex-row-reverse justify-end text-xl w-fit items-center ${styles.link}` } onClick={() => logOut()}>
-            LogOut
-            <FaPowerOff className={styles.logo} />
-          </button>
+          {
+            navItems.map((data, index) => {
+              return <Link
+                key={index}
+                data={{ ...data, index }}
+                isActive={selectedIndicator == data.href}
+                setSelectedIndicator={setSelectedIndicator}>
+              </Link>
+            })
+          }
+        </div>
       </div>
     </motion.div>
   );

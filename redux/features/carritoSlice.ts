@@ -32,7 +32,7 @@ export const CarritoSlice = createSlice({
             // Guardar el estado del carrito en localStorage después de eliminar un producto
             localStorage.setItem(CARRITO_STORAGE_KEY, JSON.stringify(state.carrito));
         },
-        deleteCarrito: (state, _action) =>{
+        deleteCarrito: (state) =>{
             state.carrito = []
             localStorage.setItem(CARRITO_STORAGE_KEY, JSON.stringify(state.carrito));
 
