@@ -84,16 +84,15 @@ const Register: React.FC<RegisterProps> = ({ register, setRegister, setLoggin })
 
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent}>
-        <h2 className={styles.textBlack}>Registrate aqui</h2>
-        <div className={styles.closeButton} onClick={() => { setRegister(false) }}>
+    <div className={`fixed top-0 right-0 bottom-0 w-full h-full z-50 flex justify-end text-black ${styles.modalOverlay}`}>
+      <div className=' w-3/4 h-full bg-white p-5 flex flex-col justify-start items-start pt-16'>
+        <h2 className='text-black text-2xl font-semibold font-sans mb-1'>Registrate aquí</h2>
+        <div className='fixed right-5 cursor-pointer hover:scale-110' onClick={() => { setRegister(false) }}>
           <FaTimes />
         </div>
-        <form className={styles.formContainer} onSubmit={handleSubmit}>
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="name">Nombre</label>
-            <input className={styles.inputField}
+        <form className='flex flex-col w-full h-3/6 justify-center items-start gap-2' onSubmit={handleSubmit}>
+            <label htmlFor="name">Nombre</label>
+            <input className=' w-full h-10 border border-gray-400 rounded-lg'
               type="text"
               id="name"
               name="name"
@@ -101,10 +100,8 @@ const Register: React.FC<RegisterProps> = ({ register, setRegister, setLoggin })
               required
               onChange={handleChange}
             />
-          </div>
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="email">Correo Electrónico</label>
-            <input className={styles.inputField}
+            <label htmlFor="email">Correo Electrónico</label>
+            <input className=' w-full h-10 border border-gray-400 rounded-lg'
               type="email"
               id="email"
               name="email"
@@ -112,10 +109,8 @@ const Register: React.FC<RegisterProps> = ({ register, setRegister, setLoggin })
               required
               onChange={handleChange}
             />
-          </div>
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="password">Contraseña</label>
-            <input className={styles.inputField}
+            <label htmlFor="password">Contraseña</label>
+            <input className=' w-full h-10 border border-gray-400 rounded-lg mb-3'
               type="password"
               id="password"
               name="password"
@@ -123,16 +118,17 @@ const Register: React.FC<RegisterProps> = ({ register, setRegister, setLoggin })
               required
               onChange={handleChange}
             />
-          </div>
-          <button className={`${styles.submitButton} bg-pink-400 `} type="submit">Registrarse</button>
+          <button className='bg-pink-500 text-white rounded p-2 cursor-pointer w-full flex justify-center items-center hover:bg-pink-700 transition-colors' type="submit">Registrarse</button>
         </form>
-        <button className={`${styles.submitButton} bg-blue-400 `} onClick={googleLogin} ><FaGoogle className='mr-5' />Regístrate con Google</button>
-        <p>
-          ¿Ya tienes una cuenta? <button className={styles.link} onClick={() => {
+        <button className='bg-blue-500 text-white rounded p-2 cursor-pointer w-full flex justify-center items-center hover:bg-blue-700 transition-colors' onClick={googleLogin} ><FaGoogle className='mr-5' />Regístrate con Google</button>
+        <div className='flex flex-col mt-4'>
+        <p className='font-sans'>
+          ¿Ya tienes una cuenta? <hr /> <button className={styles.link} onClick={() => {
             setLogin(true)
             setRegister(false)
           }}>Logueate aquí</button>
         </p>
+        </div>
       </div>
       <Login loggin={login} setLoggin={setLogin} />
     </div>

@@ -12,6 +12,7 @@ import Login from '../loggin/Login';
 import Carrito from '../Carrito/Carrito';
 import { useAppSelector } from '@/redux/hook';
 import { AnimatePresence } from 'framer-motion';
+import { FaPowerOff } from 'react-icons/fa';
 
 export const Menu = () => {
 
@@ -58,8 +59,8 @@ export const Menu = () => {
             <div className="ml-4 flex items-center">
               <h1 className={`ml-1 ${styles.link}`}>{user[0]?.name}</h1>
             </div>
-            <div className="ml-4 flex items-center">
-          <button onClick={() => setLoggin(true)} className={`ml-1 text-pink-400 ${styles.link}`} ><PersonOutlineIcon /></button>
+            <div className=" flex items-center">
+          <button onClick={() => setLoggin(true)} className={`text-pink-400 ${styles.link}`} ><FaPowerOff /></button>
         </div>
             <Login loggin={loggin} setLoggin={setLoggin} />
             <Link href="/">

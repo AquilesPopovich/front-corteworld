@@ -102,45 +102,51 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
   }
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent}>
-        <h2 className={styles.textBlack}>Inicio de Sesión</h2>
-        <div className={styles.closeButton} onClick={() => setLoggin(false)}>
-          <FaTimes />
-        </div>
-        <form className={styles.formContainer} onSubmit={handleSubmit}>
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="email">Correo Electrónico</label>
-            <input className={styles.inputField}
+    <div className={`fixed top-0 right-0 bottom-0 w-2/5 h-full z-50 flex justify-end text-black ${styles.modalOverlay}`}>
+      {!user.length ? (
+        <div className=' w-3/4 h-full bg-white p-5 flex flex-col justify-start items-start pt-16'>
+          <h2 className='text-black text-2xl font-semibold font-sans'>Inicio de Sesión</h2>
+          <div className='fixed right-5 cursor-pointer hover:scale-110' onClick={() => setLoggin(false)}>
+            <FaTimes />
+          </div>
+          <form className='flex flex-col w-full h-3/6 justify-center items-start gap-2' onSubmit={handleSubmit}>
+            <label htmlFor="email">Correo Electrónico</label>
+            <input className=' w-full h-10 border border-gray-400 rounded-lg'
               type="email"
               id="email"
               name="email"
               required
               onChange={handleChange}
             />
-          </div>
-          <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="password">Contraseña</label>
-            <input className={styles.inputField} type="password"
+            <label htmlFor="password">Contraseña</label>
+            <input className=' w-full h-10 border border-gray-400 rounded-lg mb-3' type="password"
               id="password"
               name="password"
               required
               onChange={handleChange}
             />
+            <button className='bg-pink-500 text-white rounded p-2 cursor-pointer w-full flex justify-center items-center hover:bg-pink-700 transition-colors' type="submit">Iniciar Sesión</button>
+            <button className='bg-blue-500 text-white rounded p-2 cursor-pointer w-full flex justify-center items-center hover:bg-blue-700 transition-colors' onClick={googleLogin} ><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
+          </form>
+          <div className='flex flex-col mb-4'>
+            <p className=' font-sans'>¿No tienes una cuenta? <hr />
+              <button className={styles.link} onClick={() => {
+                setRegister(true)
+              }}> Regístrate aquí</button>
+            </p>
           </div>
-          <button className={`${styles.submitButton} bg-pink-400 `} type="submit">Iniciar Sesión</button>
-        </form>
-        <button className={`${styles.submitButton} bg-blue-400 `} onClick={googleLogin} ><FaGoogle className='mr-5' />Iniciar Sesión con Google</button>
-        <p>
-          ¿No tienes una cuenta?
-          <button className={styles.link} onClick={() => {
-            setRegister(true)
-          }}> Regístrate aquí</button>
-        </p>
-        {!userGoogle && <button onClick={() => logOut()}><FaPowerOff />Cerrar Sesión</button>}
-        {user.length && <button onClick={googleLogout}><FaPowerOff />Cerrar sesión</button>}
-      </div>
-      <Register register={register} setRegister={setRegister} setLoggin={setLoggin} />
+          <Register register={register} setRegister={setRegister} setLoggin={setLoggin} />
+        </div>
+      ) : (
+        <div className=' w-2/6 h-1/6 fixed right-0 top-16 -mr-4 flex flex-row justify-evenly items-center '>
+          {!userGoogle && <button className='bg-red-500 text-white rounded p-2 cursor-pointer w-fit flex justify-center items-center hover:bg-red-700 transition-colors' onClick={() => logOut()}><FaPowerOff />Cerrar Sesión</button>}
+          {userGoogle && <button className='bg-red-500 text-white rounded p-2 cursor-pointer w-fit flex justify-center items-center hover:bg-red-700 transition-colors' onClick={googleLogout}><FaPowerOff />Cerrar sesión</button>}
+          <div className=' text-white cursor-pointer hover:scale-110' onClick={() => setLoggin(false)}>
+            <FaTimes />
+          </div>
+        </div>
+
+      )}
     </div>
   );
 };
