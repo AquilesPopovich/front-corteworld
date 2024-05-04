@@ -11,6 +11,7 @@ import axiosURL from '@/axiosConfig/axiosConfig';
 import { getAllProducts } from '@/redux/features/productsSlice';
 import UpdateProduct from '@/app/ui/updateProduct/UpdateProduct';
 import { motion } from 'framer-motion';
+import Swal from 'sweetalert2'
 
 const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mark: string, price: number }) => {
   const [hover, setHover] = React.useState(false);
@@ -20,6 +21,7 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
   const [updateProduct, setUpdateProduct] = useState(false);
   const [imgs, setImgs] = useState([]);
   const [addedToCart, setAddedToCart] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +38,13 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
   const isFavorite = favorites.some((product: any) => product.id === id);
 
   const handleFavoriteToggle = () => {
-    if (!user.length) return alert('Necesitas iniciar sesión para agregar un producto a favoritos');
+    if (!user.length) return   Swal.fire({
+      icon: "error",
+      title: "Oops... necesitas loguearte para esto",
+      text: "cuentas con una cuenta?",
+      
+    });
+  ;
     if (isFavorite) {
       dispatch(removeFavorite(id));
     } else {
@@ -54,7 +62,12 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
   };
 
   const handleAgregarCarrito = () => {
-    if (!user.length) return alert('Necesitas iniciar sesión para agregar un producto al carrito');
+    if (!user.length) return   Swal.fire({
+      icon: "error",
+      title: "Oops... necesitas loguearte para esto",
+      text: "cuentas con una cuenta?",
+      
+    });
     dispatch(agregarCarrito({
       id, name, imgs, mark, price,
       stock: 1,

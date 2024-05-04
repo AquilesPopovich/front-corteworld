@@ -9,6 +9,8 @@ import axiosURL from '@/axiosConfig/axiosConfig';
 import { agregarCarrito } from '@/redux/features/carritoSlice';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import EditarStock from '@/app/ui/editarStock/EditarStock';
 
 const DetailPage = () => {
     const [producto, setProducto] = useState(null);
@@ -18,6 +20,7 @@ const DetailPage = () => {
     const [selectedImg, setSelectedImg] = useState(0);
     const [infoStock, setInfoStock] = useState([]);
     const [ropaSeleccionada, setRopaSeleccionada] = useState([]);
+    const [editarStock, setEditarStock] = useState(false)
     const [cantidad, setCantidad] = useState(1);
     const user = useAppSelector(state => state.userSlice.user);
     const dispatch = useDispatch();
@@ -51,6 +54,13 @@ const DetailPage = () => {
     const handleAgregarCarrito = () => {
         if (!user) alert('Necesitas iniciar sesión para agregar un producto al carrito');
         dispatch(agregarCarrito({ id, name: producto.name, img: imagenes[0], mark: producto.mark, price: producto.price }));
+        return Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "agregado al carrito correctamente",
+            showConfirmButton: false,
+            timer: 1500
+          });
     };
 
     const handleImgClick = (index) => {
@@ -82,6 +92,13 @@ const DetailPage = () => {
                     const respuesta = await axiosURL(`/comentarios/${id}`)
                     setComentarios([...comentarios, respuesta.data])
                     setComentario('')
+                    return Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "comentario enviado correctamente",
+                        showConfirmButton: false,
+                        timer: 1500
+                      });
                 }
             } catch (error) {
                 console.error('Error al agregar comentario:', error.message);
@@ -130,16 +147,25 @@ const DetailPage = () => {
                         <div>
                             <h1 className="text-3xl font-bold mb-4">{producto?.name}</h1>
                             <p className="text-lg mb-2">Marca: {producto?.mark}</p>
-                            <p className="text-lg mb-2">Stock: {producto?.stock}</p>
                             <p className="text-lg mb-2">Categoría: {producto?.category}</p>
                             <p className="text-lg mb-4">Precio: ${producto?.price}</p>
                             <div>
-                                <select name="" id="" onChange={(e) => setRopaSeleccionada(e.target.value)}>
-                                    {infoStock?.map((color) => ( 
-                                        <option className='text-black' key={color.id} value={color.id}>{color.color}</option>
-                                    ))}
-                                </select>
-                                <p>stock disponible: {stockPorRopaSeleccionada ? stockPorRopaSeleccionada : 'selecciona un color/talla...'}</p>
+                            <select
+    name=""
+    id=""
+    onChange={(e) => setRopaSeleccionada(e.target.value)}
+    className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:border-indigo-500"
+>
+    <option>Colores</option>
+    {infoStock?.map((color) => (
+        <option className="text-black" key={color.id} value={color.id}>
+            {color.color}
+        </option>
+    ))}
+</select>
+                                <p className='border-r-8 border-2-solid-white text-white'>stock disponible: {stockPorRopaSeleccionada ? stockPorRopaSeleccionada : 'selecciona un color/talla...'}</p>
+                                {stockPorRopaSeleccionada && user?.user?.admin && <button onClick={()=> setEditarStock(true)}>editar stock</button> }
+                                <EditarStock editarStock={editarStock} setEditarStock={setEditarStock} idStock={ropaSeleccionada} idProducto={id} />
                             </div>
                             <div className="flex items-center mb-4">
                                 <label htmlFor="cantidad" className="mr-2">Cantidad:</label>
@@ -153,7 +179,7 @@ const DetailPage = () => {
                 </div>
                 <div>
     {infoStock?.map((talla) => ( 
-        <button className='text-black' key={talla.id} onClick={() => setRopaSeleccionada(talla.id)}>{talla.talla}</button>
+        <button className='text-pink/500 hover:bg-white-700 border-r-50% bg-black border-2-solid-white' key={talla.id} onClick={() => setRopaSeleccionada(talla.id)}>{talla.talla}</button>
     ))}
 </div>
 

@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { ProductsList } from '../../types/typeProduct';
 import { FaTimes } from 'react-icons/fa';
 import axiosURL from '@/axiosConfig/axiosConfig';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 interface Props {
     compra: boolean,
@@ -33,20 +37,24 @@ const Compra: React.FC<Props> = ({ compra, setCompra, productos, idCompra, setId
 
     const createPayment = async (): Promise<void> => {
         if (!payment.direction) {
-            alert('Por favor, ingrese una dirección válida.');
+            MySwal.fire({
+                icon: 'error',
+                title: 'Dirección de envío requerida',
+                text: 'Por favor, ingrese una dirección válida.',
+            });
             return;
         }
         try {
             const { data } = await axiosURL.post('/payments', payment);
             if (data) {
-                setWebPay({ url: data.url, token: data.token })
-                window.location.href = `${data.url}?token_ws=${data.token}`
-                setPayment({ carritoId: 0, status: 'PENDING', type: 'WEBPAY', direction: '' })
+                setWebPay({ url: data.url, token: data.token });
+                window.location.href = `${data.url}?token_ws=${data.token}`;
+                setPayment({ carritoId: 0, status: 'PENDING', type: 'WEBPAY', direction: '' });
             }
         } catch (error) {
-            if (error instanceof Error) throw Error(error.message)
+            if (error instanceof Error) throw Error(error.message);
         }
-    }
+    };
 
     const deleteCarrito = async (): Promise<void> => {
         try {
@@ -66,11 +74,7 @@ const Compra: React.FC<Props> = ({ compra, setCompra, productos, idCompra, setId
                 <div onClick={() => {deleteCarrito(); setIdCompra(0);}} className='relative top-0 left-0 cursor-pointer'>
                     <FaTimes />
                 </div>
-                <div className="mt-8 w-2/4">
-                    <p className=' mb-5'>Escribe tu dirección para llevar tu pedido:</p>
-                    <label htmlFor="direction" className="block font-semibold text-xl">Dirección de envío:</label>
-                    <input type="text" id="direction" name="direction" value={payment.direction} onChange={handleChange} className="border border-gray-200 rounded px-4 py-2 mt-2 w-full" />
-                </div>
+           
                 {payment.direction &&
                     <form name='rec20108_btn1' method='post' action='https://www.webpay.cl/backpub/external/form-pay'>
                         <input type='hidden' name='idFormulario' value='174072' />
