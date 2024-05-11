@@ -1,0 +1,42 @@
+@media  screen and (min-width: 300px) and (max-width: 600px) {
+    .logos{
+        display: flex;
+        flex-direction: column;
+    }
+    .corteiz{
+        margin-bottom: -3.5rem;
+    }
+    .footer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    .webpay{
+        width: 100px;
+        height: 100px;
+    }
+    .nosotros{
+        font-size: small;
+        text-align: center;
+    }
+    .contacto{
+        font-size: small;
+        text-align: center;
+    }
+  }
+
+  @media  screen and (min-width: 600px) and (max-width: 800px) {
+    .footer{
+        justify-content: space-between;
+    }
+    .webpay{
+        width: 100px;
+        height: 100px;
+    }
+  }
+
+  .webpay{
+    width: 150px;
+    height: 150px;
+  }

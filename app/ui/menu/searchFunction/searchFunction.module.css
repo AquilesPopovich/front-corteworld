@@ -8,14 +8,49 @@
     height: 40px;
     border-radius: 5px;
     padding: 5px;
-    padding-right: 40px; /* Ajusta el padding derecho para dejar espacio para el icono */
+    padding-right: 40px; 
 }
+
+@media  screen and (min-width: 300px) and (max-width: 400px) {
+    .searchInput{
+        width: 30vw;
+        height: 5vh;
+        font-size: 0.8rem;
+        margin-left: 5px;
+    }
+  }
+
+@media  screen and (min-width: 400px) and (max-width: 600px) {
+    .searchInput{
+        width: 35vw;
+        height: 5vh;
+        font-size: 0.8rem;
+        margin-left: 5px;
+    }
+  }
+
+@media  screen and (min-width: 600px) and (max-width: 900px) {
+    .searchInput{
+        width: 50vw;
+        height: 5vh;
+        font-size: 1rem;
+        margin-left: 5px;
+    }
+  }
 
 .searchIcon {
     position: absolute;
     top: 50%;
-    right: 10px; /* Ajusta la posición derecha */
+    right: 10px;
     transform: translateY(-50%);
     color: black;
     cursor: pointer;
 }
+
+@media  screen and (min-width: 300px) and (max-width: 700px) {
+    .searchIcon{
+        transform: scale(0.8);
+        position: absolute;
+        top: 20%;
+    }
+  }

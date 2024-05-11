@@ -25,8 +25,8 @@ export const Menu = () => {
 
   if (user.length) {
     return (
-      <div className='fixed top-0 w-screen z-50 h-1/6'>
-        <nav className={`bg-black text-white flex justify-between items-center p-4`}>
+      <div className='fixed top-0 w-screen z-50'>
+        <nav className={`bg-black text-white flex justify-between items-center p-4 w-full ${styles.navBarUser}`}>
           <div className="flex items-center">
 
             <div onClick={() => { setMenu(!menu) }} className={styles.button}>
@@ -42,15 +42,19 @@ export const Menu = () => {
             </div>
           </div>
 
-            <SearchProduct />
+          <SearchProduct />
 
           <div className="flex items-center">
-            <div className="ml-4 flex items-center">
-              <button onClick={() => setCarrito(true)} className={`ml-1 text-pink-300 ${styles.link}`} ><ShoppingCartOutlinedIcon /></button>
-            </div>
-            <div>
-              {cantidadProductos.length}
-            </div>
+            {!user[0]?.user?.admin ? (
+              <div className="ml-4 flex items-center">
+                <button onClick={() => setCarrito(true)} className={`ml-1 text-pink-300 ${styles.link}`}><ShoppingCartOutlinedIcon /></button>
+                <div>
+                  {cantidadProductos.length}
+                </div>
+              </div>
+            ) : null}
+
+
             {user[0]?.user?.admin && (
               <div className="ml-4 flex items-center">
                 <Link href='/admin'> <button className={`ml-1 ${styles.link}`}>Admin</button> </Link>
@@ -60,8 +64,8 @@ export const Menu = () => {
               <h1 className={`ml-1 ${styles.link}`}>{user[0]?.name}</h1>
             </div>
             <div className=" flex items-center">
-          <button onClick={() => setLoggin(true)} className={`text-pink-400 ${styles.link}`} ><FaPowerOff /></button>
-        </div>
+              <button onClick={() => setLoggin(true)} className={`text-pink-400 ${styles.link}`} ><FaPowerOff /></button>
+            </div>
             <Login loggin={loggin} setLoggin={setLoggin} />
             <Link href="/">
               <Image src={corteWorld} alt="CorteWorld" width={70} height={70} className={`${styles.logo} ml-4 mr-4`} />
@@ -76,24 +80,23 @@ export const Menu = () => {
   }
 
   return (
-    <nav className={`bg-pink-400 text-white flex justify-between items-center p-4 ${styles.navBar}`}>
+    <nav className={`bg-pink-400 text-white flex justify-between items-center p-4 w-full ${styles.navBar}`}>
       <div className="flex items-center">
         <Link href="/" ><Image src={corteWorld} alt="CorteWorld" width={70} height={70} className={`${styles.logo}`} /></Link>
-        <div className="">
+        <div className={styles.home}>
           <Link href="/" className={`ml-4 ${styles.link}`}>Home</Link>
         </div>
       </div>
-
-            <SearchProduct />
+      <SearchProduct />
       <div className="flex items-center">
         <div className="ml-4 flex items-center">
-          <button onClick={() => setCarrito(true)} className={`ml-1 text-pink-400 ${styles.link}`} ><ShoppingCartOutlinedIcon /></button>
+          <button onClick={() => setCarrito(true)} className={`ml-1 text-pink-400 ${styles.link} ${styles.buttons}`} ><ShoppingCartOutlinedIcon /></button>
         </div>
         <div className="ml-4 flex items-center">
           <Link href="/productos" className={`ml-1 ${styles.link}`}>Productos</Link>
         </div>
         <div className="ml-4 flex items-center">
-          <button onClick={() => setLoggin(true)} className={`ml-1 text-pink-400 ${styles.link}`} ><PersonOutlineIcon /></button>
+          <button onClick={() => setLoggin(true)} className={`ml-1 text-pink-400 ${styles.link} ${styles.buttons}`} ><PersonOutlineIcon /></button>
         </div>
       </div>
       <MenuModal menu={menu} setMenu={setMenu} />

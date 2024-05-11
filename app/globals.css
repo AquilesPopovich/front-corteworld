@@ -5,6 +5,7 @@
 :root {
   --foreground-rgb: 255, 255, 255; /* Cambiado a blanco */
   --background-rgb: 255, 195, 228; /* Cambiado a rosa claro */
+  overflow-x: hidden;
 }
 
 @media (prefers-color-scheme: dark) {

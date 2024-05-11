@@ -21,7 +21,7 @@ export const SearchProduct = () => {
                     type="text"
                     placeholder="Busca un producto"
                     className={`${styles.searchInput} text-black`}
-                    style={{ fontSize: '1.2rem', paddingLeft: '15px' }}
+                    style={{ paddingLeft: '15px' }}
                     onChange={searchByCoincidence}
                 />
             </div>

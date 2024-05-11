@@ -76,7 +76,7 @@ const CardFavoritos = ({ id, name, mark, price }: { id: number, name: string, ma
         <p className="text-pink-400 font-bold text-xl mt-2">${price}</p>
       </div>
       <div className='pb-4 px-6'>
-        <button className="bg-pink-500 hover:bg-pink-700  text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md">
+        <button className="bg-pink-500 hover:bg-pink-800  text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md">
           Agregar al carrito
         </button>
       </div>

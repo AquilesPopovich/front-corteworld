@@ -138,12 +138,12 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
           <Register register={register} setRegister={setRegister} setLoggin={setLoggin} />
         </div>
       ) : (
-        <div className=' w-2/6 h-1/6 fixed right-0 top-16 -mr-4 flex flex-row justify-evenly items-center '>
-          {!userGoogle && <button className='bg-red-500 text-white rounded p-2 cursor-pointer w-fit flex justify-center items-center hover:bg-red-700 transition-colors' onClick={() => logOut()}><FaPowerOff />Cerrar Sesión</button>}
-          {userGoogle && <button className='bg-red-500 text-white rounded p-2 cursor-pointer w-fit flex justify-center items-center hover:bg-red-700 transition-colors' onClick={googleLogout}><FaPowerOff />Cerrar sesión</button>}
+        <div className={`w-2/6 h-1/6 fixed right-0 top-16 -mr-4 flex flex-col justify-evenly items-center ${styles.redButton}`}>
           <div className=' text-white cursor-pointer hover:scale-110' onClick={() => setLoggin(false)}>
             <FaTimes />
           </div>
+          {!userGoogle && <button className='bg-red-500 text-white rounded p-2 cursor-pointer w-fit flex justify-center items-center hover:bg-red-700 transition-colors' onClick={() => logOut()}><FaPowerOff />Cerrar Sesión</button>}
+          {userGoogle && <button className='bg-red-500 text-white rounded p-2 cursor-pointer w-fit flex justify-center items-center hover:bg-red-700 transition-colors' onClick={googleLogout}><FaPowerOff />Cerrar sesión</button>}
         </div>
 
       )}

@@ -9,6 +9,7 @@ import { filterByCategory, getAllProducts } from '@/redux/features/productsSlice
 import { filterByMark, orderProducts } from '@/redux/features/productsSlice'
 import wsp from '../../public/images/wsp.png'
 import Image from "next/image";
+import styles from './productos.module.css';
 
 const Productos = () => {
 
@@ -58,9 +59,9 @@ const Productos = () => {
     <>
       <Menu />
       <div className="flex flex-col justify-between " style={{ marginTop: '100px' }}>
-        <div className='mr-14'>
-          <div className="fixed top-auto left-0 w-1/5 bg-white rounded-md text-black" >
-            <div className=" flex flex-col items-center justify-stretch h-screen">
+        <div className={`mr-14 ${styles.container}`}>
+          <div className={`fixed top-auto left-0 w-1/5 bg-white rounded-md text-black ${styles.bg}`} >
+            <div className={`flex flex-col items-center justify-stretch h-screen ${styles.filtros}`}>
               <select className="bg-pink-500 text-white my-8 px-4 py-2 rounded hover:bg-pink-600 w-9/12 z-50"
                 onChange={markFilter}
               >
@@ -100,7 +101,7 @@ const Productos = () => {
             </div>
           </div>
 
-          <div className="flex flex-row-reverse flex-wrap justify-start w-4/5 ml-60 p-4 mb-96">
+          <div className={`flex flex-row-reverse flex-wrap justify-start w-4/5 ml-60 p-4 mb-96 ${styles.products}`}>
             {productsStatus?.map(producto => (
               <CardProducto
                 key={producto.id}

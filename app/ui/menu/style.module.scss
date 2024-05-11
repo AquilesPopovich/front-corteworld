@@ -1,15 +1,29 @@
-.button{
-    margin: 5px;
-    z-index: 2;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: black;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+@media  screen and (min-width: 300px) and (max-width: 700px) {
+  .buttons{
+    transform: scale(0.8);
   }
+}
+
+.button{
+  margin: 5px;
+  z-index: 2;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: black;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media  screen and (min-width: 300px) and (max-width: 700px) {
+  .button{
+    width: 30px;
+    height: 30px;
+    margin-left: -10px;
+  }
+}
   
   .burger{
     width: 100%;
@@ -50,6 +64,12 @@
     font-weight: 600;
   }
 
+  @media  screen and (min-width: 300px) and (max-width: 700px) {
+    .link{
+      font-size: small;
+    }
+  }
+
   .link::after {
     content: '';
     position: absolute;
@@ -69,10 +89,23 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
     z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: rgba(0, 0, 0, 0.98);
   }
+
+  @media  screen and (min-width: 300px) and (max-width: 700px) {
+    .navBar{
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+  }
+
+  // .navBarUser{
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: start;
+  // }
 
   .logo{
     transition: 0.2s;
@@ -80,4 +113,10 @@
 
   .logo:hover{
     transform: scale(1.1);
+  }
+
+  @media  screen and (min-width: 300px) and (max-width: 700px) {
+    .home{
+      display: none;
+    }
   }

@@ -37,7 +37,7 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
     try {
       if (!idProductos.length) return window.alert('No hay productos para comprar!')
       const { data } = await axiosURL.post('/carrito', {
-        userId: user[0]?.id,
+        userId: user[0]?.user?.id,
         productId: idProductos
       })
       if (data) {
@@ -89,23 +89,23 @@ const Carrito: React.FC<CarritoProps> = ({ carrito, setCarrito }) => {
         <span className={styles.close} onClick={handleCloseCarrito}>
           &times;
         </span>
-        <h2 className='text-2xl font-sans'>Carrito de Compras</h2>
+        <h2 className={`text-2xl font-sans ${styles.titulo}`}>Carrito de Compras</h2>
         <div className={` flex flex-col gap-4 ${styles.items}`}>
           {productosUnicos.length ? (
             productosUnicos.map((producto: any) => {
               return (
                 <div className={`bg-pink-100 flex ${styles.producto}`} key={producto.id}>
                   <img src={producto.imgs[0]} alt={producto.name} />
-                  <div className='flex justify-evenly items-start w-full'>
+                  <div className={`flex justify-evenly items-start w-full ${styles.objetos}`}>
                     <h3>{producto.name}</h3>
                     <p>{producto.mark}</p>
                     <p>Precio: ${producto.price}</p>
                     <div className='text-2xl'>
-                      <button className='text-black hover:text-pink-500' onClick={() => decrementarCantidad(producto.id)}> - </button>
+                      <button className='text-black hover:text-pink-500 transition-colors' onClick={() => decrementarCantidad(producto.id)}> - </button>
                       <span> {cantidadProductos[producto.id] || 1} </span>
-                      <button className='text-black hover:text-pink-500' onClick={() => incrementarCantidad(producto.id)}> + </button>
+                      <button className='text-black hover:text-pink-500 transition-colors' onClick={() => incrementarCantidad(producto.id)}> + </button>
                     </div>
-                    <button className=' rounded-lg bg-pink-300 hover:bg-pink-500' onClick={() => removeProduct(producto.id)}>Eliminar</button>
+                    <button className=' rounded-lg bg-pink-300 hover:bg-pink-500 transition-colors' onClick={() => removeProduct(producto.id)}>Eliminar</button>
                   </div>
                 </div>
               );

@@ -57,7 +57,7 @@ export const getAllProducts = () => async (dispatch: AppDispatch) => {
             dispatch(getProducts(data));
         } else dispatch(getProducts([]));
     } catch (error) {
-        if (error instanceof Error) throw Error(error.message)
+        if (error instanceof Error) console.error(error.message);
     }
 }
 
@@ -66,7 +66,7 @@ export const searchOneProduct = (product: string) => async (dispatch: AppDispatc
         if(product) dispatch(searchProducts(product));
         else await dispatch(getAllProducts());
     } catch (error) {
-        if (error instanceof Error) throw Error(error.message)
+        if (error instanceof Error) console.error(error.message);
     }
 }
 
@@ -76,7 +76,7 @@ export const filterByMark = (mark: string) => async (dispatch: AppDispatch) => {
         else await dispatch(getAllProducts());
 
     } catch (error) {
-        if (error instanceof Error) throw Error(error.message)
+        if (error instanceof Error) console.error(error.message);
     }
 }
 
@@ -94,7 +94,7 @@ export const orderProducts = (order: string) => async (dispatch: AppDispatch) =>
         if (order) dispatch(orderProductsState(order));
         else await dispatch(getAllProducts());
     } catch (error) {
-        if (error instanceof Error) throw Error(error.message)
+        if (error instanceof Error) console.error(error.message);
     }
 }
 

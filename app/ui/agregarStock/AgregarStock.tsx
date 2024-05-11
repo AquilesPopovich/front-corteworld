@@ -41,6 +41,7 @@ const AgregarStockModal: React.FC<Props> = ({ stock, setStock, productos }) => {
                 color: '',
                 stock: 0
             })
+            window.alert('Stock añadido a prenda!')
         } catch (error) {
             console.error('Error al añadir el stock:', error);
         }

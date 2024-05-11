@@ -2,9 +2,27 @@
   animation: slideInRight 0.5s forwards; 
 }
 
+@media screen and (min-width: 300px) and (max-width: 500px) {
+  .modalOverlay{
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 700px) {
+  .modalOverlay{
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1000px) {
+  .modalOverlay{
+    width: 60%;
+  }
+}
+
 @keyframes slideInRight {
   from {
-    transform: translateX(100%); /* Utilizando translateX(100%) */
+    transform: translateX(100%);
   }
   to {
     transform: translateX(0);
@@ -26,5 +44,19 @@
   }
   to {
     transform: translateX(0);
+  }
+}
+
+@media screen and (min-width: 300px) and (max-width: 500px) {
+  .redButton{
+    width: 50%;
+    position: fixed;
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 800px) {
+  .redButton{
+    width: 70%;
+    position: fixed;
   }
 }

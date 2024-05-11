@@ -43,6 +43,10 @@ const ImagenProducto: React.FC<Props> = ({ imagenes, setImagenes, productos }) =
                 formData.append('upload_preset', 'ml_default');
                 const cloudinaryResponse = await axiosURL.post(`/imgProduct/upload/${selectedProductId}`, formData);
                 console.log(cloudinaryResponse.data);
+                setSelectedProductId(null)
+                setImagePreview('');
+                setImagenes(false);
+                window.alert('Imagen añadida a producto!')
             }
 
         } catch (error) {
@@ -56,7 +60,8 @@ const ImagenProducto: React.FC<Props> = ({ imagenes, setImagenes, productos }) =
                 <form className="flex flex-col justify-center gap-10 items-start h-full w-full" onSubmit={handleSubmit}>
                     <div className="text-black text-xl flex flex-col gap-2 "> 
                     <h1 className="font-bold">Producto: </h1>
-                        <select className=" bg-gray-200 rounded-md" name="" id="file" onChange={handleSelectChange} style={{width: '20vw'}}>
+                        <select className=" bg-gray-200 rounded-md text-sm" name="" id="file" onChange={handleSelectChange} style={{width: '20vw'}}>
+                            <option value="" className=" text-sm">Selecciona un producto...</option>
                             {productos?.map(producto => (
                                 <option className="text-black" value={producto.id}>{producto.name}</option>
                             ))}
