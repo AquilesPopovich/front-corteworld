@@ -47,8 +47,8 @@ export const Menu = () => {
           <div className="flex items-center">
             {!user[0]?.user?.admin ? (
               <div className="ml-4 flex items-center">
-                <button onClick={() => setCarrito(true)} className={`ml-1 text-pink-300 ${styles.link}`}><ShoppingCartOutlinedIcon /></button>
-                <div>
+                <button onClick={() => setCarrito(true)} className={`ml-1 text-pink-300 ${styles.link} ${styles.carrito}`}><ShoppingCartOutlinedIcon /></button>
+                <div className='mr-1'>
                   {cantidadProductos.length}
                 </div>
               </div>
@@ -60,15 +60,15 @@ export const Menu = () => {
                 <Link href='/admin'> <button className={`ml-1 ${styles.link}`}>Admin</button> </Link>
               </div>
             )}
-            <div className="ml-4 flex items-center">
-              <h1 className={`ml-1 ${styles.link}`}>{user[0]?.name}</h1>
+            <div className=" flex items-center">
+              <h1 className={`mx-2 ${styles.link}`}>{user[0]?.name}</h1>
             </div>
             <div className=" flex items-center">
-              <button onClick={() => setLoggin(true)} className={`text-pink-400 ${styles.link}`} ><FaPowerOff /></button>
+              <button onClick={() => setLoggin(true)} className={`text-pink-400 ml-2 ${styles.link}`} ><FaPowerOff /></button>
             </div>
             <Login loggin={loggin} setLoggin={setLoggin} />
             <Link href="/">
-              <Image src={corteWorld} alt="CorteWorld" width={70} height={70} className={`${styles.logo} ml-4 mr-4`} />
+              <Image src={corteWorld} alt="CorteWorld" width={70} height={70} className={`${styles.logo} ml-2 mr-4`} />
             </Link>
 
           </div>

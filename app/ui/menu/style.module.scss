@@ -1,10 +1,4 @@
-@media  screen and (min-width: 300px) and (max-width: 700px) {
-  .buttons{
-    transform: scale(0.8);
-  }
-}
-
-.button{
+.button {
   margin: 5px;
   z-index: 2;
   width: 60px;
@@ -17,106 +11,106 @@
   justify-content: center;
 }
 
-@media  screen and (min-width: 300px) and (max-width: 700px) {
-  .button{
+@media screen and (min-width: 300px) and (max-width: 700px) {
+  .button {
     width: 30px;
     height: 30px;
     margin-left: -10px;
   }
-}
-  
-  .burger{
-    width: 100%;
-    &::after, &::before {
-      content: "";
-      display: block;
-      height: 1px;
-      width: 40%;
-      margin: auto;
-      background-color: white;
-      position: relative;
-      transition: transform 0.3s;
-    }
-  
-    &::after{
-      top: -5px;
-    }
-  
-    &::before{
-      top: 5px;
-    }
-  }
-  
-  .burgerActive{
-    &::after{
-      transform: rotate(45deg);
-      top: -1px;
-    }
-    &::before{
-      transform: rotate(-45deg);
-      top: 0px;
-    }
+
+  .buttons {
+    transform: scale(0.8);
   }
 
   .link {
-    position: relative;
-    transition: 0.5s;
-    font-weight: 600;
-  }
-
-  @media  screen and (min-width: 300px) and (max-width: 700px) {
-    .link{
-      font-size: small;
-    }
-  }
-
-  .link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background-color: rgb(245, 158, 179);
-    transition: width 0.3s;
-  }
-
-  .link:hover::after {
-    width: 100%;
+    font-size: smaller;
+    margin-left: 0;
   }
 
   .navBar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.98);
+    display: flex;
+    align-items: center;
+    width: 100%;
   }
 
-  @media  screen and (min-width: 300px) and (max-width: 700px) {
-    .navBar{
-      display: flex;
-      align-items: center;
-      width: 100%;
-    }
+  .home {
+    display: none;
+  }
+}
+
+.burger {
+  width: 100%;
+
+  &::after,
+  &::before {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 40%;
+    margin: auto;
+    background-color: white;
+    position: relative;
+    transition: transform 0.3s;
   }
 
-  // .navBarUser{
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: start;
-  // }
-
-  .logo{
-    transition: 0.2s;
+  &::after {
+    top: -5px;
   }
 
-  .logo:hover{
-    transform: scale(1.1);
+  &::before {
+    top: 5px;
+  }
+}
+
+.burgerActive {
+  &::after {
+    transform: rotate(45deg);
+    top: -1px;
   }
 
-  @media  screen and (min-width: 300px) and (max-width: 700px) {
-    .home{
-      display: none;
-    }
+  &::before {
+    transform: rotate(-45deg);
+    top: 0px;
   }
+}
+
+.link {
+  position: relative;
+  transition: 0.5s;
+  font-weight: 600;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: rgb(245, 158, 179);
+  transition: width 0.3s;
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+.navBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.98);
+}
+
+.carrito {
+  margin-left: -10px;
+}
+
+.logo {
+  transition: 0.2s;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
