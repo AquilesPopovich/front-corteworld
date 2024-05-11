@@ -62,7 +62,7 @@ const Productos = () => {
         <div className={`mr-14 ${styles.container}`}>
           <div className={`fixed top-auto left-0 w-1/5 bg-white rounded-md text-black ${styles.bg}`} >
             <div className={`flex flex-col items-center justify-stretch h-screen ${styles.filtros}`}>
-              <select className="bg-pink-500 text-white my-8 px-4 py-2 rounded hover:bg-pink-600 w-9/12 z-50"
+              <select className="bg-pink-500 text-white my-8 px-4 py-2 rounded hover:bg-pink-600 w-9/12"
                 onChange={markFilter}
               >
                 <option value="">Marca:</option>
@@ -101,15 +101,18 @@ const Productos = () => {
             </div>
           </div>
 
-          <div className={`flex flex-row-reverse flex-wrap justify-start w-4/5 ml-60 p-4 mb-96 ${styles.products}`}>
+          <div className={`flex flex-row flex-wrap justify-center w-5/6 p-4 ml-72 mb-96 ${styles.products}`}>
             {productsStatus?.map(producto => (
-              <CardProducto
-                key={producto.id}
-                id={producto.id}
-                name={producto.name}
-                mark={producto.mark}
-                price={producto.price}
-              />
+              <div className={styles.oneProduct}>
+
+                <CardProducto
+                  key={producto.id}
+                  id={producto.id}
+                  name={producto.name}
+                  mark={producto.mark}
+                  price={producto.price}
+                />
+              </div>
             ))}
           </div>
           <a className="fixed bottom-6 right-5 size-14 hover:scale-150 transition-transform z-30 rounded-full bg-transparent"

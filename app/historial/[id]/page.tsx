@@ -7,14 +7,13 @@ import { useParams } from 'next/navigation';
 import axiosURL from '@/axiosConfig/axiosConfig';
 import Image from 'next/image';
 import wsp from '../../../public/images/wsp.png'
-import { useAppSelector } from '@/redux/hook';
+import styles from '../historial.module.css';
 
 const Historial = () => {
   const { id } = useParams();
   const [carrito, setCarrito] = useState([]);
   const [imgs, setImgs] = useState<any[]>([]);
   const [carritoPaymentCompleted, setCarritoPaymentCompleted] = useState<any[]>([]);
-  const token = useAppSelector(state => state.carritoSlice.token);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,9 +45,9 @@ const Historial = () => {
           console.log(data)
           if (data && data.status === 'DONE') {
             return carro;
-          } else if(data.status === 'FAILED'){
+          } else if (data.status === 'FAILED') {
             const response = await axiosURL.delete(`/payments/${data.id}`);
-            if(response) console.log(response);
+            if (response) console.log(response);
           }
           return null;
         });
@@ -88,7 +87,7 @@ const Historial = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       {orden?.productos?.map((producto, idx) => (
-                        <div key={idx} className="bg-pink-100 border border-black p-2 flex items-center">
+                        <div key={idx} className="bg-pink-100 border border-black p-2 flex flex-wrap items-center">
                           {imgs?.map((img) => {
                             if (img?.[0].product?.id === producto?.id) {
                               return (
@@ -96,7 +95,7 @@ const Historial = () => {
                               )
                             }
                           })}
-                          <div>
+                          <div className={styles.productContainer}>
                             <p className="text-lg font-semibold">{producto?.name}</p>
                             <p className="text-sm">{producto?.mark}</p>
                             <p className="text-lg">${producto?.price}</p>
@@ -132,7 +131,9 @@ const Historial = () => {
         href="https://wa.me/986475277">
         <Image src={wsp} alt="WhatsApp" />
       </a>
-      <Footer />
+      <div className={styles.footer}>
+        <Footer />
+      </div>
     </>
   );
 };
