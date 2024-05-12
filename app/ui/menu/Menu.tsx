@@ -48,7 +48,7 @@ export const Menu = () => {
             {!user[0]?.user?.admin ? (
               <div className="ml-4 flex items-center">
                 <button onClick={() => setCarrito(true)} className={`ml-1 text-pink-300 ${styles.link} ${styles.carrito}`}><ShoppingCartOutlinedIcon /></button>
-                <div className='mr-1'>
+                <div className={`mr-2 ${styles.cantidadCarrito}`}>
                   {cantidadProductos.length}
                 </div>
               </div>

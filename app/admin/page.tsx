@@ -8,7 +8,7 @@ import ImagenProducto from '../ui/imagenProducto/ImagenProducto';
 import { getAllProducts } from '@/redux/features/productsSlice';
 import AgregarStock from '../ui/agregarStock/AgregarStock';
 import { Menu } from '../ui/menu/Menu';
-import style from './admin.module.css';
+import styles from './admin.module.css';
 import ProductosDeshabilitados from '../ui/productosDeshabilitados/ProductosDeshabilitados';
 
 const CrearProducto = React.lazy(() => import('../ui/crearProducto/CrearProducto'));
@@ -56,12 +56,12 @@ const Admin = () => {
   return (
     <div className='flex h-screen w-screen justify-start items-center text-black'>
       <Menu />
-      <div className=' bg-white border rounded-lg flex flex-col justify-evenly items-center h-screen p-3 w-fit'>
+      <div className={`bg-white border rounded-lg flex flex-col justify-evenly items-center h-screen p-3 w-fit ${styles.container}`}>
         <div className='mt-24'>
           <h2 className=' text-3xl'>Funciones de admin</h2>
         </div>
           <button className='w-full m-1 cursor-pointer hover:scale-110 transition' onClick={() => setCrearProducto(true)}>Crear producto</button>
-          <React.Suspense fallback={<div className={style.loader}></div>}>
+          <React.Suspense fallback={<div className={styles.loader}></div>}>
             {crearProducto && <CrearProducto crearProducto={crearProducto} setCrearProducto={setCrearProducto} />}
           <button className='w-full m-1 cursor-pointer hover:scale-110 transition' onClick={() => setImagenes(true)}>Añadir imágenes</button>
           <ImagenProducto imagenes={imagenes} setImagenes={setImagenes} productos={productos} />
@@ -76,7 +76,7 @@ const Admin = () => {
           {filtrados?.map((user) => {
             if (!mostrarUsuarios) return null;
             return (
-              <React.Suspense key={user?.id} fallback={<div className={style.loader}></div>}>
+              <React.Suspense key={user?.id} fallback={<div className={styles.loader}></div>}>
                 <UsuariosDeshabilitados
                   id={user?.id}
                   name={user?.name}

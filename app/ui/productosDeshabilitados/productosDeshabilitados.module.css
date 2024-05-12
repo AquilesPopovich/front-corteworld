@@ -1,0 +1,81 @@
+@media screen and (min-width: 300px) and (max-width: 700px) {
+    .container {
+      position: fixed;
+      top: 15%;
+      left: 5%;
+      width: 90%;
+      height: 80%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      gap: 25px;
+    }
+    .cards{
+        width: 90%;
+        margin-right: 10%;
+        height: 80%;
+        padding: 5px;
+        font-size: 0.8rem;
+    }
+    .cardProducto{
+      font-size: 1rem;
+    }
+  }
+@media screen and (min-width: 700px) and (max-width: 999px) {
+    .container {
+      position: fixed;
+      top: 10%;
+      left: 2.5%;
+      width: 95%;
+      height: 90%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      gap: 25px;
+    }
+    .cards{
+        width: 90%;
+        margin-right: 10%;
+        height: 80%;
+        padding: 5px;
+        font-size: 0.8rem;
+    }
+    .cardProducto{
+      font-size: 1rem;
+    }
+  }
+@media screen and (min-width: 1000px) and (max-width: 1024px) {
+    .container {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      width: 45%;
+      height: 75%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      gap: 25px;
+    }
+    .cards{
+        width: 90%;
+        margin-right: 10%;
+        height: 80%;
+        padding: 5px;
+    }
+    .cardProducto{
+      font-size: 1.1rem;
+    }
+  }
+  @media screen and (min-width: 1025px) and (max-width:1280px) {
+    .container{
+      position: fixed;
+      left: 30%;
+      width: 60%;
+    }
+  }

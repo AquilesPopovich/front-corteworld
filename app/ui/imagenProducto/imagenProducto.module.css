@@ -1,95 +1,184 @@
-.modalOverlay {
+@media screen and (min-width: 300px) and (max-width: 400px) {
+  .container {
     position: fixed;
-    top: 0;
-    right: 0; /* Cambiado de "left" a "right" */
-    bottom: 0;
-    width: 40vw;
-    height: 100vh;
-    z-index: 99900;
-    display: flex;
-    justify-content: flex-end; /* Puedes ajustar esto si es necesario */
-    animation: slideInRight 0.5s forwards; /* Utilizando la animación slideInRight */
-    color: black;
-    overflow-y: auto;
+    top: 15%;
+    left: 5%;
+    width: 90%;
+    height: 80%;
   }
-  
-  @keyframes slideInRight {
-    from {
-      transform: translateX(100%); /* Utilizando translateX(100%) */
-    }
-    to {
-      transform: translateX(0);
-    }
+
+  .form {
+    gap: 70px;
   }
-  
-  .modalContent {
-    width: 70%;
-    height: 100%;
-    background-color: white;
-    padding: 20px;
+
+  .select {
+    font-size: 1.2rem;
+    width: 100%;
   }
-  
-  .closeButton {
-    display: flex;
-    justify-content: flex-end;
-    cursor: pointer;
+
+  .selectW {
+    font-size: 1.2rem;
+    width: fit-content;
   }
-  
-  .formContainer {
-    margin-top: 20px;
-  }
-  
-  .formGroup {
-    margin-bottom: 15px;
-  }
-  
+
   .label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-size: 1rem;
   }
-  
-  .inputField {
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+
+  .inputFile {
+    font-size: 1rem;
   }
-  
-  .submitButton {
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
+
+  .fileContainer {
     display: flex;
-    align-items: center;
-    justify-content: center; /* Utiliza justify-content para centrar horizontalmente */
-    margin-top: 10px;
+    flex-direction: column;
+    gap: 0;
   }
-  
-  .submitButton:hover {
-    background-color: #0056b3;
+}
+
+@media screen and (min-width: 400px) and (max-width: 600px) {
+  .container {
+    position: fixed;
+    top: 15%;
+    left: 5%;
+    width: 90%;
+    height: 80%;
   }
-  
-  .link {
-    color: #007bff;
-    text-decoration: none;
+
+  .form {
+    gap: 90px;
   }
-  
-  .link:hover {
-    text-decoration: underline;
+
+  .select {
+    font-size: 1.4rem;
+    width: 100%;
   }
-  
-  @keyframes slideInLeft {
-    from {
-      transform: translateX(-100%); 
+
+  .selectW {
+    font-size: 1.4rem;
+    width: fit-content;
+  }
+
+  .label {
+    font-size: 1.2rem;
+  }
+
+  .inputFile {
+    font-size: 1.2rem;
+  }
+
+  .fileContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+  @media screen and (min-width: 600px) and (max-width: 900px) {
+    .container {
+      position: fixed;
+      top: 15%;
+      left: 10%;
+      width: 80%;
+      height: 80%;
     }
-    to {
-      transform: translateX(0);
+    .form {
+      gap: 100px;
+    }
+    .select {
+      font-size: 1.7rem;
+      width: 100%;
+    }
+    .selectW {
+      font-size: 1.7rem;
+      width: fit-content;
+    }
+    .label {
+      font-size: 1.5rem;
+    }
+    .inputFile {
+      font-size: 1.5rem;
+    }
+    .fileContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .buttons{
+      font-size: 1.6rem;
     }
   }
-  
+  @media screen and (min-width: 900px) and (max-width: 1000px) {
+    .container {
+      position: fixed;
+      top: 15%;
+      left: 10%;
+      width: 80%;
+      height: 80%;
+    }
+    .form {
+      gap: 130px;
+    }
+    .select {
+      font-size: 1.9rem;
+      width: 100%;
+    }
+    .selectW {
+      font-size: 1.9rem;
+      width: fit-content;
+    }
+    .label {
+      font-size: 1.7rem;
+    }
+    .inputFile {
+      font-size: 1.7rem;
+    }
+    .fileContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .buttons{
+      font-size: 1.8rem;
+    }
+  }
+  @media screen and (min-width: 1000px) and (max-width: 1024px) {
+    .container {
+      position: fixed;
+      top: 20%;
+      left: 47%;
+      width: 45%;
+      height: 70%;
+    }
+    .form {
+      gap: 80px;
+    }
+    .select {
+      font-size: 1.5rem;
+      width: 100%;
+    }
+    .selectW {
+      font-size: 1.5rem;
+      width: fit-content;
+    }
+    .label {
+      font-size: 1.3rem;
+    }
+    .inputFile {
+      font-size: 1.3rem;
+    }
+    .fileContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .buttons{
+      font-size: 1.4rem;
+    }
+  }
+  @media screen and (min-width: 1025px) and (max-width:1280px) {
+    .container{
+      position: fixed;
+      left: 30%;
+    }
+  }

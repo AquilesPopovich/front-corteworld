@@ -36,7 +36,15 @@
   .home {
     display: none;
   }
+  .carrito{
+    transform: scale(0.7);
+  }
+  .cantidadCarrito{
+    font-size: 0.8rem;
+    margin-left: -3px;
+  }
 }
+
 
 .burger {
   width: 100%;

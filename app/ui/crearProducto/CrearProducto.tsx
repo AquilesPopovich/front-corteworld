@@ -77,14 +77,14 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
   if (!crearProducto) return null;
 
   return (
-    <div className='fixed flex justify-start items-center h-3/4 w-3/6 left-1/4 bottom-10 border-solid rounded-lg bg-slate-50 p-4'>
+    <div className={`fixed flex justify-start items-center h-3/4 w-3/6 left-1/4 bottom-10 border-solid rounded-lg bg-slate-50 p-4 z-10 ${styles.container}`}>
         <form className='flex flex-col justify-evenly items-start h-full w-full' onSubmit={handleSubmit}>
           <div>
-            <label className='flex flex-col font-bold' htmlFor="name">
+            <label className={`flex flex-col font-bold ${styles.label}`} htmlFor="name">
               Nombre
             </label>
             <input
-              className=' border-gray-900 bg-gray-200 border-2 rounded-lg'
+              className={`border-gray-900 bg-gray-200 border-2 rounded-lg ${styles.input}`}
               type="text"
               id="name"
               name="name"
@@ -94,11 +94,11 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
             />
           </div>
           <div className=''>
-            <label className='flex flex-col font-bold' htmlFor="price">
+            <label className={`flex flex-col font-bold ${styles.label}`} htmlFor="price">
               Precio
             </label>
             <input
-              className=' border-gray-900 bg-gray-200 border-2 rounded-lg'
+              className={`border-gray-900 bg-gray-200 border-2 rounded-lg ${styles.input}`}
               type="number"
               id="price"
               name="price"
@@ -108,11 +108,11 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
             />
           </div>
           <div className=''>
-            <label className='flex flex-col font-bold' htmlFor="destacado">
+            <label className={`flex flex-col font-bold ${styles.label}`}htmlFor="destacado">
               Destacado
             </label>
             <input
-              className=' border-gray-900 bg-gray-200 border-2 rounded-lg'
+              className={`border-gray-900 bg-gray-200 border-2 rounded-lg ${styles.input}`}
               type="number"
               id="destacado"
               name="destacado"
@@ -123,11 +123,11 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
 
           </div>
           <div className=''>
-            <label className='flex flex-col font-bold' htmlFor="category">
+            <label className={`flex flex-col font-bold ${styles.label}`}htmlFor="category">
               Categoría
             </label>
             <input
-              className=' border-gray-900 bg-gray-200 border-2 rounded-lg'
+              className={`border-gray-900 bg-gray-200 border-2 rounded-lg ${styles.input}`}
               type="text"
               id="category"
               name="category"
@@ -137,11 +137,11 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
             />
           </div>
           <div className=''>
-            <label className='flex flex-col font-bold' htmlFor="mark">
+            <label className={`flex flex-col font-bold ${styles.label}`}htmlFor="mark">
               Marca
             </label>
             <input
-              className=' border-gray-900 bg-gray-200 border-2 rounded-lg'
+              className={`border-gray-900 bg-gray-200 border-2 rounded-lg ${styles.input}`}
               type="text"
               id="mark"
               name="mark"
@@ -150,11 +150,11 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
               onChange={handleChange}
             />
           </div>
-          <div className='flex flex-row font-bold justify-evenly gap-7'>
-            <label htmlFor="imgs">Buscar Archivo</label>
-            <input type="file" onChange={handleFileChange} />
+          <div className={`flex flex-row font-bold justify-evenly gap-7 ${styles.fileContainer}`}>
+            <label className={styles.label} htmlFor="imgs">Buscar Archivo</label>
+            <input className={styles.inputFile} type="file" onChange={handleFileChange} />
             {imagePreview && (
-              <img className=''
+              <img className={styles.img}
                 src={imagePreview}
                 alt="Preview"
                 style={{ width: '100px', height: '100px', marginTop: '10px' }}
@@ -162,11 +162,11 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
             )}
           </div>
           <div className=''>
-            <label className='flex flex-col font-bold' htmlFor="discount">
+            <label className={`flex flex-col font-bold ${styles.label}`}htmlFor="discount">
               Descuento
             </label>
             <input
-              className=' border-gray-900 bg-gray-200 border-2 rounded-lg'
+              className={`border-gray-900 bg-gray-200 border-2 rounded-lg ${styles.input}`}
               type="number"
               id="discount"
               name="discount"
@@ -175,7 +175,7 @@ const CrearProducto: React.FC<crearProductoProps> = ({ crearProducto, setCrearPr
               onChange={handleChange}
             />
           </div>
-          <div className='flex flex-row gap-8'>
+          <div className={`flex flex-row gap-8 ${styles.buttons}`}>
           <button className=' bg-pink-200 rounded-md hover:bg-pink-400' type="submit">
             Crear Producto
           </button>

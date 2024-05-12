@@ -75,7 +75,7 @@ const Historial = () => {
             <h1 className="font-bold text-5xl font-serif text-black mb-6">Historial de Compras</h1>
           </div>
           {!carritoPaymentCompleted.length ? (
-            <h1 className='text-3xl flex justify-center items-center text-black font-serif'>No hay productos comprados</h1>
+            <h1 className={`text-3xl flex justify-center items-center text-black font-serif ${styles.noProducts}`}>No hay productos comprados</h1>
           ) : (
             carritoPaymentCompleted?.map((orden, index) => (
               <div key={index} className="flex justify-center">
