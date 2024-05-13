@@ -65,6 +65,21 @@ const Historial = () => {
     return productos.reduce((total, producto) => total + producto.price, 0);
   };
 
+  const filtroImgsUnicas = (imagenes) => {
+    const imgUnicas = [];
+    const unicosIds = new Set()
+    imagenes.forEach(img => {
+      const productId = img?.[0]?.product?.id
+      if(!unicosIds.has(productId)){
+        unicosIds.add(productId);
+        imgUnicas.push(img)
+      }
+    })
+    return imgUnicas;
+  }
+
+  const imgFiltradas = filtroImgsUnicas(imgs);
+
   return (
     <>
       <Menu />
@@ -88,7 +103,7 @@ const Historial = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       {orden?.productos?.map((producto, idx) => (
                         <div key={idx} className="bg-pink-100 border border-black p-2 flex flex-wrap items-center">
-                          {imgs?.map((img) => {
+                          {imgFiltradas?.map((img) => {
                             if (img?.[0].product?.id === producto?.id) {
                               return (
                                 <img src={img?.[0].file} alt={producto?.name} className="w-12 h-12 rounded-lg mr-2" />

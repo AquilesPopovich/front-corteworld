@@ -1,4 +1,3 @@
-// Admin.js
 'use client'
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import React, { useEffect, useState } from 'react';
@@ -12,7 +11,6 @@ import styles from './admin.module.css';
 import ProductosDeshabilitados from '../ui/productosDeshabilitados/ProductosDeshabilitados';
 
 const CrearProducto = React.lazy(() => import('../ui/crearProducto/CrearProducto'));
-const CardProducto = React.lazy(() => import('../ui/cards/productos/cardProducto/CardProducto'));
 
 const Admin = () => {
   const dispatch = useAppDispatch();
@@ -44,13 +42,11 @@ const Admin = () => {
 
   useEffect(() => {
     if (usuarios) {
-      const usuariosFiltrados = usuarios.filter((usuario) => usuario?.status === false)
+      const usuariosFiltrados = usuarios.filter((usuario: any) => usuario?.status === false)
       setFiltrados(usuariosFiltrados)
     }
   }, [usuarios]);
-
   const productosDeshabilitados = productos.filter(producto => !producto.status);
-
   if (!user[0]?.user?.admin) return null;
 
   return (
@@ -74,13 +70,14 @@ const Admin = () => {
           </div>
           <button className='w-full m-1 cursor-pointer hover:scale-110 transition' onClick={() => setMostrarUsuarios(true)}>Mostrar Usuarios Deshabilitados</button>
           {filtrados?.map((user) => {
-            if (!mostrarUsuarios) return null;
             return (
               <React.Suspense key={user?.id} fallback={<div className={styles.loader}></div>}>
                 <UsuariosDeshabilitados
                   id={user?.id}
                   name={user?.name}
                   email={user?.email}
+                  mostrarUsuarios={mostrarUsuarios}
+                  setMostrarUsuarios={setMostrarUsuarios}
                 />
               </React.Suspense>
             )
