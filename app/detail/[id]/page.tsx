@@ -8,9 +8,9 @@ import { useAppSelector } from '@/redux/hook';
 import axiosURL from '@/axiosConfig/axiosConfig';
 import { agregarCarrito } from '@/redux/features/carritoSlice';
 import { useParams } from 'next/navigation';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import EditarStock from '@/app/ui/editarStock/EditarStock';
+import styles from '../detail.module.css';
 
 const DetailPage = () => {
     const [producto, setProducto] = useState(null);
@@ -24,31 +24,31 @@ const DetailPage = () => {
     const [cantidad, setCantidad] = useState(1);
     const user = useAppSelector(state => state.userSlice.user);
     const dispatch = useDispatch();
-    const {id} = useParams()
+    const { id } = useParams()
 
 
     useEffect(() => {
-        const fetchData = async () => { 
+        const fetchData = async () => {
             try {
                 const { data } = await axiosURL(`/products/${id}`);
-                if(data){
+                if (data) {
                     setProducto(data);
                     const response = await axiosURL(`/imgProduct/${id}`);
-                    const dataImg =  response.data
+                    const dataImg = response.data
                     if (dataImg) setImagenes(dataImg);
                     const res = await axiosURL(`/comentarios/${id}`);
                     const dataComentario = res.data
                     if (dataComentario) setComentarios(dataComentario);
                     const respuesta = await axiosURL(`/stock-controller/${id}`);
                     const dataStock = respuesta.data
-                    if(dataStock) setInfoStock(dataStock)
+                    if (dataStock) setInfoStock(dataStock)
                 }
-              
+
             } catch (error: any) {
                 console.error('Error al obtener los datos del producto:', error.message);
             }
         };
-            fetchData();
+        fetchData();
     }, []);
 
     const handleAgregarCarrito = () => {
@@ -60,7 +60,7 @@ const DetailPage = () => {
             title: "agregado al carrito correctamente",
             showConfirmButton: false,
             timer: 1500
-          });
+        });
     };
 
     const handleImgClick = (index) => {
@@ -88,7 +88,7 @@ const DetailPage = () => {
                 const nuevoComentario = { userId: user[0]?.user?.id, comentario: String(comentario), productId: id };
                 console.log(nuevoComentario)
                 const { data } = await axiosURL.post(`/comentarios`, nuevoComentario);
-                if(data){
+                if (data) {
                     const respuesta = await axiosURL(`/comentarios/${id}`)
                     setComentarios([...comentarios, respuesta.data])
                     setComentario('')
@@ -98,7 +98,7 @@ const DetailPage = () => {
                         title: "comentario enviado correctamente",
                         showConfirmButton: false,
                         timer: 1500
-                      });
+                    });
                 }
             } catch (error) {
                 console.error('Error al agregar comentario:', error.message);
@@ -113,15 +113,15 @@ const DetailPage = () => {
     console.log('info', infoStock)
     console.log('seleccionada', ropaSeleccionada)
 
-    console.log('ropa',stockPorRopaSeleccionada)
+    console.log('ropa', stockPorRopaSeleccionada)
 
     return (
         <>
             <Menu />
             <div className="container mx-auto mt-8" style={{ marginTop: '120px' }}>
                 <br />
-                <div className="flex flex-row gap-x-52 items-center md:flex-row space-y-4 md:space-x-4">
-                    <div className="w-full md:w-1/6 flex flex-col items-center">
+                <div className={`flex flex-row gap-x-52 items-center md:flex-row space-y-4 md:space-x-4 ${styles.container}`}>
+                    <div className={`w-full md:w-1/6 flex flex-col items-center ${styles.imagenes}`}>
                         {imagenes?.map((img, index) => (
                             <Image
                                 key={index}
@@ -134,7 +134,7 @@ const DetailPage = () => {
                             />
                         ))}
                     </div>
-                    <div className="w-full md:w-1/2">
+                    <div className={`w-full md:w-1/2 ${styles.imagenGrande}`}>
                         <Image
                             src={imagenes[selectedImg]?.file}
                             alt={`Imagen grande ${selectedImg}`}
@@ -143,62 +143,64 @@ const DetailPage = () => {
                             className="w-full h-auto rounded-lg shadow-md mb-4 md:float-right"
                         />
                     </div>
-                    <div className="w-full md:w-2/3 flex flex-col justify-between">
+                    <div className={`w-full md:w-2/3 flex flex-col justify-between text-black font-semibold ${styles.info}`}>
                         <div>
-                            <h1 className="text-3xl font-bold mb-4">{producto?.name}</h1>
-                            <p className="text-lg mb-2">Marca: {producto?.mark}</p>
-                            <p className="text-lg mb-2">Categoría: {producto?.category}</p>
-                            <p className="text-lg mb-4">Precio: ${producto?.price}</p>
-                            <div>
-                            <select
-    name=""
-    id=""
-    onChange={(e) => setRopaSeleccionada(e.target.value)}
-    className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:border-indigo-500"
->
-    <option>Colores</option>
-    {infoStock?.map((color) => (
-        <option className="text-black" key={color.id} value={color.id}>
-            {color.color}
-        </option>
-    ))}
-</select>
+                            <div className={styles.texto}>
+                                <h1 className={`text-3xl font-bold mb-4 ${styles.titleTamaño}`}>{producto?.name}</h1>
+                                <p className={`text-lg mb-2 ${styles.textoTamaño}`}>Marca: {producto?.mark}</p>
+                                <p className={`text-lg mb-2 ${styles.textoTamaño}`}>Categoría: {producto?.category}</p>
+                                <p className={`text-lg mb-4 ${styles.textoTamaño}`}>Precio: ${producto?.price}</p>
+                            </div>
+                            <div className={styles.stock}>
+                                <select
+                                    name=""
+                                    id=""
+                                    onChange={(e) => setRopaSeleccionada(e.target.value)}
+                                    className={`block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:border-indigo-500 ${styles.select}`}
+                                >
+                                    <option>Colores</option>
+                                    {infoStock?.map((color) => (
+                                        <option className="text-black" key={color.id} value={color.id}>
+                                            {color.color}
+                                        </option>
+                                    ))}
+                                </select>
                                 <p className='border-r-8 border-2-solid-white text-white'>stock disponible: {stockPorRopaSeleccionada ? stockPorRopaSeleccionada : 'selecciona un color/talla...'}</p>
-                                {stockPorRopaSeleccionada && user?.user?.admin && <button onClick={()=> setEditarStock(true)}>editar stock</button> }
+                                {stockPorRopaSeleccionada && user?.user?.admin && <button onClick={() => setEditarStock(true)}>editar stock</button>}
                                 <EditarStock editarStock={editarStock} setEditarStock={setEditarStock} idStock={ropaSeleccionada} idProducto={id} />
                             </div>
-                            <div className="flex items-center mb-4">
+                            <div className={`flex items-center mb-4 ${styles.cantidad}`}>
                                 <label htmlFor="cantidad" className="mr-2">Cantidad:</label>
                                 <button onClick={reducirCantidad} className="bg-pink-400 hover:bg-pink-700 text-white py-1 px-3 rounded-md focus:outline-none">-</button>
                                 <span className="mx-2">{cantidad}</span>
                                 <button onClick={aumentarCantidad} className="bg-pink-400 hover:bg-pink-700 text-white py-1 px-3 rounded-md focus:outline-none">+</button>
                             </div>
-                            <button onClick={handleAgregarCarrito} className="bg-pink-400 hover:bg-pink-700 text-white py-2 px-4 rounded-md focus:outline-none">Agregar al carrito</button>
+                            <button onClick={handleAgregarCarrito} className={`bg-pink-400 hover:bg-pink-700 text-white py-2 px-4 rounded-md focus:outline-none ${styles.buttonAgregar}`}>Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
                 <div>
-    {infoStock?.map((talla) => ( 
-        <button className='text-pink/500 hover:bg-white-700 border-r-50% bg-black border-2-solid-white' key={talla.id} onClick={() => setRopaSeleccionada(talla.id)}>{talla.talla}</button>
-    ))}
-</div>
+                    {infoStock?.map((talla) => (
+                        <button className='text-pink/500 hover:bg-white-700 border-r-50% bg-black border-2-solid-white' key={talla.id} onClick={() => setRopaSeleccionada(talla.id)}>{talla.talla}</button>
+                    ))}
+                </div>
 
-                <h2 className="text-2xl font-bold mb-4 ml-5">Comentarios</h2>
-                <div className="w-full mt-8 ml-11" style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                <h2 className={`text-2xl font-bold mb-4 ml-5 text-black ${styles.coment}`}>Comentarios</h2>
+                <div className={`w-full mt-8 ml-11 ${styles.comentContainer}`} style={{ maxHeight: '300px', overflowY: 'auto' }}>
                     {comentarios.map((comentari, index) => (
-                        <div key={index} className="flex mb-4 items-start">
+                        <div key={index} className={`flex mb-4 items-start ${styles.allComents}`}>
                             <div className="w-8 h-8 bg-gray-200 flex items-center justify-center rounded-full mr-4">
                                 <Chat />
                             </div>
-                            <div className="bg-gray-100 text-black p-4 rounded-lg w-11/12">
+                            <div className={`bg-gray-100 text-black p-4 rounded-lg w-11/12 ${styles.comentario}`}>
                                 <p className="text-lg font-semibold">{comentari?.user?.name}</p>
                                 <p className="text-lg">{comentari?.comentario}</p>
                             </div>
                         </div>
                     ))}
                 </div>
-                <form onSubmit={agregarComentario} className="w-full mt-8 mb-8 ml-16">
-                    <label htmlFor="comentario" className="block text-lg font-semibold mb-2">Deja tu comentario:</label>
+                <form onSubmit={agregarComentario} className={`w-full mt-8 mb-8 ml-16 text-black ${styles.form}`}>
+                    <label htmlFor="comentario" className={`block text-lg font-semibold mb-2 ${styles.deja}`}>Deja tu comentario:</label>
                     <textarea
                         id="comentario"
                         name="comentario"

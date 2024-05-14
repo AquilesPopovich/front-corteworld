@@ -1,0 +1,166 @@
+@media screen and (min-width: 300px) and (max-width: 600px) {
+    .container{
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        justify-content: space-evenly;
+    }
+    .imagenes{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+    .imagenGrande{
+        width: 70%;
+        height: 80%;
+    }
+    .texto{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        justify-content: center;
+        align-items: center;
+    }
+    .select{
+        width: 60%;
+    }
+    .stock{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+    .cantidad{
+        margin-top: 5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .buttonAgregar{
+        margin-left: 28%;
+    }
+    .coment{
+        margin-left: 0;
+        margin-top: 1.5rem;
+    }
+    .comentContainer{
+        margin-left: 3%;
+    }
+    .allComents{
+        width: 80%;
+    }
+    .comentario{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    .form{
+        width: 90%;
+        margin-left: 9.5%;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+    .container{
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        justify-content: space-evenly;
+    }
+    .imagenes{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+    .imagenGrande{
+        width: 60%;
+        height: 70%;
+    }
+    .info{
+        font-size: 1.6rem;
+    }
+    .texto{
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .textoTamaño{
+        font-size: 1.7rem;
+        font-weight: 400;
+    }
+    .titleTamaño{
+        font-weight: 700;
+        font-size: 2.5rem;
+    }
+    .select{
+        width: 60%;
+    }
+    .stock{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+    .cantidad{
+        margin-top: 5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .buttonAgregar{
+        margin-left: 28%;
+    }
+    .coment{
+        margin-left: 38%;
+        font-size: 2.2rem;
+        margin-top: 3rem;
+    }
+    .allComents{
+        width: 95%;
+        font-size: 3rem;
+    }
+    .comentContainer{
+        margin-left: 2%;
+    }
+    .comentario{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        font-size: 1.5rem;
+    }
+    .deja{
+        font-size: 1.5rem;
+    }
+    .form{
+        width: 90%;
+        margin-left: 9%;
+        font-size: 2rem;
+    }
+}
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+    .select{
+        width: 90%;
+    }
+    .stock{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .allComents{
+        width: 85%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .form{
+        width: 95%;
+    }
+}
