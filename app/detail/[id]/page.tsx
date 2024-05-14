@@ -52,7 +52,12 @@ const DetailPage = () => {
     }, []);
 
     const handleAgregarCarrito = () => {
-        if (!user) alert('Necesitas iniciar sesión para agregar un producto al carrito');
+        if (!user.length) return   Swal.fire({
+            icon: "error",
+            title: "Oops... necesitas loguearte para esto",
+            text: "cuentas con una cuenta?",
+            
+          });
         dispatch(agregarCarrito({ id, name: producto.name, img: imagenes[0], mark: producto.mark, price: producto.price }));
         return Swal.fire({
             position: "top-end",
