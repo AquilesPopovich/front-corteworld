@@ -1,6 +1,8 @@
 'use client'
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { User, UserList } from "@/app/types/typeUser";
+import { AppDispatch } from "../store";
+import axiosURL from "@/axiosConfig/axiosConfig";
 
 // Definir una clave para el localStorage
 const USER_STORAGE_KEY = 'user';
@@ -12,10 +14,12 @@ const userFromLocalStorage = localStorage.getItem(USER_STORAGE_KEY)
 
 interface InitialState {
     user: UserList
+    allUsers: UserList
 }
 
 const initialState: InitialState = {
     user: userFromLocalStorage,
+    allUsers: []
 };
 
 export const userSlice = createSlice({
@@ -32,9 +36,23 @@ export const userSlice = createSlice({
             // Guardar el estado del usuario en localStorage después de cerrar sesión
             localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(state.user));
         },
+        getUsers: (state, action) => {
+            state.allUsers = [...action.payload]
+        }
     }
 });
 
-export const { agregarUser, logOutUser } = userSlice.actions;
+export const getAllUsers = () => async (dispatch: AppDispatch) => {
+    try {
+        const { data } = await axiosURL.get('/user');
+        if (data) {
+            dispatch(getUsers(data));
+        } else dispatch(getUsers([]));
+    } catch (error) {
+        if (error instanceof Error) console.error(error.message);
+    }
+}
+
+export const { agregarUser, logOutUser, getUsers } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -79,6 +79,12 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      const regexEmail = /^[a-zA-Z0-9]+(?!.*(?:\+{2,}|\-{2,}|\.{2,}))(?:[\.+\-]{0,1}[a-zA-Z0-9])*@gmail\.com$/;
+      if(!regexEmail.test(infoUser.email)) {
+        window.alert('Este email no es válido!')
+        return null;
+      }
+
       const { data } = await axiosURL.post('/user/login', infoUser);
       if (data) {
         console.log('User registrado', data)

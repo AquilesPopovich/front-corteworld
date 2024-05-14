@@ -1,7 +1,7 @@
 'use client'
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import React, { useEffect, useState } from 'react';
-import UsuariosDeshabilitados from '../ui/usuariosDeshabilitados/UsuariosDeshabilitados';
+import UsuariosDeshabilitados from '../ui/usuariosDeshabilitados/Usuarios/UsuariosDeshabilitados';
 import axiosURL from '@/axiosConfig/axiosConfig';
 import ImagenProducto from '../ui/imagenProducto/ImagenProducto';
 import { getAllProducts } from '@/redux/features/productsSlice';
@@ -9,6 +9,7 @@ import AgregarStock from '../ui/agregarStock/AgregarStock';
 import { Menu } from '../ui/menu/Menu';
 import styles from './admin.module.css';
 import ProductosDeshabilitados from '../ui/productosDeshabilitados/ProductosDeshabilitados';
+import { getAllUsers } from '@/redux/features/userSlice';
 
 const CrearProducto = React.lazy(() => import('../ui/crearProducto/CrearProducto'));
 
@@ -16,36 +17,18 @@ const Admin = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.userSlice.user);
   const productos = useAppSelector(state => state.productsSlice.products);
+  const usuarios = useAppSelector(state => state.userSlice.allUsers);
   const [imagenes, setImagenes] = useState(false);
   const [stock, setStock] = useState(false);
   const [crearProducto, setCrearProducto] = useState(false);
   const [deshabilitados, setDeshabilitados] = useState(false);
-  const [usuarios, setUsuarios] = useState([]);
-  const [filtrados, setFiltrados] = useState([]);
   const [mostrarUsuarios, setMostrarUsuarios] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await axiosURL('/user')
-        if (data) setUsuarios(data)
-      } catch (error) {
-        console.error('Error al traer al user:', error);
-      }
-    }
-    fetchData()
-  }, [])
-
-  useEffect(() => {
+    dispatch(getAllUsers())
     dispatch(getAllProducts())
   }, [])
 
-  useEffect(() => {
-    if (usuarios) {
-      const usuariosFiltrados = usuarios.filter((usuario: any) => usuario?.status === false)
-      setFiltrados(usuariosFiltrados)
-    }
-  }, [usuarios]);
   const productosDeshabilitados = productos.filter(producto => !producto.status);
   if (!user[0]?.user?.admin) return null;
 
@@ -68,20 +51,10 @@ const Admin = () => {
           <div className='fixed left-2/4'>
             <ProductosDeshabilitados deshabilitados={deshabilitados} setDeshabilitados={setDeshabilitados} productosDeshabilitados={productosDeshabilitados}  />
           </div>
-          <button className='w-full m-1 cursor-pointer hover:scale-110 transition' onClick={() => setMostrarUsuarios(true)}>Mostrar Usuarios Deshabilitados</button>
-          {filtrados?.map((user) => {
-            return (
-              <React.Suspense key={user?.id} fallback={<div className={styles.loader}></div>}>
-                <UsuariosDeshabilitados
-                  id={user?.id}
-                  name={user?.name}
-                  email={user?.email}
-                  mostrarUsuarios={mostrarUsuarios}
-                  setMostrarUsuarios={setMostrarUsuarios}
-                />
+          <button className='w-full m-1 cursor-pointer hover:scale-110 transition' onClick={() => setMostrarUsuarios(true)}>Mostrar Usuarios</button>
+              <React.Suspense fallback={<div className={styles.loader}></div>}>
+                <UsuariosDeshabilitados usuarios={usuarios} mostrarUsuarios={mostrarUsuarios} setMostrarUsuarios={setMostrarUsuarios} />
               </React.Suspense>
-            )
-          })}
       </div>
     </div>
   );
