@@ -51,6 +51,7 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
         }
 
         dispatch(agregarUser(response.data));
+        setRegister(false)
         setLoggin(false);
         return window.alert('Sesión iniciada con éxito');
       } else {
@@ -90,7 +91,8 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
 
       const { data } = await axiosURL.post('/user/login', infoUser);
       if (data) {
-        if (!data.status) {
+        console.log(data)
+        if (!data.user.status) {
           return window.alert('Este usuario está deshabilitado!')
         }
         dispatch(agregarUser(data));

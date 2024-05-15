@@ -48,7 +48,7 @@ const Register: React.FC<RegisterProps> = ({ register, setRegister, setLoggin })
         }
         setRegister(false);
         setLogin(false);
-        window.alert('Usuario registrado!')
+        return window.alert('Usuario registrado!')
       } else {
         await signOut(auth);
         return window.alert('Este usuario ya existe!')
