@@ -19,21 +19,21 @@ const MenuModal: React.FC<MenuModalProps> = ({ menu, setMenu }) => {
   const [selectedIndicator, setSelectedIndicator] = useState(pathname);
 
   const navItems = [
-
     {
-
-      title: "Favoritos",
-
-      href: "/favoritos",
-
+      title: 'Inicio',
+      href: '/',
     },
-
     {
-
+      title: 'Productos',
+      href: '/productos',
+    },
+    {
+      title: "Favoritos",
+      href: "/favoritos",
+    },
+    {
       title: "Historial",
-
       href: `/historial/${user[0]?.user?.id}`,
-
     },
   ]
 
