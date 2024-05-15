@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["dom", "dom.iterable", "esnext", "es2015"],
     "allowJs": true,
+    "target": "es2015",
+    "downlevelIteration": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -23,5 +25,5 @@
     "types": ["react", "react-dom", "react-icons/fa"] // Esta línea debe estar dentro de la primera sección "compilerOptions"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

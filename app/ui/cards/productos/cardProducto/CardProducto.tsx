@@ -134,7 +134,9 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
       className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white text-black flex flex-col justify-evenly items-center"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      style={{ width: '300px', maxWidth: '100%', height: '70vh', maxHeight: '100%' }} // Estilos para el contenedor
+      style={{ width: '300px', maxWidth: '100%', height: '70vh', maxHeight: '100%',          boxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)',
+      WebkitBoxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)',
+      MozBoxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)', }} // Estilos para el contenedor
     >
 
       {user[0]?.user?.admin && (

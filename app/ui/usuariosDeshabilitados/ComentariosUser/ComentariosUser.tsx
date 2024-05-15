@@ -28,12 +28,14 @@ const ComentariosUsers: React.FC<Props> = ({ userId, comentarios, setComentarios
 
     return (
         <div>
-            {comentariosUser?.map((comentario: Comentario) => (
+            {comentariosUser.length ? comentariosUser.map((comentario: Comentario) => (
                 <div key={comentario.id} className={`flex`}>
                     <h3>{comentario.comentario}</h3>
                     <p>{new Date(comentario.date).toLocaleDateString()}</p>
                 </div>
-            ))}
+            )) : (
+                <p>No hay comentarios</p>
+            )}
             <button onClick={() => setComentarios([])}>Cancelar</button>
         </div>
     )

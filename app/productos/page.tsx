@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react'
 import { Menu } from '../ui/menu/Menu'
-import CardProducto from '../ui/cards/productos/cardProducto/CardProducto'
+import dynamic from 'next/dynamic'
 import { Footer } from '../ui/footer/Footer'
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import { filterByCategory, getAllProducts } from '@/redux/features/productsSlice'
@@ -10,6 +10,37 @@ import { filterByMark, orderProducts } from '@/redux/features/productsSlice'
 import wsp from '../../public/images/wsp.png'
 import Image from "next/image";
 import styles from './productos.module.css';
+
+const CardProducto = dynamic(() => import('../ui/cards/productos/cardProducto/CardProducto'), {
+  loading: () =>
+    <div className="w-fit h-full flex flex-wrap items-center justify-center">
+      {[...Array(4).keys()].map((i) => (
+        <div
+          key={i}
+          className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white text-black flex flex-col justify-start items-center"
+          style={{
+            width: '300px',
+            maxWidth: '100%',
+            height: '70vh',
+            maxHeight: '100%',
+            boxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)',
+            WebkitBoxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)',
+            MozBoxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)',
+          }}
+        >
+          <div className="relative w-2/3 h-56 bg-gray-200 mt-4 overflow-hidden">
+          </div>
+          <div className="relative w-1/2 h-4 bg-gray-200 mt-4 overflow-hidden">
+          </div>
+          <div className="relative w-1/3 h-4 bg-gray-200 mt-2 overflow-hidden">
+          </div>
+          <div className="relative w-2/3 px-6 py-3 bg-gray-200 mt-32 overflow-hidden">
+          </div>
+        </div>
+      ))}
+    </div>,
+  ssr: false,
+});
 
 const Productos = () => {
 
@@ -29,7 +60,6 @@ const Productos = () => {
   const productos = useAppSelector(state => state.productsSlice.productsForFilter);
   const productsStatus = productos.filter((producto) => producto.status === true);
   console.log('PRODUCTOS', productos)
-
 
   const markFilter = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
     try {
@@ -60,7 +90,11 @@ const Productos = () => {
       <Menu />
       <div className="flex flex-col justify-between " style={{ marginTop: '100px' }}>
         <div className={`mr-14 ${styles.container}`}>
-          <div className={`fixed top-auto left-0 w-1/5 bg-white rounded-md text-black ${styles.bg}`} >
+          <div className={`fixed top-auto left-0 w-1/5 bg-white rounded-md text-black ${styles.bg}`} style={{
+            boxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)',
+            WebkitBoxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)',
+            MozBoxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)',
+          }}>
             <div className={`flex flex-col items-center justify-stretch h-screen ${styles.filtros}`}>
               <select className="bg-pink-500 text-white my-8 px-4 py-2 rounded hover:bg-pink-600 w-9/12"
                 onChange={markFilter}
@@ -82,7 +116,7 @@ const Productos = () => {
               <select className="bg-pink-500 text-white my-10 px-4 py-2 rounded hover:bg-pink-600 w-9/12"
                 onChange={categoryFilter}
               >
-                <option value="">Category:</option>
+                <option value="">Categoría:</option>
                 <option value="poleras">Poleras</option>
                 <option value="polerones">Polerones</option>
                 <option value="pantalones">Pantalones</option>
@@ -103,10 +137,8 @@ const Productos = () => {
 
           <div className={`flex flex-row flex-wrap justify-center w-5/6 p-4 ml-72 mb-96 ${styles.products}`}>
             {productsStatus?.map(producto => (
-              <div className={styles.oneProduct}>
-
+              <div className={styles.oneProduct} key={producto.id}>
                 <CardProducto
-                  key={producto.id}
                   id={producto.id}
                   name={producto.name}
                   mark={producto.mark}
