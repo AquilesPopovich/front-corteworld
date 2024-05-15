@@ -54,15 +54,15 @@ const DetailPage = () => {
     const handleAgregarCarrito = () => {
         if (!user.length) return   Swal.fire({
             icon: "error",
-            title: "Oops... necesitas loguearte para esto",
-            text: "cuentas con una cuenta?",
+            title: "Oops... necesitas iniciar sesión para esto",
+            text: "Tienes una cuenta?",
             
           });
         dispatch(agregarCarrito({ id, name: producto.name, img: imagenes[0], mark: producto.mark, price: producto.price }));
         return Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "agregado al carrito correctamente",
+            title: "Agregado al carrito correctamente",
             showConfirmButton: false,
             timer: 1500
         });
@@ -100,7 +100,7 @@ const DetailPage = () => {
                     return Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: "comentario enviado correctamente",
+                        title: "Comentario enviado correctamente",
                         showConfirmButton: false,
                         timer: 1500
                     });

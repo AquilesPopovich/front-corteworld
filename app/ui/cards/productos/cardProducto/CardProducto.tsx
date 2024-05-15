@@ -40,8 +40,8 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
   const handleFavoriteToggle = () => {
     if (!user.length) return   Swal.fire({
       icon: "error",
-      title: "Oops... necesitas loguearte para esto",
-      text: "cuentas con una cuenta?",
+      title: "Oops... necesitas iniciar sesión para esto",
+      text: "Tienes una cuenta?",
       
     });
   ;
@@ -64,8 +64,8 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
   const handleAgregarCarrito = () => {
     if (!user.length) return   Swal.fire({
       icon: "error",
-      title: "Oops... necesitas loguearte para esto",
-      text: "cuentas con una cuenta?",
+      title: "Oops... necesitas iniciar sesión para esto",
+      text: "Tienes una cuenta?",
       
     });
     dispatch(agregarCarrito({
