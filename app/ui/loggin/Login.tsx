@@ -45,6 +45,10 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
           await signOut(auth);
           return window.alert('Este usuario no existe!');
         }
+        if (!response.data.status) {
+          await signOut(auth);
+          return window.alert('Este usuario está deshabilitado!')
+        }
 
         dispatch(agregarUser(response.data));
         setLoggin(false);
@@ -80,14 +84,15 @@ const Login: React.FC<LoginProps> = ({ loggin, setLoggin }) => {
     event.preventDefault();
     try {
       const regexEmail = /^[a-zA-Z0-9]+(?!.*(?:\+{2,}|\-{2,}|\.{2,}))(?:[\.+\-]{0,1}[a-zA-Z0-9])*@gmail\.com$/;
-      if(!regexEmail.test(infoUser.email)) {
-        window.alert('Este email no es válido!')
-        return null;
+      if (!regexEmail.test(infoUser.email)) {
+        return window.alert('Este email no es válido!')
       }
 
       const { data } = await axiosURL.post('/user/login', infoUser);
       if (data) {
-        console.log('User registrado', data)
+        if (!data.status) {
+          return window.alert('Este usuario está deshabilitado!')
+        }
         dispatch(agregarUser(data));
         setInfoUser({ email: '', password: '' })
       }
