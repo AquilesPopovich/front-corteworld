@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../loggin/loggin.module.css';
 import axiosURL from '@/axiosConfig/axiosConfig';
 import { getAllProducts } from '@/redux/features/productsSlice';
 import { useAppDispatch } from '@/redux/hook';

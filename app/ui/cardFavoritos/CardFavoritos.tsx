@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '@/redux/features/favoriteSlice';
-import { Star, StarBorder } from '@mui/icons-material'; // Importa los iconos de estrella vacía y llena
+import { Star, StarBorder } from '@mui/icons-material';
 import axiosURL from '@/axiosConfig/axiosConfig';
 
 const CardFavoritos = ({ id, name, mark, price }: { id: number, name: string, mark: string, price: number }) => {

@@ -2,7 +2,6 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import React, { useEffect, useState } from 'react';
 import UsuariosDeshabilitados from '../ui/usuariosDeshabilitados/Usuarios/UsuariosDeshabilitados';
-import axiosURL from '@/axiosConfig/axiosConfig';
 import ImagenProducto from '../ui/imagenProducto/ImagenProducto';
 import { getAllProducts } from '@/redux/features/productsSlice';
 import AgregarStock from '../ui/agregarStock/AgregarStock';

@@ -1,4 +1,3 @@
-import { Stock } from '@/app/types/typeStock';
 import axiosURL from '@/axiosConfig/axiosConfig';
 import React, { useState } from 'react'
 

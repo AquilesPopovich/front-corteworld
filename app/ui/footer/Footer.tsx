@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import webpay from '@/public/images/webpay.png';
-import bc from '@/public/images/bc.png';
 import corteiz from '@/public/images/corteiz.png'
 import trapstar from '@/public/images/trapstar.png'
 import syna from '@/public/images/syna.png'
