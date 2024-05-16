@@ -136,7 +136,7 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
       onMouseLeave={() => setHover(false)}
       style={{ width: '300px', maxWidth: '100%', height: '70vh', maxHeight: '100%',          boxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)',
       WebkitBoxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)',
-      MozBoxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)', }} // Estilos para el contenedor
+      MozBoxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)', }}
     >
 
       {user[0]?.user?.admin && (
