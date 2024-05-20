@@ -14,7 +14,7 @@ import { motion } from 'framer-motion';
 import Swal from 'sweetalert2'
 
 const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mark: string, price: number }) => {
-  const [hover, setHover] = React.useState(false);
+  // const [hover, setHover] = React.useState(false);
   const dispatch = useAppDispatch();
   const favorites = useSelector((state: any) => state.favorites.favorites);
   const user = useAppSelector(state => state.userSlice.user);
@@ -132,8 +132,8 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
   return (
     <div
       className="max-w-xs rounded-lg overflow-hidden shadow-md m-4 transition-transform transform hover:scale-105 bg-white text-black flex flex-col justify-evenly items-center"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      // onMouseEnter={() => setHover(true)}
+      // onMouseLeave={() => setHover(false)}
       style={{ width: '300px', maxWidth: '100%', height: '70vh', maxHeight: '100%',          boxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)',
       WebkitBoxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)',
       MozBoxShadow: '13px 13px 20px -3px rgba(0, 0, 0, 0.51)', }}
@@ -143,14 +143,14 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
         <Link className=' h-2/4 -mb-16' href={`detail/${id}`}>
           <div key={id} className=" w-full h-80 flex justify-center items-center relative" style={{ width: '100%', height: '80%', maxHeight: '80%' }}> {/* Estilos para la imagen */}
             <img
-              className={`w-full h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`}
+              className={`w-full h-full object-cover p-2 `}
               src={imgs[0]}
-              alt={name}
+              // alt={name}
             />
             <img
-              className={`w-full h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`}
+              className={`w-full h-full absolute top-0 object-cover p-2`}
               src={imgs[1]}
-              alt={name}
+              // alt={name}
             />
           </div>
         </Link>
@@ -160,14 +160,14 @@ const CardProducto = ({ id, name, mark, price }: { id: string, name: string, mar
         <Link className=' h-3/4 -mb-16' href={`detail/${id}`}>
           <div key={id} className=" w-full h-80 flex justify-center items-center relative" style={{ width: '100%', height: '80%', maxHeight: '80%' }}> {/* Estilos para la imagen */}
             <img
-              className={`w-full h-full object-cover p-2 ${hover ? 'opacity-0' : 'opacity-100'}`}
+              className={`w-full h-full object-cover p-2`}
               src={imgs[0]}
-              alt={name}
+              // alt={name}
             />
             <img
-              className={`w-full h-full absolute top-0 object-cover p-2 ${hover ? 'opacity-100' : 'opacity-0'} transition-opacity`}
+              className={`w-full h-full absolute top-0 object-cover p-2`}
               src={imgs[1]}
-              alt={name}
+              // alt={name}
             />
           </div>
         </Link>

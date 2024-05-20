@@ -22,7 +22,6 @@ const Compra: React.FC<Props> = ({ compra, setCompra, productos, idCompra, setId
     if (!compra) return null;
     const paymentId = useAppSelector(state => state.carritoSlice.paymentId);
     const dispatch = useAppDispatch();
-    console.log(paymentId)
 
     const [payment, setPayment] = useState({
         carritoId: idCompra,
@@ -55,15 +54,15 @@ const Compra: React.FC<Props> = ({ compra, setCompra, productos, idCompra, setId
                 setWebPay({ url: response.data.response.url, token: response.data.response.token });
                 window.location.href = `${response.data.response.url}?token_ws=${response.data.response.token}`;
                 setPayment({ carritoId: 0, status: 'PENDING', type: 'WEBPAY', direction: '' });
-                if(paymentId.length) dispatch(eliminarPaymentId());
+                if (paymentId.length) dispatch(eliminarPaymentId());
                 dispatch(agregarPaymentId(response.data.newPayment.id));
             }
-            
+
         } catch (error) {
             if (error instanceof Error) throw Error(error.message);
         }
     };
-    
+
     const deleteCarrito = async (): Promise<void> => {
         try {
             const { data } = await axiosURL.delete(`/carrito/${idCompra}`)
@@ -87,12 +86,7 @@ const Compra: React.FC<Props> = ({ compra, setCompra, productos, idCompra, setId
                     <input type="direction" name='direction' className='w-full h-10 border border-gray-400 rounded-lg mb-3' onChange={handleChange} />
                 </div>
 
-                {/* <form name='rec20108_btn1' method='post' action='https://www.webpay.cl/backpub/external/form-pay'>
-                    <input type='hidden' name='idFormulario' value='174072' />
-                    <input type='hidden' name='monto' value='100' />
-                    <input type='image' title='Imagen' name='button1' src='https://www.webpay.cl/assets/img/boton_webpaycl.svg' value='Boton 1' disabled={!payment.direction} className={`disabled:cursor-default transition-all ${!payment.direction ? 'disabled:grayscale' : ''}`} />
-                </form> */}
-                <button className="bg-pink-500 text-white px-4 py-2 rounded mt-4 w-full" onClick={createPayment} >Ir a pagar</button>
+                <button className="bg-pink-500 text-white px-4 py-2 rounded mt-4 w-1/2" onClick={createPayment} >Ir a pagar</button>
 
                 <button className="bg-red-500 hover:bg-red-700 transition-colors text-white px-4 py-2 rounded mt-4" onClick={() => { deleteCarrito(); setIdCompra(0); }}>Cancelar pago</button>
             </div>

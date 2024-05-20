@@ -26,38 +26,39 @@ const DetailPage = () => {
     const dispatch = useDispatch();
     const { id } = useParams()
 
-
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const { data } = await axiosURL(`/products/${id}`);
-                if (data) {
-                    setProducto(data);
-                    const response = await axiosURL(`/imgProduct/${id}`);
-                    const dataImg = response.data
-                    if (dataImg) setImagenes(dataImg);
-                    const res = await axiosURL(`/comentarios/${id}`);
-                    const dataComentario = res.data
-                    if (dataComentario) setComentarios(dataComentario);
-                    const respuesta = await axiosURL(`/stock-controller/${id}`);
-                    const dataStock = respuesta.data
-                    if (dataStock) setInfoStock(dataStock)
-                }
-
-            } catch (error: any) {
-                console.error('Error al obtener los datos del producto:', error.message);
+                if (data) setProducto(data);
+                const response = await axiosURL(`/imgProduct/${id}`);
+                const dataImg = response.data;
+                if (dataImg) setImagenes(dataImg);
+                const respuesta = await axiosURL(`/stock-controller/${id}`);
+                const dataStock = respuesta.data;
+                if (dataStock) setInfoStock(dataStock);
+            } catch (error) {
+                if (error instanceof Error) console.error('Error al obtener los datos del producto:', error.message);
             }
         };
         fetchData();
-    }, []);
+    }, [id]);
+
+    useEffect(() => {
+        const fetchComentarios = async () => {
+            const res = await axiosURL(`/comentarios/${id}`);
+            const dataComentario = res.data;
+            if (dataComentario) setComentarios(dataComentario);
+        }
+        fetchComentarios();
+    }, [id]);
 
     const handleAgregarCarrito = () => {
-        if (!user.length) return   Swal.fire({
+        if (!user.length) return Swal.fire({
             icon: "error",
             title: "Oops... necesitas iniciar sesión para esto",
-            text: "Tienes una cuenta?",
-            
-          });
+            text: "¿Tienes una cuenta?",
+        });
         dispatch(agregarCarrito({ id, name: producto.name, img: imagenes[0], mark: producto.mark, price: producto.price }));
         return Swal.fire({
             position: "top-end",
@@ -68,35 +69,34 @@ const DetailPage = () => {
         });
     };
 
-    const handleImgClick = (index) => {
+    const handleImgClick = (index: any) => {
         setSelectedImg(index);
     };
 
-    const handleComentarioChange = (e) => {
+    const handleComentarioChange = (e: any) => {
         setComentario(e.target.value);
     };
 
     const aumentarCantidad = () => {
-        setCantidad((prevCantidad) => prevCantidad + 1);
+        setCantidad(prevCantidad => prevCantidad + 1);
     };
 
     const reducirCantidad = () => {
         if (cantidad > 1) {
-            setCantidad((prevCantidad) => prevCantidad - 1);
+            setCantidad(prevCantidad => prevCantidad - 1);
         }
     };
 
-    const agregarComentario = async (e) => {
+    const agregarComentario = async (e: any) => {
         e.preventDefault();
         if (comentario.trim() !== '') {
             try {
                 const nuevoComentario = { userId: user[0]?.user?.id, comentario: String(comentario), productId: id };
-                console.log(nuevoComentario)
                 const { data } = await axiosURL.post(`/comentarios`, nuevoComentario);
                 if (data) {
-                    const respuesta = await axiosURL(`/comentarios/${id}`)
-                    setComentarios([...comentarios, respuesta.data])
-                    setComentario('')
+                    // Actualiza el estado de comentarios localmente
+                    setComentarios(prevComentarios => [...prevComentarios, data]);
+                    setComentario('');
                     return Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -111,14 +111,7 @@ const DetailPage = () => {
         }
     };
 
-
-
-    const stockPorRopaSeleccionada = infoStock.find((ropa) => ropa.id === ropaSeleccionada)?.stock || 'selecciona un color/talla...';
-
-    console.log('info', infoStock)
-    console.log('seleccionada', ropaSeleccionada)
-
-    console.log('ropa', stockPorRopaSeleccionada)
+    const stockPorRopaSeleccionada = infoStock.find(ropa => ropa.id === ropaSeleccionada)?.stock || 'selecciona un color/talla...';
 
     return (
         <>
@@ -160,11 +153,11 @@ const DetailPage = () => {
                                 <select
                                     name=""
                                     id=""
-                                    onChange={(e) => setRopaSeleccionada(e.target.value)}
+                                    onChange={e => setRopaSeleccionada(e.target.value)}
                                     className={`block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:border-indigo-500 ${styles.select}`}
                                 >
                                     <option>Colores</option>
-                                    {infoStock?.map((color) => (
+                                    {infoStock?.map(color => (
                                         <option className="text-black" key={color.id} value={color.id}>
                                             {color.color}
                                         </option>
@@ -185,7 +178,7 @@ const DetailPage = () => {
                     </div>
                 </div>
                 <div>
-                    {infoStock?.map((talla) => (
+                    {infoStock?.map(talla => (
                         <button className='text-pink/500 hover:bg-white-700 border-r-50% bg-black border-2-solid-white' key={talla.id} onClick={() => setRopaSeleccionada(talla.id)}>{talla.talla}</button>
                     ))}
                 </div>
