@@ -164,3 +164,27 @@
         width: 95%;
     }
 }
+
+.btnTalla{
+    border-radius: 50%;
+    background-color: white;
+    color: black;
+    width: 30px;
+    margin: 6px;
+}
+
+.btnTalla:hover{
+    border: 2px solid pink;
+    color: pink;
+}
+.tallasDiv{
+    padding: 0 50px 10px 200px;
+    font-size: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    align-items: center;
+    border-bottom: 2px solid black;
+    margin-bottom: 20px;
+}

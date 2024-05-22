@@ -20,11 +20,12 @@ const DetailPage = () => {
     const [selectedImg, setSelectedImg] = useState(0);
     const [infoStock, setInfoStock] = useState([]);
     const [ropaSeleccionada, setRopaSeleccionada] = useState([]);
-    const [editarStock, setEditarStock] = useState(false)
+    const [editarStock, setEditarStock] = useState(false);
     const [cantidad, setCantidad] = useState(1);
+    const [renderedSizes, setRenderedSizes] = useState(new Set()); // Nuevo estado
     const user = useAppSelector(state => state.userSlice.user);
     const dispatch = useDispatch();
-    const { id } = useParams()
+    const { id } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,7 +50,7 @@ const DetailPage = () => {
             const res = await axiosURL(`/comentarios/${id}`);
             const dataComentario = res.data;
             if (dataComentario) setComentarios(dataComentario);
-        }
+        };
         fetchComentarios();
     }, [id]);
 
@@ -69,11 +70,11 @@ const DetailPage = () => {
         });
     };
 
-    const handleImgClick = (index: any) => {
+    const handleImgClick = (index) => {
         setSelectedImg(index);
     };
 
-    const handleComentarioChange = (e: any) => {
+    const handleComentarioChange = (e) => {
         setComentario(e.target.value);
     };
 
@@ -87,7 +88,7 @@ const DetailPage = () => {
         }
     };
 
-    const agregarComentario = async (e: any) => {
+    const agregarComentario = async (e) => {
         e.preventDefault();
         if (comentario.trim() !== '') {
             try {
@@ -113,12 +114,25 @@ const DetailPage = () => {
 
     const stockPorRopaSeleccionada = infoStock.find(ropa => ropa.id === ropaSeleccionada)?.stock || 'selecciona un color/talla...';
 
+    const renderSizes = () => {
+        const sizes = new Set();
+        return infoStock.map(talla => {
+            if (!sizes.has(talla.talla)) {
+                sizes.add(talla.talla);
+                return (
+                    <button className={styles.btnTalla} key={talla.id} onClick={() => setRopaSeleccionada(talla.id)}>{talla.talla}</button>
+                );
+            }
+            return null;
+        });
+    };
+
     return (
         <>
             <Menu />
             <div className="container mx-auto mt-8" style={{ marginTop: '120px' }}>
                 <br />
-                <div className={`flex flex-row gap-x-52 items-center md:flex-row space-y-4 md:space-x-4 ${styles.container}`}>
+                <div className={`flex flex-row gap-x-52 items-center md:flex-row space-y-4 ml-10 mr-10 md:space-x-4 ${styles.container}`}>
                     <div className={`w-full md:w-1/6 flex flex-col items-center ${styles.imagenes}`}>
                         {imagenes?.map((img, index) => (
                             <Image
@@ -141,7 +155,7 @@ const DetailPage = () => {
                             className="w-full h-auto rounded-lg shadow-md mb-4 md:float-right"
                         />
                     </div>
-                    <div className={`w-full md:w-2/3 flex flex-col justify-between text-black font-semibold ${styles.info}`}>
+                    <div className={`w-full md:w-2/3 flex flex-col justify-between text-black font-semibold border h-200 border-gray-300 bg-white p-4 rounded-lg ${styles.info}`}>
                         <div>
                             <div className={styles.texto}>
                                 <h1 className={`text-3xl font-bold mb-4 ${styles.titleTamaño}`}>{producto?.name}</h1>
@@ -163,7 +177,7 @@ const DetailPage = () => {
                                         </option>
                                     ))}
                                 </select>
-                                <p className='border-r-8 border-2-solid-white text-white'>stock disponible: {stockPorRopaSeleccionada ? stockPorRopaSeleccionada : 'selecciona un color/talla...'}</p>
+                                <p className='border-r-8 border-2-solid-white text-black'>stock disponible: {stockPorRopaSeleccionada ? stockPorRopaSeleccionada : 'selecciona un color/talla...'}</p>
                                 {stockPorRopaSeleccionada && user?.user?.admin && <button onClick={() => setEditarStock(true)}>editar stock</button>}
                                 <EditarStock editarStock={editarStock} setEditarStock={setEditarStock} idStock={ropaSeleccionada} idProducto={id} />
                             </div>
@@ -177,10 +191,9 @@ const DetailPage = () => {
                         </div>
                     </div>
                 </div>
-                <div>
-                    {infoStock?.map(talla => (
-                        <button className='text-pink/500 hover:bg-white-700 border-r-50% bg-black border-2-solid-white' key={talla.id} onClick={() => setRopaSeleccionada(talla.id)}>{talla.talla}</button>
-                    ))}
+                <div className={styles.tallasDiv}>
+                    Selecciona tu talla:
+                    {renderSizes()}
                 </div>
 
                 <h2 className={`text-2xl font-bold mb-4 ml-5 text-black ${styles.coment}`}>Comentarios</h2>
